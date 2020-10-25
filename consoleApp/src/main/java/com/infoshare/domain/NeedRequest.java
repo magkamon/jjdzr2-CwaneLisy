@@ -4,12 +4,12 @@ import java.time.Duration;
 import java.util.Date;
 
 public class NeedRequest {
-    String name;
-    String location;
-    String phone;
-    String typeOfHelp;
-    HelpStatuses helpStatus;
-    Date statusChange;
+    private String name;
+    private String location;
+    private String phone;
+    private String typeOfHelp;
+    private HelpStatuses helpStatus;
+
 
     public NeedRequest() {
     }
@@ -22,14 +22,10 @@ public class NeedRequest {
         this.typeOfHelp = typeOfHelp;
 
 
-        if(statusChange.before(Date.from(new Date().toInstant().minus(Duration.ofHours(24))))
-                && helpStatus==HelpStatuses.INPROGRESS){
-            this.helpStatus=HelpStatuses.NEW;
-            this.statusChange=new Date();
-        } else {
-            this.helpStatus = helpStatus;
-            this.statusChange = statusChange;
-        }
+    }
 
+    @Override
+    public String toString() {
+        return "NeedRequest{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", helpStatus=" + helpStatus + '}';
     }
 }
