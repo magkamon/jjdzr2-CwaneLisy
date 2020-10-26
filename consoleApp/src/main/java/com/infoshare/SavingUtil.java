@@ -9,14 +9,8 @@ public class SavingUtil {
     public static boolean saveToFile(String path, NewUser user){
         try {
             PrintWriter pw = new PrintWriter(path);
-            pw.println(user.username);
-            pw.println(user.location);
-            pw.println(user.telNumber);
-            pw.println(user.email);
-            pw.println(user.helpType);
-
+            pw.println(user.convertUser());
             pw.close();
-
             return true;
         } catch (IOException e) {
             System.out.println(e.getMessage());
