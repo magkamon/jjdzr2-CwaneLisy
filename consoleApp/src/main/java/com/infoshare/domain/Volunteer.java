@@ -41,4 +41,52 @@ public class Volunteer {
     public int hashCode() {
         return Objects.hash(name, location, email, phone, typeOfHelp, isAvailable);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTypeOfHelp() {
+        return typeOfHelp;
+    }
+
+    public void setTypeOfHelp(String typeOfHelp) {
+        this.typeOfHelp = typeOfHelp;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
 }
