@@ -1,9 +1,7 @@
 package com.infoshare.domain;
 
 public enum HelpStatuses {
-    NEW("Nowe"),
-    INPROGRESS("Realizacja"),
-    DONE("Wykonane");
+    NEW("Nowe"), INPROGRESS("Realizacja"), DONE("Wykonane");
 
     String status;
 
@@ -11,7 +9,7 @@ public enum HelpStatuses {
         this.status = status;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return status;
     }
 }
