@@ -4,31 +4,61 @@ import java.util.Scanner;
 
 public class UserRegistration {
     private static final String REGISTRATION_HEADER = "[Witaj w programie do rejestracji]";
-    private static final String REGISTRATION_USERNAME = "Podaj imie/nickname: ";
+    private static final String REGISTRATION_USERNAME = "Podaj imie/nickname (min 3 znaki): ";
     private static final String REGISTRATION_LOCATION = "Podaj swoją lokalizację: ";
     private static final String REGISTRATION_PHONE_NUMBER = "Podaj numer telefonu: ";
     private static final String REGISTRATION_EMAIL = "Podaj e-mail";
     private static final String REGISTRATION_HELP_TYPE = "W czym możesz pomóc innym, wybierz z listy: ";
+    private static final String REGISTRATION_ERROR = "***BŁĄD***";
 
     private String getUserName(){
-        System.out.println(REGISTRATION_USERNAME);
-        Scanner sc = new Scanner(System.in);
-        String username = sc.nextLine();
+        String username = "";
+        boolean isGood = false;
+        do{
+            System.out.println(REGISTRATION_USERNAME);
+            Scanner sc = new Scanner(System.in);
+            username = sc.nextLine();
+            if(username.length() > 2){
+                isGood = true;
+            }else{
+                System.out.println(REGISTRATION_ERROR);
+            }
+        }while (isGood == false);
+
         return username;
     }
 
     private String getLocation(){
-        System.out.println(REGISTRATION_LOCATION);
-        Scanner sc = new Scanner(System.in);
-        String location = sc.nextLine();
+        String location = "";
+        boolean isGood = false;
+        do{
+            System.out.println(REGISTRATION_LOCATION);
+            Scanner sc = new Scanner(System.in);
+            location = sc.nextLine();
+            if(isAlpha(location) == true){
+                isGood = true;
+            }else {
+                System.out.println(REGISTRATION_ERROR);
+            }
+        }while (isGood == false);
         return location;
     }
 
     private String getPhoneNumber(){
-        System.out.println(REGISTRATION_PHONE_NUMBER);
-        Scanner sc = new Scanner(System.in);
-        String telNumber = sc.nextLine();
-        return telNumber;
+        String phone = "";
+        boolean isGood = false;
+        do{
+            System.out.println(REGISTRATION_PHONE_NUMBER);
+            Scanner sc = new Scanner(System.in);
+            phone = sc.nextLine();
+            if(isNumber(phone) == true){
+                isGood = true;
+            }else {
+                System.out.println(REGISTRATION_ERROR);
+            }
+        }while (isGood == false);
+        return phone;
+
     }
 
     private String getEmail(){
@@ -43,6 +73,14 @@ public class UserRegistration {
         Scanner sc = new Scanner(System.in);
         String helpType = sc.nextLine();
         return helpType;
+    }
+
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
+
+    public boolean isNumber(String number){
+        return number.matches("[0-9]");
     }
 
 
