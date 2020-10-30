@@ -1,5 +1,7 @@
 package com.infoshare;
 
+import com.infoshare.service.NeedRequestService;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -38,7 +40,8 @@ public class Menu {
                         break;
                     }
                     case 2: {
-                        System.out.println("Zgłoś osobę potrzebującą pomocy");
+                        NeedRequestService needRequestService=new NeedRequestService();
+                        needRequestService.createNeedRequest();
                         break;
                     }
                     case 3: {
