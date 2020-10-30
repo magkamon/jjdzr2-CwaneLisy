@@ -1,5 +1,7 @@
 package com.infoshare;
 
+import com.infoshare.domain.Volunteer;
+
 import java.util.Scanner;
 
 public class UserRegistration {
@@ -11,7 +13,7 @@ public class UserRegistration {
     private static final String REGISTRATION_HELP_TYPE = "W czym możesz pomóc innym, wybierz z listy: ";
     private static final String REGISTRATION_ERROR = "***BŁĄD***";
 
-    private String getUserName(){
+    private String getVolunteerName(){
         String username = "";
         boolean isGood = false;
         do{
@@ -62,9 +64,18 @@ public class UserRegistration {
     }
 
     private String getEmail(){
-        System.out.println(REGISTRATION_EMAIL);
-        Scanner sc = new Scanner(System.in);
-        String email = sc.nextLine();
+        String email = "";
+        boolean isGood = false;
+        do{
+            System.out.println(REGISTRATION_EMAIL);
+            Scanner sc = new Scanner(System.in);
+            email = sc.nextLine();
+            if(isEmailValid(email) == true ){
+                isGood = true;
+            }else {
+                System.out.println(REGISTRATION_ERROR);
+            }
+        }while (isGood == false);
         return email;
     }
 
@@ -74,27 +85,29 @@ public class UserRegistration {
         String helpType = sc.nextLine();
         return helpType;
     }
-
+// [a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
 
     public boolean isNumber(String number){
-        return number.matches("[0-9]");
+        return number.matches("[0-9]+");
     }
 
+    public boolean isEmailValid(String email) { return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); }
 
     public void register(){
         System.out.println(REGISTRATION_HEADER);
 
-        NewUser newUser = new NewUser();
-        newUser.username = getUserName();
-        newUser.location = getLocation();
-        newUser.telNumber = getPhoneNumber();
-        newUser.email = getEmail();
-        newUser.helpType = getHelpType();
+        Volunteer newVolunteer = new Volunteer();
 
-        SavingUtil.saveToFile("/home/magda/workspace/Helpik/jjdzr2-CwaneLisy/registeredUsers", newUser);
+        newVolunteer.setName(getVolunteerName());
+        newVolunteer.setLocation(getLocation());
+        newVolunteer.setPhone(getPhoneNumber());
+        newVolunteer.setEmail(getEmail());
+        newVolunteer.setTypeOfHelp(getHelpType());
+
+        SavingUtil.saveToFile("/home/magda/workspace/Helpik/jjdzr2-CwaneLisy/registeredUsers", newVolunteer);
 
 
     }
