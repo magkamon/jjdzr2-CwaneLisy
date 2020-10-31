@@ -1,13 +1,14 @@
 package com.infoshare;
 
+import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
 
 import java.util.Scanner;
 
 public class UserRegistration {
     private static final String REGISTRATION_HEADER = "[Witaj w programie do rejestracji]";
-    private static final String REGISTRATION_USERNAME = "Podaj imie/nickname (min 3 znaki): ";
-    private static final String REGISTRATION_LOCATION = "Podaj swoją lokalizację: ";
+    private static final String REGISTRATION_NAME = "Podaj imie/nickname (min 3 znaki): ";
+    private static final String REGISTRATION_LOCATION = "Podaj swoją lokalizację (bez polskich znaków): ";
     private static final String REGISTRATION_PHONE_NUMBER = "Podaj numer telefonu: ";
     private static final String REGISTRATION_EMAIL = "Podaj e-mail";
     private static final String REGISTRATION_HELP_TYPE = "W czym możesz pomóc innym, wybierz z listy: ";
@@ -17,7 +18,7 @@ public class UserRegistration {
         String username = "";
         boolean isGood = false;
         do{
-            System.out.println(REGISTRATION_USERNAME);
+            System.out.println(REGISTRATION_NAME);
             Scanner sc = new Scanner(System.in);
             username = sc.nextLine();
             if(username.length() > 2){
@@ -80,10 +81,26 @@ public class UserRegistration {
     }
 
     private String getHelpType(){
-        System.out.println(REGISTRATION_HELP_TYPE);
-        Scanner sc = new Scanner(System.in);
-        String helpType = sc.nextLine();
-        return helpType;
+        int helpType = 0;
+        boolean isGood = false;
+        TypeOfHelp[] typeOfHelpArray = TypeOfHelp.values();
+        do {
+            System.out.println(REGISTRATION_HELP_TYPE);
+            for (int i = 0; i < typeOfHelpArray.length; i++) {
+                System.out.println((i + 1) + " - " + typeOfHelpArray[i].getTypeOfHelp());
+            }
+            Scanner sc = new Scanner(System.in);
+            helpType = sc.nextInt();
+
+            if (helpType > 0 && helpType < typeOfHelpArray.length + 1) {
+                isGood = true;
+                helpType = helpType - 1;
+            } else {
+                System.out.println(REGISTRATION_ERROR);
+            }
+        }while (isGood == false);
+
+        return typeOfHelpArray[helpType].getTypeOfHelp();
     }
 // [a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+
     public boolean isAlpha(String name) {
@@ -107,7 +124,7 @@ public class UserRegistration {
         newVolunteer.setEmail(getEmail());
         newVolunteer.setTypeOfHelp(getHelpType());
 
-        SavingUtil.saveToFile("/home/magda/workspace/Helpik/jjdzr2-CwaneLisy/registeredUsers", newVolunteer);
+        SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
 
 
     }
