@@ -24,8 +24,8 @@ public class NeedRequestService {
             System.out.println(i+". "+typeOfHelp.getTypeOfHelp());
             i++;
         }
-        String typeOfHelp=Util.readFromUser("Jaka opcje wybierasz :?");
-        return TypeOfHelp.values()[Integer.valueOf(typeOfHelp)-1];
+        int chosenTypeOfHelp=Util.readNumberFromUser("Jaka opcje wybierasz :?", TypeOfHelp.values().length);
+        return TypeOfHelp.values()[chosenTypeOfHelp-1];
     }
 
     private PersonInNeed createPersonInNeed() {
