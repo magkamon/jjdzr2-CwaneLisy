@@ -6,6 +6,7 @@ import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.util.Util;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class NeedRequestService {
@@ -19,10 +20,8 @@ public class NeedRequestService {
 
     private TypeOfHelp createTypeOfHelp() {
         System.out.println("Wybierz rodzaj pomocy: ");
-        int i=1;
         for (TypeOfHelp typeOfHelp: TypeOfHelp.values() ) {
-            System.out.println(i+". "+typeOfHelp.getTypeOfHelp());
-            i++;
+            System.out.println((Arrays.asList(TypeOfHelp.values()).indexOf(typeOfHelp)+1)+". "+typeOfHelp.getTypeOfHelp());
         }
         int chosenTypeOfHelp=Util.readNumberFromUser("Jaka opcje wybierasz :?", TypeOfHelp.values().length);
         return TypeOfHelp.values()[chosenTypeOfHelp-1];
