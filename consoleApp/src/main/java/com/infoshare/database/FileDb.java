@@ -26,8 +26,8 @@ public class FileDb implements DB {
 
     @Override // zapis / aktualizacja danych  wolontariusza
     public void saveVolunteer(Volunteer volunteer) throws IOException {
-
         // Sprawdzamy czy wolontariusz istnieje
+
         if (getVolunteer(volunteer.getEmail()) == null) {
             FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, true);
             fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
@@ -35,37 +35,39 @@ public class FileDb implements DB {
             fileWriter.close();
         } else {
             // wolontariusz istnieje wiec aktualizujemy jego dane
-            FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
+
             List<Volunteer> allVounteers = getVolunteers();
             int index = -1;
             for (int i = 0; i < allVounteers.size(); i++) {
-
                 Volunteer v = allVounteers.get(i);
-                if (v.getEmail() == volunteer.getEmail()) {
+                if (v.getEmail().equals(volunteer.getEmail())) {
                     index = i;
                 }
             }
-            allVounteers.set(index,volunteer);  // gdy chce usunac .remove
-            for (Volunteer v:allVounteers) {
-                fileWriter.write(v.getName() + "," + v.getLocation() + "," + volunteer.getEmail() + ","
+            allVounteers.set(index, volunteer);  // gdy chce usunac .remove
+            FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
+            for (Volunteer v : allVounteers) {
+                writer.write(v.getName() + "," + v.getLocation() + "," + volunteer.getEmail() + ","
                         + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "\n");
             }
-            fileWriter.close();
+            writer.close();
         }
     }
 
     @Override// zapis zgłoszenia osob potrzebujacej pomocy wraz z rodzajem pomocy
     public void saveNeedRequest(NeedRequest needRequest) throws IOException {
         FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true);
-        PersonInNeed person = needRequest.getPersonInNeed(); // TODO: zrobic petle? z napisywaniam danych
+        PersonInNeed person = needRequest.getPersonInNeed();
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
                 + df.format(needRequest.getStatusChange()) + ",");
+
         fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getEmail()
                 + "," + person.getPhone() + "\n");
         fileWriter.close();
     }
 
     //odczyt danych osoby potrzebujacej pomocy wraz z rodzajem pomocy
+    @Override
     public List<NeedRequest> getAllNeedRequests() throws FileNotFoundException, ParseException {
         List<NeedRequest> result = new ArrayList<>();
         Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
@@ -106,12 +108,5 @@ public class FileDb implements DB {
                     volunteerAtributes[3], volunteerAtributes[4], Boolean.parseBoolean(volunteerAtributes[5])));
         }
         return result;
-
     }
-
-    @Override
-    public List<PersonInNeed> getPersonInNeed() throws FileNotFoundException {
-        return null;
-    }
-
 }
