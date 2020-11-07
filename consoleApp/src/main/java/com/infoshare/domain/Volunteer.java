@@ -7,10 +7,10 @@ public class Volunteer {
     private String location;
     private String email;
     private String phone;
-    private String typeOfHelp;
+    private TypeOfHelp typeOfHelp;
     private boolean isAvailable;
 
-    public Volunteer(String name, String location, String email, String phone, String typeOfHelp, boolean isAvailable) {
+    public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
         this.name = name;
         this.location = location;
         this.email = email;
@@ -74,11 +74,11 @@ public class Volunteer {
         this.phone = phone;
     }
 
-    public String getTypeOfHelp() {
+    public TypeOfHelp getTypeOfHelp() {
         return typeOfHelp;
     }
 
-    public void setTypeOfHelp(String typeOfHelp) {
+    public void setTypeOfHelp(TypeOfHelp typeOfHelp) {
         this.typeOfHelp = typeOfHelp;
     }
 

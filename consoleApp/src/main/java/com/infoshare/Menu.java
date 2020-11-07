@@ -35,8 +35,7 @@ public class Menu {
                 switch (userChoice) {
                     case 1: {
                         System.out.println("Wprowadź nową ofertę wolontariatu");
-                        UserRegistration reg = new UserRegistration();
-                        reg.register();
+                        UserRegistration.register();
                         break;
                     }
                     case 2: {

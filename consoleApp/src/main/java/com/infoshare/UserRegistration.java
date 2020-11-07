@@ -3,6 +3,7 @@ package com.infoshare;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserRegistration {
@@ -12,75 +13,70 @@ public class UserRegistration {
     private static final String REGISTRATION_PHONE_NUMBER = "Podaj numer telefonu: ";
     private static final String REGISTRATION_EMAIL = "Podaj e-mail";
     private static final String REGISTRATION_HELP_TYPE = "W czym możesz pomóc innym, wybierz z listy: ";
+    private static final String REGISTRATION_AVAILABILITY = "Czy jesteś dostępny [Y/N]? ";
     private static final String REGISTRATION_ERROR = "***BŁĄD***";
 
-    private String getVolunteerName(){
-        String username = "";
-        boolean isGood = false;
-        do{
-            System.out.println(REGISTRATION_NAME);
-            Scanner sc = new Scanner(System.in);
-            username = sc.nextLine();
-            if(username.length() > 2){
-                isGood = true;
-            }else{
-                System.out.println(REGISTRATION_ERROR);
-            }
-        }while (isGood == false);
+    private static Scanner sc = new Scanner(System.in);
 
-        return username;
-    }
-
-    private String getLocation(){
-        String location = "";
-        boolean isGood = false;
-        do{
-            System.out.println(REGISTRATION_LOCATION);
-            Scanner sc = new Scanner(System.in);
-            location = sc.nextLine();
-            if(isAlpha(location) == true){
-                isGood = true;
-            }else {
-                System.out.println(REGISTRATION_ERROR);
-            }
-        }while (isGood == false);
-        return location;
-    }
-
-    private String getPhoneNumber(){
-        String phone = "";
-        boolean isGood = false;
-        do{
-            System.out.println(REGISTRATION_PHONE_NUMBER);
-            Scanner sc = new Scanner(System.in);
-            phone = sc.nextLine();
-            if(isNumber(phone) == true){
-                isGood = true;
-            }else {
-                System.out.println(REGISTRATION_ERROR);
-            }
-        }while (isGood == false);
-        return phone;
+    public static void register(){
+        System.out.println(REGISTRATION_HEADER);
+        Volunteer newVolunteer = new Volunteer(
+                getVolunteerName(),
+                getLocation(),
+                getEmail(),
+                getPhoneNumber(),
+                getHelpType(),
+                getAvailability()
+        );
+        SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
 
     }
 
-    private String getEmail(){
-        String email = "";
-        boolean isGood = false;
-        do{
-            System.out.println(REGISTRATION_EMAIL);
-            Scanner sc = new Scanner(System.in);
-            email = sc.nextLine();
-            if(isEmailValid(email) == true ){
-                isGood = true;
-            }else {
-                System.out.println(REGISTRATION_ERROR);
-            }
-        }while (isGood == false);
-        return email;
+    private static String getVolunteerName(){
+        System.out.println(REGISTRATION_NAME);
+        String username = sc.nextLine();
+        if(username.length() > 2){
+            return username;
+        }else {
+            System.out.println(REGISTRATION_ERROR);
+            return getVolunteerName();
+        }
     }
 
-    private String getHelpType(){
+    private static String getLocation(){
+        System.out.println(REGISTRATION_LOCATION);
+        String location = sc.nextLine();
+        if(isAlpha(location)){
+            return location;
+        }else {
+            System.out.println(REGISTRATION_ERROR);
+            return getLocation();
+        }
+    }
+
+    private static String getPhoneNumber(){
+        System.out.println(REGISTRATION_PHONE_NUMBER);
+        String phone = sc.nextLine();
+        if (isNumber(phone)) {
+            return phone;
+        } else {
+            System.out.println(REGISTRATION_ERROR);
+            return getPhoneNumber();
+        }
+    }
+
+    private static String getEmail(){
+        System.out.println(REGISTRATION_EMAIL);
+        String email = sc.nextLine();
+        if(isEmailValid(email)){
+            return email;
+        }else {
+            System.out.println(REGISTRATION_ERROR);
+            return getEmail();
+        }
+    }
+
+    private static TypeOfHelp getHelpType(){
         int helpType = 0;
         boolean isGood = false;
         TypeOfHelp[] typeOfHelpArray = TypeOfHelp.values();
@@ -89,45 +85,46 @@ public class UserRegistration {
             for (int i = 0; i < typeOfHelpArray.length; i++) {
                 System.out.println((i + 1) + " - " + typeOfHelpArray[i].getTypeOfHelp());
             }
-            Scanner sc = new Scanner(System.in);
-            helpType = sc.nextInt();
-
+            try{
+                Scanner sc = new Scanner(System.in);
+                helpType = sc.nextInt();
+            }catch (InputMismatchException exception){
+                helpType = 0;
+            }
             if (helpType > 0 && helpType < typeOfHelpArray.length + 1) {
                 isGood = true;
                 helpType = helpType - 1;
             } else {
                 System.out.println(REGISTRATION_ERROR);
             }
-        }while (isGood == false);
-
-        return typeOfHelpArray[helpType].getTypeOfHelp();
+        }while (!isGood);
+        return typeOfHelpArray[helpType];
     }
-// [a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+
-    public boolean isAlpha(String name) {
+
+    private static boolean getAvailability(){
+        System.out.println(REGISTRATION_AVAILABILITY);
+        Scanner sc = new Scanner(System.in);
+        String availability = sc.nextLine();
+        if (availability.equals("Y")){
+            return true;
+        } else if (availability.equals("N")){
+            return false;
+        }
+        else {
+            System.out.println(REGISTRATION_ERROR);
+            return getAvailability();
+        }
+    }
+
+    private static boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
 
-    public boolean isNumber(String number){
+    private static boolean isNumber(String number){
         return number.matches("[0-9]+");
     }
 
-    public boolean isEmailValid(String email) { return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); }
-
-    public void register(){
-        System.out.println(REGISTRATION_HEADER);
-
-        Volunteer newVolunteer = new Volunteer();
-
-        newVolunteer.setName(getVolunteerName());
-        newVolunteer.setLocation(getLocation());
-        newVolunteer.setPhone(getPhoneNumber());
-        newVolunteer.setEmail(getEmail());
-        newVolunteer.setTypeOfHelp(getHelpType());
-
-        SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
-
-
-    }
+    private static boolean isEmailValid(String email) { return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); }
 
 
 }
