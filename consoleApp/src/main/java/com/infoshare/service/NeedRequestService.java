@@ -23,13 +23,13 @@ public class NeedRequestService {
         for (TypeOfHelp typeOfHelp: TypeOfHelp.values() ) {
             System.out.println((Arrays.asList(TypeOfHelp.values()).indexOf(typeOfHelp)+1)+". "+typeOfHelp.getTypeOfHelp());
         }
-        int chosenTypeOfHelp=Util.readNumberFromUser("Jaka opcje wybierasz :?", TypeOfHelp.values().length);
+        int chosenTypeOfHelp=Util.readNumberFromUser("Jaką opcję wybierasz ?", TypeOfHelp.values().length);
         return TypeOfHelp.values()[chosenTypeOfHelp-1];
     }
 
     private PersonInNeed createPersonInNeed() {
-        String name= Util.readFromUser("Podaj imie: ");
-        String location=Util.readFromUser("Podaj miasto/ dzielnica: ");
+        String name= Util.readFromUser("Podaj imię: ");
+        String location=Util.readFromUser("Podaj miasto/ dzielnicę: ");
         String phone=Util.readFromUser("Podaj numer telefonu");
 
         return new PersonInNeed(name,location,phone);
