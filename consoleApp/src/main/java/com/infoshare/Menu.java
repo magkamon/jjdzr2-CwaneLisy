@@ -41,8 +41,7 @@ public class Menu {
                         break;
                     }
                     case 2: {
-                        NeedRequestService needRequestService=new NeedRequestService();
-                        needRequestService.createNeedRequest();
+                        new NeedRequestService().createNeedRequest();
                         break;
                     }
                     case 3: {
