@@ -32,7 +32,7 @@ public class Volunteer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Volunteer volunteer = (Volunteer) o;
-        return isAvailable == volunteer.isAvailable && name.equals(volunteer.name) && location
+        return name.equals(volunteer.name) && location
                 .equals(volunteer.location) && email.equals(volunteer.email) && phone
                 .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp);
     }

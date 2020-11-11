@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FileDbTest {
@@ -35,10 +32,12 @@ public class FileDbTest {
                 personInNeed1);
         NeedRequest needRequest2 = new NeedRequest(TypeOfHelp.HOUSE_HELP, HelpStatuses.DONE, new Date(),
                 personInNeed2);
+        List<NeedRequest> needRequestList= new ArrayList<>();
+        needRequestList.add(needRequest);
+        needRequestList.add(needRequest1);
+        needRequestList.add(needRequest2);
+        fileDb.saveNeedRequest(needRequestList);
 
-        fileDb.saveNeedRequest(needRequest);
-        fileDb.saveNeedRequest(needRequest1);
-        fileDb.saveNeedRequest(needRequest2);
 
         Volunteer volunteer = new Volunteer("Piotr", "Gdańsk", "Piotr@.wp.pl", "7865", TypeOfHelp.SHOPPING, true);
         Volunteer volunteer1 = new Volunteer("Paweł", "Poznań", "Paweł@.o2.pl", "7423",
@@ -54,13 +53,15 @@ public class FileDbTest {
         Volunteer volunteer6 = new Volunteer("Ala","UUopot","maweł@.o2.pl","987556"
                 ,TypeOfHelp.SHOPPING,true);
 
-        fileDb.saveVolunteer(volunteer);
-        fileDb.saveVolunteer(volunteer1);
-        fileDb.saveVolunteer(volunteer2);
-        fileDb.saveVolunteer(volunteer3);
-        fileDb.saveVolunteer(volunteer4);
-        fileDb.saveVolunteer(volunteer5);
-        fileDb.saveVolunteer(volunteer6);
+        Set<Volunteer> volunteerSet= new HashSet<>();
+        volunteerSet.add(volunteer);
+        volunteerSet.add(volunteer1);
+        volunteerSet.add(volunteer2);
+        volunteerSet.add(volunteer3);
+        volunteerSet.add(volunteer4);
+        volunteerSet.add(volunteer5);
+        volunteerSet.add(volunteer6);
+        fileDb.saveVolunteer(volunteerSet);
         System.out.println(fileDb.getVolunteers());
         System.out.println(fileDb.getAllNeedRequests());
     }

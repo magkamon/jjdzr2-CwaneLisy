@@ -1,5 +1,6 @@
 package com.infoshare;
 
+import com.infoshare.database.FileDb;
 import com.infoshare.service.NeedRequestService;
 
 import java.util.InputMismatchException;
@@ -18,6 +19,7 @@ public class Menu {
     };
 
     public void start (){
+        FileDb.initializeFiles();
         System.out.println(HEADER);
         handleUserChoice();
     }

@@ -6,15 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
 
 public interface DB {
-    void saveVolunteer(Volunteer volunteer) throws IOException;
+    void saveVolunteer(Set<Volunteer> volunteer) throws IOException;
 
-    void saveNeedRequest(NeedRequest needRequest) throws IOException;
+    void saveNeedRequest(List<NeedRequest> needRequest) throws IOException;
 
-    Volunteer getVolunteer(String email) throws FileNotFoundException;
+    List<Volunteer> getVolunteers();
 
-    List<Volunteer> getVolunteers() throws FileNotFoundException;
+    List<NeedRequest> getAllNeedRequests();
 
-    List<NeedRequest> getAllNeedRequests() throws FileNotFoundException, ParseException;
 }
