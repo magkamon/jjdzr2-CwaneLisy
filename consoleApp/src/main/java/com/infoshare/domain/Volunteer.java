@@ -39,7 +39,7 @@ public class Volunteer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, location, email, phone, typeOfHelp, isAvailable);
+        return Objects.hash(name, location, email, phone, typeOfHelp);
     }
 
     public String getName() {
