@@ -22,11 +22,11 @@ public class FileDbTest {
     }
     public static void main(String[] args) throws IOException, ParseException {
         DB fileDb = new FileDb();
-        PersonInNeed personInNeed = new PersonInNeed("Basia", "Gdańsk", "Basia@kk.pl",
+        PersonInNeed personInNeed = new PersonInNeed("Basia", "Gdańsk",
                 "500300700");
-        PersonInNeed personInNeed1 = new PersonInNeed("Rafał", "Elblag", "Rafał@ll.pl",
+        PersonInNeed personInNeed1 = new PersonInNeed("Rafał", "Elblag",
                 "800456789");
-        PersonInNeed personInNeed2 = new PersonInNeed("Magda", "Torun", "Magda@ii.pl",
+        PersonInNeed personInNeed2 = new PersonInNeed("Magda", "Torun",
                 "636536");
 
         NeedRequest needRequest = new NeedRequest(TypeOfHelp.WALKING_THE_DOG, HelpStatuses.NEW, new Date(),
@@ -40,20 +40,19 @@ public class FileDbTest {
         fileDb.saveNeedRequest(needRequest1);
         fileDb.saveNeedRequest(needRequest2);
 
-        Volunteer volunteer = new Volunteer("Piotr", "Gdańsk", "Piotr@.wp.pl", "7865",
-                 "SHOPPING", true);
+        Volunteer volunteer = new Volunteer("Piotr", "Gdańsk", "Piotr@.wp.pl", "7865", TypeOfHelp.SHOPPING, true);
         Volunteer volunteer1 = new Volunteer("Paweł", "Poznań", "Paweł@.o2.pl", "7423",
-                "HOUSE HELP", true);
+                TypeOfHelp.HOUSE_HELP, true);
         Volunteer volunteer2 = new Volunteer("Kasia", "Warszawa", "Kasia@.ll",
-               "2123", "Walking the Dog", true);
+               "2123", TypeOfHelp.WALKING_THE_DOG, true);
         Volunteer volunteer3 = new Volunteer("Ala","kopot","kaweł@.o2.pl","987556"
-                ,"SHOPPING",true);
+                ,TypeOfHelp.SHOPPING,true);
         Volunteer volunteer4 = new Volunteer("Ala","kyopot","laweł@.o2.pl","987556"
-                ,"SHOPPING",true);
+                ,TypeOfHelp.SHOPPING,true);
         Volunteer volunteer5 = new Volunteer("Ala","popot","maweł@.o2.pl","987556"
-                ,"SHOPPING",true);
+                ,TypeOfHelp.SHOPPING,true);
         Volunteer volunteer6 = new Volunteer("Ala","UUopot","maweł@.o2.pl","987556"
-                ,"SHOPPING",true);
+                ,TypeOfHelp.SHOPPING,true);
 
         fileDb.saveVolunteer(volunteer);
         fileDb.saveVolunteer(volunteer1);

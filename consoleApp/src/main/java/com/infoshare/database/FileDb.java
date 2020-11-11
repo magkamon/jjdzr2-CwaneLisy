@@ -61,7 +61,7 @@ public class FileDb implements DB {
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
                 + df.format(needRequest.getStatusChange()) + ",");
 
-        fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getEmail()
+        fileWriter.write(person.getName() + "," + person.getLocation()
                 + "," + person.getPhone() + "\n");
         fileWriter.close();
     }
@@ -74,7 +74,7 @@ public class FileDb implements DB {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] splited = line.split(",");
-            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], splited[6]);
+            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
             NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
                     , df.parse(splited[2]), person);
             result.add(needRequest);
@@ -91,7 +91,8 @@ public class FileDb implements DB {
             String[] volunteerAtributes = line.split(",");
             if (volunteerAtributes.length >= 6 && volunteerAtributes[2].equals(email)) {
                 return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                        volunteerAtributes[3], volunteerAtributes[4], Boolean.parseBoolean(volunteerAtributes[5]));
+                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                        Boolean.parseBoolean(volunteerAtributes[5]));
             }
         }
         return null;
@@ -105,7 +106,8 @@ public class FileDb implements DB {
             String line = scanner.nextLine();
             String[] volunteerAtributes = line.split(",");
             result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                    volunteerAtributes[3], volunteerAtributes[4], Boolean.parseBoolean(volunteerAtributes[5])));
+                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                    Boolean.parseBoolean(volunteerAtributes[5])));
         }
         return result;
     }
