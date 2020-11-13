@@ -21,10 +21,11 @@ public class FileDb implements DB {
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
 
     public FileDb() {
+        initializeFiles();
     }
 
 
-    public static void initializeFiles(){
+    private  void initializeFiles(){
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))){
             try {
                 Files.createFile(Paths.get(VOLUNTEER_DB_FILE_NAME));

@@ -1,5 +1,6 @@
 package com.infoshare;
 
+import com.infoshare.domain.GlobalLists;
 import com.infoshare.domain.Volunteer;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
@@ -28,7 +29,7 @@ public class UserRegistration {
                         true:false
 
         );
-        SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
+        GlobalLists.INSTANCE.addVolunteer(newVolunteer);
 
     }
 

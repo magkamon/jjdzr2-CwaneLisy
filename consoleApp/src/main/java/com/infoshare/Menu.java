@@ -15,7 +15,6 @@ public class Menu {
             "Zmień status wolonatriusza", "0. Wyjdź z programu"};
 
     public void start() {
-        FileDb.initializeFiles();
         System.out.println(HEADER);
         handleUserChoice();
     }

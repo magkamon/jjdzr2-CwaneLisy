@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,6 @@ public class FileDbTest {
         needRequestList.add(needRequest2);
         fileDb.saveNeedRequest(needRequestList);
 
-
         Volunteer volunteer = new Volunteer("Piotr", "Gdańsk", "Piotr@.wp.pl", "7865", TypeOfHelp.SHOPPING, true);
         Volunteer volunteer1 = new Volunteer("Paweł", "Poznań", "Paweł@.o2.pl", "7423",
                 TypeOfHelp.HOUSE_HELP, true);
@@ -54,6 +54,9 @@ public class FileDbTest {
                 ,TypeOfHelp.SHOPPING,true);
 
         Set<Volunteer> volunteerSet= new HashSet<>();
+        for (int i = 0; i < 10000; i++) {
+            volunteerSet.add(volunteer);
+        }
         volunteerSet.add(volunteer);
         volunteerSet.add(volunteer1);
         volunteerSet.add(volunteer2);
@@ -61,7 +64,14 @@ public class FileDbTest {
         volunteerSet.add(volunteer4);
         volunteerSet.add(volunteer5);
         volunteerSet.add(volunteer6);
-        fileDb.saveVolunteer(volunteerSet);
+        long start = System.nanoTime();
+        System.out.println("Start :"+start);
+        for (int i = 0; i < 10000; i++) {
+            fileDb.saveVolunteer(volunteerSet);
+        }
+
+        long elapsedTime = System.nanoTime() - start;
+        System.out.println("Elapsed time "+elapsedTime);
         System.out.println(fileDb.getVolunteers());
         System.out.println(fileDb.getAllNeedRequests());
     }

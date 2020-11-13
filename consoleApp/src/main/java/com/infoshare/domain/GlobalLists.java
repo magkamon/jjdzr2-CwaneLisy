@@ -10,13 +10,18 @@ import java.util.List;
 import java.util.Set;
 
 public enum GlobalLists {
-    INSTANCE;
-    DB storage = new FileDb();
+    INSTANCE();
+
+    DB storage;
 
     private Set<Volunteer> volunteerList = new HashSet<>();
     private List<NeedRequest> needRequestList = new ArrayList<>();
 
     private GlobalLists() {
+    }
+
+    public void setStorage(DB storage){
+        this.storage = storage;
         volunteerList=new HashSet<>(storage.getVolunteers());
         needRequestList=storage.getAllNeedRequests();
     }
