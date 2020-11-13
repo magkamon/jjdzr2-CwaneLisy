@@ -8,6 +8,14 @@ import java.util.Scanner;
 
 public class Util {
 
+    private static final String BAD_RANGE = "Nieprawidlowy zakres";
+    private static final String ILLEGAL_CHARACTERS = "Niedozwolone znaki";
+    private static final String CHOOSE_TYPE_OF_HELP = "Wybierz rodzaj pomocy: ";
+    private static final String CHOOSE_OPTION = "Jaką opcję wybierasz ?";
+    public static final String REGISTRATION_NAME = "Podaj imie/nickname (min 3 znaki): ";
+    public static final String REGISTRATION_LOCATION = "Podaj swoją lokalizację (bez polskich znaków): ";
+    public static final String REGISTRATION_PHONE_NUMBER = "Podaj numer telefonu: ";
+
     public static String readDataFromConsole(String message, ValidatorEnum validatorEnum){
         System.out.println(message);
         Scanner scanner=new Scanner(System.in);
@@ -29,11 +37,11 @@ public class Util {
                 readNumberFromUser = scanner.nextInt();
                 numberOutOfRange = (readNumberFromUser > upperBound || readNumberFromUser < 1);
                 if(numberOutOfRange){
-                    System.out.println("Nieprawidlowy zakres");
+                    System.out.println(BAD_RANGE);
                 }
             } catch (InputMismatchException ex){
                 numberOutOfRange=true;
-                System.out.println("Niedozwolone znaki");
+                System.out.println(ILLEGAL_CHARACTERS);
             }
 
         }while(numberOutOfRange);
@@ -41,11 +49,11 @@ public class Util {
     }
 
     public static TypeOfHelp createTypeOfHelp() {
-        System.out.println("Wybierz rodzaj pomocy: ");
+        System.out.println(CHOOSE_TYPE_OF_HELP);
         for (TypeOfHelp typeOfHelp: TypeOfHelp.values() ) {
             System.out.println((Arrays.asList(TypeOfHelp.values()).indexOf(typeOfHelp)+1)+". "+typeOfHelp.getTypeOfHelp());
         }
-        int chosenTypeOfHelp= readNumberFromUser("Jaką opcję wybierasz ?", TypeOfHelp.values().length);
+        int chosenTypeOfHelp= readNumberFromUser(CHOOSE_OPTION, TypeOfHelp.values().length);
         return TypeOfHelp.values()[chosenTypeOfHelp-1];
     }
 }

@@ -19,9 +19,9 @@ public class NeedRequestService {
     }
 
     private PersonInNeed createPersonInNeed() {
-        String name= Util.readDataFromConsole("Podaj imię: ", ValidatorEnum.ALPHA);
-        String location=Util.readDataFromConsole("Podaj miasto/ dzielnicę: ", ValidatorEnum.ALPHA);
-        String phone=Util.readDataFromConsole("Podaj numer telefonu", ValidatorEnum.PHONENUMBER);
+        String name= Util.readDataFromConsole(Util.REGISTRATION_NAME, ValidatorEnum.ALPHA);
+        String location=Util.readDataFromConsole(Util.REGISTRATION_LOCATION, ValidatorEnum.ALPHA);
+        String phone=Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER);
 
         return new PersonInNeed(name,location,phone);
     }
