@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface DB {
-    void saveVolunteer(Set<Volunteer> volunteer) throws IOException;
+    void saveVolunteer(List<Volunteer> volunteer) throws IOException;
 
     void saveNeedRequest(List<NeedRequest> needRequest) throws IOException;
 

@@ -4,14 +4,12 @@ import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.Volunteer;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-public class DummyDB implements DB{
+public class DummyDB implements DB {
     @Override
-    public void saveVolunteer(Set<Volunteer> volunteer) throws IOException {
+    public void saveVolunteer(List<Volunteer> volunteer) throws IOException {
 
     }
 

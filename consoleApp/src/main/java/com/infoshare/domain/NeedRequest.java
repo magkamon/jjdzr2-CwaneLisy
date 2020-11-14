@@ -2,8 +2,10 @@ package com.infoshare.domain;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class NeedRequest {
+    private UUID uuid;
     private TypeOfHelp typeOfHelp;
     private HelpStatuses helpStatus;
     private Date statusChange;
@@ -13,7 +15,10 @@ public class NeedRequest {
     public NeedRequest() {
     }
 
-    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed) {
+
+    public NeedRequest(UUID uuid, TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange,
+                       PersonInNeed personInNeed) {
+        this.uuid = uuid;
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = helpStatus;
         this.statusChange = statusChange;
@@ -21,6 +26,7 @@ public class NeedRequest {
     }
 
     public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
+        this.uuid=UUID.randomUUID();
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = HelpStatuses.NEW;
         this.statusChange = new Date();
@@ -78,4 +84,9 @@ public class NeedRequest {
     public int hashCode() {
         return Objects.hash(typeOfHelp, helpStatus, statusChange, personInNeed);
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
 }
+

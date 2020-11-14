@@ -11,7 +11,7 @@ public class NeedRequestService {
     public void createNeedRequest() {
         PersonInNeed personInNeed=createPersonInNeed();
         TypeOfHelp typeOfHelp= Util.createTypeOfHelp();
-        NeedRequest needRequest=new NeedRequest(typeOfHelp, HelpStatuses.NEW,new Date(),personInNeed);
+        NeedRequest needRequest=new NeedRequest(typeOfHelp, personInNeed);
         GlobalLists.INSTANCE.addNeedRequest(needRequest);
 
     }

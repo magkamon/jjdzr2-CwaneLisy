@@ -10,15 +10,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class FileDb implements DB {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
-    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
+    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"); // uzywamy df do
+    // formatowania i parsowania dat
 
     public FileDb() {
         initializeFiles();
@@ -42,11 +40,12 @@ public class FileDb implements DB {
         }
     }
     @Override // zapis / aktualizacja danych  wolontariusza
-    public void saveVolunteer(Set<Volunteer> volunteerSet) throws IOException {
+    public void saveVolunteer(List<Volunteer> volunteerList) throws IOException {
 
         FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
-        for (Volunteer volunteer: volunteerSet) {
-            fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
+        for (Volunteer volunteer: volunteerList) {
+            fileWriter.write(volunteer.getUuid().toString()+","+volunteer.getName() + "," + volunteer.getLocation()
+                            + "," + volunteer.getEmail() + ","
                     + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "\n");
         }
         fileWriter.close();
@@ -58,7 +57,8 @@ public class FileDb implements DB {
         for (NeedRequest needRequest: needRequestList
              ) {
             PersonInNeed person = needRequest.getPersonInNeed();
-            fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
+            fileWriter.write(needRequest.getUuid()+","+needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus()
+                    + ","
                     + df.format(needRequest.getStatusChange()) + ",");
 
             fileWriter.write(person.getName() + "," + person.getLocation()
@@ -77,9 +77,10 @@ public class FileDb implements DB {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] splited = line.split(",");
-            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
-            NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
-                    , df.parse(splited[2]), person);
+            PersonInNeed person = new PersonInNeed(splited[4], splited[5], splited[6]);
+            NeedRequest needRequest = new NeedRequest(UUID.fromString(splited[0]),TypeOfHelp.valueOf(splited[1]),
+                    HelpStatuses.valueOf(splited[2])
+                    , df.parse(splited[3]), person);
             result.add(needRequest);
         }} catch (FileNotFoundException | ParseException exception){
             System.out.println("Problem z odczytem pliku z need requestami");
@@ -95,9 +96,10 @@ public class FileDb implements DB {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] volunteerAtributes = line.split(",");
-                result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
-                        Boolean.parseBoolean(volunteerAtributes[5])));
+                result.add(new Volunteer(UUID.fromString(volunteerAtributes[0]), volunteerAtributes[1],
+                        volunteerAtributes[2],
+                        volunteerAtributes[3], volunteerAtributes[4], TypeOfHelp.valueOf(volunteerAtributes[5]),
+                        Boolean.parseBoolean(volunteerAtributes[6])));
             }
         } catch (FileNotFoundException e) {
             System.out.println("Problem z odczytem pliku z wolontariuszami");

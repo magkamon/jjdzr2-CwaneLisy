@@ -1,8 +1,10 @@
 package com.infoshare.domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Volunteer {
+    private UUID uuid;
     private String name;
     private String location;
     private String email;
@@ -11,6 +13,18 @@ public class Volunteer {
     private boolean isAvailable;
 
     public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
+        this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.location = location;
+        this.email = email;
+        this.phone = phone;
+        this.typeOfHelp = typeOfHelp;
+        this.isAvailable = isAvailable;
+    }
+
+    public Volunteer(UUID uuid, String name, String location, String email, String phone, TypeOfHelp typeOfHelp,
+                     boolean isAvailable) {
+        this.uuid = uuid;
         this.name = name;
         this.location = location;
         this.email = email;
@@ -20,11 +34,20 @@ public class Volunteer {
     }
 
     public Volunteer() {
+
+    }
+
+
+    public boolean dataEquals(Volunteer v){
+        return name.equals(v.name) && location
+                .equals(v.location) && email.equals(v.email) && phone
+                .equals(v.phone) && typeOfHelp.equals(v.typeOfHelp);
     }
 
     @Override
     public String toString() {
-        return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
+        return "Volunteer{" + "uuid=" + uuid + ", name='" + name + '\'' + ", location='" + location + '\'' + ", email" +
+                "='" + email + '\'' + ", phone='" + phone + '\'' + ", typeOfHelp=" + typeOfHelp + ", isAvailable=" + isAvailable + '}';
     }
 
     @Override
@@ -32,14 +55,15 @@ public class Volunteer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Volunteer volunteer = (Volunteer) o;
-        return name.equals(volunteer.name) && location
-                .equals(volunteer.location) && email.equals(volunteer.email) && phone
-                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp);
+        return isAvailable == volunteer.isAvailable && Objects.equals(uuid, volunteer.uuid) && Objects
+                .equals(name, volunteer.name) && Objects.equals(location, volunteer.location) && Objects
+                .equals(email, volunteer.email) && Objects
+                .equals(phone, volunteer.phone) && typeOfHelp == volunteer.typeOfHelp;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, location, email, phone, typeOfHelp);
+        return Objects.hash(uuid, name, location, email, phone, typeOfHelp, isAvailable);
     }
 
     public String getName() {
@@ -89,4 +113,9 @@ public class Volunteer {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
 }
