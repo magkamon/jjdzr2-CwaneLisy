@@ -21,4 +21,11 @@ public class ValidatorTest {
         boolean isDataValid = DataValidator.isDataValid(validPhoneNumber, ValidatorEnum.PHONENUMBER);
         assertEquals(false, isDataValid);
     }
+
+    @Test
+    public void testEmptyPhoneNumber() {
+        String validPhoneNumber = "";
+        boolean isDataValid = DataValidator.isDataValid(validPhoneNumber, ValidatorEnum.PHONENUMBER);
+        assertEquals(false, isDataValid);
+    }
 }
