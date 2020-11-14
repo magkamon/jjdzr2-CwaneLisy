@@ -1,33 +1,37 @@
 package com.infoshare.database;
 
 import com.infoshare.domain.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class FileDb implements DB {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
+    private Object Volunteer;
+
 
     public FileDb() {
     }
 
     @Override // zapis / aktualizacja danych  wolontariusza
     public void saveVolunteer(Volunteer volunteer) throws IOException {
+        // sprawdzamy czy istnieje plik do zapisu
+        if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
+            try {
+                Files.createFile(Paths.get(VOLUNTEER_DB_FILE_NAME));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         // Sprawdzamy czy wolontariusz istnieje
-
         if (getVolunteer(volunteer.getEmail()) == null) {
             FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, true);
             fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
@@ -47,15 +51,24 @@ public class FileDb implements DB {
             allVounteers.set(index, volunteer);  // gdy chce usunac .remove
             FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
             for (Volunteer v : allVounteers) {
-                writer.write(v.getName() + "," + v.getLocation() + "," + volunteer.getEmail() + ","
+                writer.write(v.getName() + "," + v.getLocation() + "," + v.getEmail() + ","
                         + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "\n");
             }
             writer.close();
         }
+
     }
 
     @Override// zapis zgłoszenia osob potrzebujacej pomocy wraz z rodzajem pomocy
     public void saveNeedRequest(NeedRequest needRequest) throws IOException {
+        // sprawdzamy czy istnieje plik do zapisu
+        if (!Files.exists(Paths.get(REQUEST_DB_FILE))) {
+            try {
+                Files.createFile(Paths.get(REQUEST_DB_FILE));
+                } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true);
         PersonInNeed person = needRequest.getPersonInNeed();
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
@@ -65,27 +78,53 @@ public class FileDb implements DB {
                 + "," + person.getPhone() + "\n");
         fileWriter.close();
     }
-
     //odczyt danych osoby potrzebujacej pomocy wraz z rodzajem pomocy
     @Override
     public List<NeedRequest> getAllNeedRequests() throws FileNotFoundException, ParseException {
         List<NeedRequest> result = new ArrayList<>();
+
+            Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] splited = line.split(",");
+                PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], splited[6]);
+                NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
+                        , df.parse(splited[2]), person);
+                result.add(needRequest);
+            }
+            return result;
+    }
+
+        @Override
+    public PersonInNeed getPersonInNeed(String email) throws FileNotFoundException {
+
         Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] splited = line.split(",");
-            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], splited[6]);
-            NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
-                    , df.parse(splited[2]), person);
-            result.add(needRequest);
+            String [] personAtributes = line.split(",")  ;
+            if (personAtributes.length >= 3 && personAtributes [2].equals(email)) {
+                return  new PersonInNeed(personAtributes[0], personAtributes[1],personAtributes[2],personAtributes[3]);
+            }
+         }
+        return null;
+    }
+    public List<PersonInNeed> getPersonsInNeed () throws FileNotFoundException {
+        List<PersonInNeed> result = new ArrayList<>();
+        Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
+        while (scanner.hasNextLine()){
+            String line = scanner.nextLine();
+            String[] personAtributes = line.split(",");
+            result.add(new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2], personAtributes[3]));
         }
         return result;
     }
+
 
     @Override // odczyt dost. wolontariuszy , uznalem ze email jest unikatowy dla wolontariusza
     public Volunteer getVolunteer(String email) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
+
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] volunteerAtributes = line.split(",");
@@ -109,4 +148,21 @@ public class FileDb implements DB {
         }
         return result;
     }
+
+    @Override
+    public List<Volunteer> getAvailableVolunteers() {
+        return null;
+    }
+
+    @Override
+    public void saveVolunteer(Set<Volunteer> volunteerSet) {
+
+    }
+
+    @Override
+    public void saveNeedRequest(List<NeedRequest> needRequestList) {
+
+    }
+
+
 }

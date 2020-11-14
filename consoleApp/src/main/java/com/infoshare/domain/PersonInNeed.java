@@ -15,11 +15,6 @@ public class PersonInNeed {
         this.phone = phone;
     }
 
-    public PersonInNeed() {
-
-    }
-
-
     public String getName() {
         return name;
     }
@@ -68,6 +63,7 @@ public class PersonInNeed {
 
     @Override
     public String toString() {
-        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + '}';
+        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
+                + ", phone='" + phone + '\'' + '}';
     }
 }
