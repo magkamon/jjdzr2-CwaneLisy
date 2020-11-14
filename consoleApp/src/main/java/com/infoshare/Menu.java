@@ -1,7 +1,6 @@
 package com.infoshare;
 
-import com.infoshare.database.FileDb;
-import com.infoshare.domain.GlobalLists;
+import com.infoshare.service.ChangeVolunteerStatusService;
 import com.infoshare.service.NeedRequestService;
 
 import java.util.InputMismatchException;
@@ -50,6 +49,7 @@ public class Menu {
                 }
                 case 5: {
                     System.out.println("Zmień status wolonatriusza");
+                    new ChangeVolunteerStatusService().handleVolunteerStatusChange();
                     break;
                 }
                 case 0: {
