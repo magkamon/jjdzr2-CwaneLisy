@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
-public interface DB {
+public interface Storage {
     void saveVolunteer(List<Volunteer> volunteer) throws IOException;
 
     void saveNeedRequest(List<NeedRequest> needRequest) throws IOException;

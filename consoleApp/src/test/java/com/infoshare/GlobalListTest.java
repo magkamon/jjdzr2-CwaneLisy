@@ -1,11 +1,13 @@
 package com.infoshare;
 
-import com.infoshare.database.DummyDB;
-import com.infoshare.domain.GlobalLists;
+import com.infoshare.database.DummyStorage;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
+import com.infoshare.persistence.Persistence;
+import com.infoshare.persistence.PersistenceImplementation;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,27 +31,28 @@ public class GlobalListTest {
 
     @Test
     public void shouldHaveSixVolunteers(){
-        GlobalLists.INSTANCE.setStorage(new DummyDB());
+        Persistence persistence=new PersistenceImplementation(new DummyStorage(),new HashMap<>(),new HashMap<>());
 
-        GlobalLists.INSTANCE.addVolunteer(volunteer);
-        GlobalLists.INSTANCE.addVolunteer(volunteer1);
-        GlobalLists.INSTANCE.addVolunteer(volunteer2);
-        GlobalLists.INSTANCE.addVolunteer(volunteer3);
-        GlobalLists.INSTANCE.addVolunteer(volunteer4);
-        GlobalLists.INSTANCE.addVolunteer(volunteer5);
-        GlobalLists.INSTANCE.addVolunteer(volunteer6);
 
-        assertEquals(6,GlobalLists.INSTANCE.getVolunteerMap().size());
+        persistence.addVolunteer(volunteer);
+        persistence.addVolunteer(volunteer1);
+        persistence.addVolunteer(volunteer2);
+        persistence.addVolunteer(volunteer3);
+        persistence.addVolunteer(volunteer4);
+        persistence.addVolunteer(volunteer5);
+        persistence.addVolunteer(volunteer6);
+
+        assertEquals(6,persistence.getVolunteerMap().size());
 
     }
 
     @Test
     public void shouldUpdateVolunteer(){
-        GlobalLists.INSTANCE.setStorage(new DummyDB());
-        GlobalLists.INSTANCE.addVolunteer(volunteer);
+        Persistence persistence=new PersistenceImplementation(new DummyStorage(),new HashMap<>(),new HashMap<>());
+        persistence.addVolunteer(volunteer);
         Volunteer updated = new Volunteer(volunteer.getUuid(), volunteer.getName(), "Warszawa", volunteer.getEmail(),
                 "", TypeOfHelp.SHOPPING, false);
-        GlobalLists.INSTANCE.updateVolunteer(updated);
-        assertEquals("Warszawa", GlobalLists.INSTANCE.getVolunteerMap().get(volunteer.getUuid()).getLocation());
+        persistence.updateVolunteer(updated);
+        assertEquals("Warszawa", persistence.getVolunteerMap().get(volunteer.getUuid()).getLocation());
     }
 }

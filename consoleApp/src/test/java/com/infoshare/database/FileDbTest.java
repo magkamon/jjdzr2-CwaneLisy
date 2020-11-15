@@ -3,19 +3,12 @@ package com.infoshare.database;
 import com.infoshare.domain.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.Request;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.time.DateTimeException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,7 +18,7 @@ public class FileDbTest {
     public FileDbTest() throws IOException {
     }
     public static void main(String[] args) throws IOException, ParseException {
-        DB fileDb = new FileDb();
+        Storage fileStorage = new FileStorage();
         PersonInNeed personInNeed = new PersonInNeed("Basia", "Gdańsk",
                 "500300700");
         PersonInNeed personInNeed1 = new PersonInNeed("Rafał", "Elblag",
@@ -44,7 +37,7 @@ public class FileDbTest {
         needRequestList.add(needRequest);
         needRequestList.add(needRequest1);
         needRequestList.add(needRequest2);
-        fileDb.saveNeedRequest(needRequestList);
+        fileStorage.saveNeedRequest(needRequestList);
 
         Volunteer volunteer = new Volunteer("Piotr", "Gdańsk", "Piotr@.wp.pl", "7865", TypeOfHelp.SHOPPING, true);
         Volunteer volunteer1 = new Volunteer("Paweł", "Poznań", "Paweł@.o2.pl", "7423",
@@ -74,18 +67,18 @@ public class FileDbTest {
         long start = System.nanoTime();
         System.out.println("Start :"+start);
         for (int i = 0; i < 10000; i++) {
-            fileDb.saveVolunteer(volunteerList);
+            fileStorage.saveVolunteer(volunteerList);
         }
 
         long elapsedTime = System.nanoTime() - start;
         System.out.println("Elapsed time "+elapsedTime);
-        System.out.println(fileDb.getVolunteers());
-        System.out.println(fileDb.getAllNeedRequests());
+        System.out.println(fileStorage.getVolunteers());
+        System.out.println(fileStorage.getAllNeedRequests());
     }
 
     @Test
     public void testNeedRequest() throws IOException {
-        DB filedb = new FileDb();
+        Storage filedb = new FileStorage();
         PersonInNeed personInNeed = new PersonInNeed("Basia", "Gdańsk","500300700");
         NeedRequest needRequest = new NeedRequest(UUID.randomUUID(),TypeOfHelp.WALKING_THE_DOG, HelpStatuses.NEW,
                 new Date(),

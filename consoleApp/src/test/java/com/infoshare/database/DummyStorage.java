@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class DummyDB implements DB {
+public class DummyStorage implements Storage {
     @Override
     public void saveVolunteer(List<Volunteer> volunteer) throws IOException {
 

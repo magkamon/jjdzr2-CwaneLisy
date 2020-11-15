@@ -2,17 +2,22 @@ package com.infoshare.service;
 
 import com.infoshare.domain.GlobalLists;
 import com.infoshare.domain.Volunteer;
+import com.infoshare.persistence.Persistence;
 import com.infoshare.util.Util;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+@AllArgsConstructor
 
 public class ChangeVolunteerStatusService {
+    Persistence persistence;
+
 
     public void handleVolunteerStatusChange(){
-        List<Volunteer> volunteerList =new ArrayList<>(GlobalLists.INSTANCE.getVolunteerMap().values());
+        List<Volunteer> volunteerList =new ArrayList<>(persistence.getVolunteerMap().values());
         displayVolunteers(volunteerList);
-        GlobalLists.INSTANCE.updateVolunteer(changeVolunteerStatus(volunteerList));
+        persistence.updateVolunteer(changeVolunteerStatus(volunteerList));
     }
 
     private void displayVolunteers(List<Volunteer> volunteerList){
@@ -33,4 +38,5 @@ public class ChangeVolunteerStatusService {
         System.out.println("Zmienilismy status na "+ (volunteer.isAvailable()? "Dostepny" : "Zajety"));
         return volunteer;
     }
-}
+
+   }

@@ -1,13 +1,15 @@
 package com.infoshare;
 
+import com.infoshare.persistence.Persistence;
 import com.infoshare.service.ChangeVolunteerStatusService;
 import com.infoshare.service.NeedRequestService;
+import com.infoshare.service.VolunteerRegistrationService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-
+Persistence persistence;
     private static final String HEADER = "Witaj w Helpick!";
     private static final String[] OPTIONS = {"1. Wprowadź nową ofertę wolontariatu", "2. Zgłoś osobę potrzebującą " +
             "pomocy", "3. Wyświetl dostępnych wolontariuszy", "4. Wyświetl listę osób, potrzebujących pomocy", "5. " +
@@ -32,11 +34,11 @@ public class Menu {
             switch (userChoice) {
                 case 1: {
                     System.out.println("Wprowadź nową ofertę wolontariatu");
-                    UserRegistration.register();
+                    new VolunteerRegistrationService(persistence).register();
                     break;
                 }
                 case 2: {
-                    new NeedRequestService().createNeedRequest();
+                    new NeedRequestService(persistence).createNeedRequest();
                     break;
                 }
                 case 3: {
@@ -49,7 +51,7 @@ public class Menu {
                 }
                 case 5: {
                     System.out.println("Zmień status wolonatriusza");
-                    new ChangeVolunteerStatusService().handleVolunteerStatusChange();
+                    new ChangeVolunteerStatusService(persistence).handleVolunteerStatusChange();
                     break;
                 }
                 case 0: {
@@ -68,5 +70,9 @@ public class Menu {
         for (String option : OPTIONS) {
             System.out.println(option);
         }
+    }
+
+    public Menu(Persistence persistence) {
+        this.persistence = persistence;
     }
 }

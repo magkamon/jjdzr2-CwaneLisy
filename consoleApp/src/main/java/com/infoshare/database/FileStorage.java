@@ -12,13 +12,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class FileDb implements DB {
+public class FileStorage implements Storage {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"); // uzywamy df do
     // formatowania i parsowania dat
 
-    public FileDb() {
+    public FileStorage() {
         initializeFiles();
     }
 

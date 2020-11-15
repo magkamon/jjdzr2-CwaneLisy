@@ -12,15 +12,14 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-public class JsonDB implements DB {
+public class JsonStorage implements Storage {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.json";
     private static final String REQUEST_DB_FILE = "NeedRequest.json";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"); // uzywamy df do
 
-    public JsonDB(){
+    public JsonStorage(){
         initializeFiles();
     }
     private  void initializeFiles(){

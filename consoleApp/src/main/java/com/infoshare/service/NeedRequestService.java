@@ -1,18 +1,22 @@
 package com.infoshare.service;
 
 import com.infoshare.domain.*;
+import com.infoshare.persistence.Persistence;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
+import lombok.AllArgsConstructor;
 
 import java.util.Date;
-
+@AllArgsConstructor
 public class NeedRequestService {
+    Persistence persistence;
 
     public void createNeedRequest() {
         PersonInNeed personInNeed=createPersonInNeed();
         TypeOfHelp typeOfHelp= Util.createTypeOfHelp();
         NeedRequest needRequest=new NeedRequest(typeOfHelp, personInNeed);
-        GlobalLists.INSTANCE.addNeedRequest(needRequest);
+        persistence.addNeedRequest(needRequest);
+
 
     }
 
@@ -24,4 +28,4 @@ public class NeedRequestService {
         return new PersonInNeed(name,location,phone);
     }
 
-}
+    }
