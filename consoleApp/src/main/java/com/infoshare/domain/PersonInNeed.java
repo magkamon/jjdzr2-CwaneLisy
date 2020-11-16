@@ -13,11 +13,6 @@ public class PersonInNeed {
         this.phone = phone;
     }
 
-    public PersonInNeed() {
-
-    }
-
-
     public String getName() {
         return name;
     }
@@ -33,6 +28,7 @@ public class PersonInNeed {
     public void setLocation(String location) {
         this.location = location;
     }
+
 
     public String getPhone() {
         return phone;
@@ -58,6 +54,7 @@ public class PersonInNeed {
 
     @Override
     public String toString() {
-        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location + '\'' + '\'' + ", phone='" + phone + '\'' + '}';
+        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location  + '\''
+                + ", phone='" + phone + '\'' + '}';
     }
 }

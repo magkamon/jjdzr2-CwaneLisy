@@ -1,6 +1,7 @@
 package com.infoshare;
 
 import com.infoshare.service.NeedRequestService;
+import com.infoshare.service.VolunteerRepository;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -46,6 +47,7 @@ public class Menu {
                     }
                     case 3: {
                         System.out.println("Wyświetl dostępnych wolontariuszy");
+                        new VolunteerRepository().printFilteredList();
                         break;
                     }
                     case 4: {
