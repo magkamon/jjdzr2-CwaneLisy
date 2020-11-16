@@ -49,9 +49,8 @@ public class VolunteerRepository {
 
     private List<Volunteer> readFromFile () {
         List<Volunteer> volunteersList = new ArrayList<>();
-        Scanner scan = null;
         try {
-            scan = new Scanner(new File(DB_FILE));
+            Scanner scan = new Scanner(new File(DB_FILE));
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
                 String[] splited = line.split(",");
