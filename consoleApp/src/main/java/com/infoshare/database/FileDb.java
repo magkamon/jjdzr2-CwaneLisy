@@ -66,7 +66,7 @@ public class FileDb implements DB {
             try {
                 Files.createFile(Paths.get(REQUEST_DB_FILE));
                 } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Plik" + REQUEST_DB_FILE + " nie moze zostac stworzony");
             }
         }
         FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true);
@@ -74,7 +74,7 @@ public class FileDb implements DB {
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
                 + df.format(needRequest.getStatusChange()) + ",");
 
-        fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getEmail()
+        fileWriter.write(person.getName() + "," + person.getLocation()
                 + "," + person.getPhone() + "\n");
         fileWriter.close();
     }
