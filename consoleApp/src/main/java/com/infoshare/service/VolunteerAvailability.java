@@ -12,20 +12,16 @@ public class VolunteerAvailability {
     private static final String STATUS_AVAILABLE = "DOSTĘPNY";
     private static final String STATUS_UNAVAILABLE = "NIEDOSTĘPNY";
 
-    public static void changeAvailability(Volunteer volunteer){
+    private void changeAvailability(Volunteer volunteer){
         System.out.println(AVAILABILITY_STATUS);
         System.out.println(volunteer.isAvailable() ? STATUS_AVAILABLE : STATUS_UNAVAILABLE);
         String data = Util.readDataFromConsole(AVAILABILITY_HEADER, ValidatorEnum.YESNO);
         if (data.equalsIgnoreCase("Y")){
-            if(volunteer.isAvailable()){
-                volunteer.setAvailable(false);
-            }else {
-                volunteer.setAvailable(true);
-            }
+            volunteer.setAvailable(!volunteer.isAvailable());
         }
     }
 
-    public static void updateAvailability(){
+    public void updateAvailability(){
         // FileDb database = new FileDb();
 //        String email = Util.readDataFromConsole(GET_EMAIL, ValidatorEnum.EMAIL);
 //        Volunteer volunteerToUpdate = database.getVolunteer(email);

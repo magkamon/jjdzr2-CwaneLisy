@@ -55,7 +55,7 @@ public class Menu {
                     }
                     case 5: {
                         System.out.println("Zmień status wolonatriusza");
-                        VolunteerAvailability.updateAvailability();
+                        new VolunteerAvailability().updateAvailability();
                         break;
                     }
                     case 0: {
