@@ -1,5 +1,7 @@
 package com.infoshare;
 
+import com.infoshare.service.NeedRequestService;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -35,10 +37,11 @@ public class Menu {
                 switch (userChoice) {
                     case 1: {
                         System.out.println("Wprowadź nową ofertę wolontariatu");
+                        UserRegistration.register();
                         break;
                     }
                     case 2: {
-                        System.out.println("Zgłoś osobę potrzebującą pomocy");
+                        new NeedRequestService().createNeedRequest();
                         break;
                     }
                     case 3: {

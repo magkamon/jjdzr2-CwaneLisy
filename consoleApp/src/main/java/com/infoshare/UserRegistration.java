@@ -1,11 +1,9 @@
 package com.infoshare;
 
-import com.infoshare.database.FileDb;
 import com.infoshare.domain.Volunteer;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class UserRegistration {
@@ -15,9 +13,7 @@ public class UserRegistration {
 
     private static Scanner sc = new Scanner(System.in);
 
-    private static FileDb fileDb = new FileDb();
-
-    public static void register() {
+    public static void register(){
         System.out.println(REGISTRATION_HEADER);
         Volunteer newVolunteer = new Volunteer(
                 Util.readDataFromConsole(Util.REGISTRATION_NAME,ValidatorEnum.ALPHA),
@@ -29,13 +25,7 @@ public class UserRegistration {
                         true:false
 
         );
-       // SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
-
-        try {
-            fileDb.saveVolunteer(newVolunteer);
-        } catch (IOException ex) {
-            System.out.println("Coś poszło nietak");
-        }
+        SavingUtil.saveToFile("../registeredVolunteer", newVolunteer);
 
     }
 

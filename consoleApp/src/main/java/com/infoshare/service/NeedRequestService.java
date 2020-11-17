@@ -23,7 +23,7 @@ public class NeedRequestService {
         String location=Util.readDataFromConsole(Util.REGISTRATION_LOCATION, ValidatorEnum.ALPHA);
         String phone=Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER);
 
-        return new PersonInNeed(name,location,"emial",phone );
+        return new PersonInNeed(name,location,phone);
     }
 
 }
