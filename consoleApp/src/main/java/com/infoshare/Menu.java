@@ -1,5 +1,6 @@
 package com.infoshare;
 
+import com.infoshare.service.NeedRequestRepository;
 import com.infoshare.service.NeedRequestService;
 
 import java.util.InputMismatchException;
@@ -50,6 +51,7 @@ public class Menu {
                     }
                     case 4: {
                         System.out.println("Wyświetl listę osób, potrzebujących pomocy");
+                        new NeedRequestRepository().printFilteredList();
                         break;
                     }
                     case 5: {
