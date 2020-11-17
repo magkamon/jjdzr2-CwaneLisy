@@ -1,6 +1,7 @@
 package com.infoshare.database;
 
 import com.infoshare.domain.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -65,7 +66,7 @@ public class FileDb implements DB {
         if (!Files.exists(Paths.get(REQUEST_DB_FILE))) {
             try {
                 Files.createFile(Paths.get(REQUEST_DB_FILE));
-                } catch (IOException e) {
+            } catch (IOException e) {
                 System.out.println("Plik" + REQUEST_DB_FILE + " nie moze zostac stworzony");
             }
         }
@@ -78,43 +79,45 @@ public class FileDb implements DB {
                 + "," + person.getPhone() + "\n");
         fileWriter.close();
     }
+
     //odczyt danych osoby potrzebujacej pomocy wraz z rodzajem pomocy
     @Override
     public List<NeedRequest> getAllNeedRequests() throws FileNotFoundException, ParseException {
         List<NeedRequest> result = new ArrayList<>();
 
-            Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] splited = line.split(",");
-                PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], splited[6]);
-                NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
-                        , df.parse(splited[2]), person);
-                result.add(needRequest);
-            }
-            return result;
+        Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] splited = line.split(",");
+            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
+            NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
+                    , df.parse(splited[2]), person);
+            result.add(needRequest);
+        }
+        return result;
     }
 
-        @Override
+    @Override
     public PersonInNeed getPersonInNeed(String email) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String [] personAtributes = line.split(",")  ;
-            if (personAtributes.length >= 3 && personAtributes [2].equals(email)) {
-                return  new PersonInNeed(personAtributes[0], personAtributes[1],personAtributes[2],personAtributes[3]);
+            String[] personAtributes = line.split(",");
+            if (personAtributes.length >= 3 && personAtributes[2].equals(email)) {
+                return new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2]);
             }
-         }
+        }
         return null;
     }
-    public List<PersonInNeed> getPersonsInNeed () throws FileNotFoundException {
+
+    public List<PersonInNeed> getPersonsInNeed() throws FileNotFoundException {
         List<PersonInNeed> result = new ArrayList<>();
         Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
-        while (scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] personAtributes = line.split(",");
-            result.add(new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2], personAtributes[3]));
+            result.add(new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2]));
         }
         return result;
     }
@@ -130,7 +133,7 @@ public class FileDb implements DB {
             String[] volunteerAtributes = line.split(",");
             if (volunteerAtributes.length >= 6 && volunteerAtributes[2].equals(email)) {
                 return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                        volunteerAtributes[3], volunteerAtributes[4], Boolean.parseBoolean(volunteerAtributes[5]));
+                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5]));
             }
         }
         return null;
@@ -144,7 +147,7 @@ public class FileDb implements DB {
             String line = scanner.nextLine();
             String[] volunteerAtributes = line.split(",");
             result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                    volunteerAtributes[3], volunteerAtributes[4], Boolean.parseBoolean(volunteerAtributes[5])));
+                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5])));
         }
         return result;
     }
