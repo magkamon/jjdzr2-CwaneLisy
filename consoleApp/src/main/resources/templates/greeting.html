@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<table style="border-spacing : 15px">
+    <thead>
+    <tr>
+        <th> Imie </th>
+        <th> Lokalizacja </th>
+        <th> Telefon </th>
+        <th> Typ pomocy </th>
+        <th> Status </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${need.empty}">
+        <td colspan="5"> Brak needd requestow </td>
+    </tr>
+    <tr th:each="needRequest : ${need}">
+        <td ><span th:text="${needRequest.personInNeed.name}">  </span></td>
+        <td><span th:text="${needRequest.personInNeed.location}">  </span></td>
+        <td><span th:text="${needRequest.personInNeed.phone}">  </span></td>
+        <td><span th:text="${needRequest.typeOfHelp.typeOfHelp}"> </span></td>
+        <td><span th:text="${needRequest.helpStatus.status}">  </span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
