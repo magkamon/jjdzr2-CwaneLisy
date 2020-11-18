@@ -16,31 +16,33 @@ public class FileDb implements DB {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
-    private Object Volunteer;
-
 
     public FileDb() {
-    }
-
-    @Override // zapis / aktualizacja danych  wolontariusza
-    public void saveVolunteer(Volunteer volunteer) throws IOException {
-        // sprawdzamy czy istnieje plik do zapisu
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
             try {
                 Files.createFile(Paths.get(VOLUNTEER_DB_FILE_NAME));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Plik" + VOLUNTEER_DB_FILE_NAME + " nie moze zostac stworzony");
             }
         }
-        // Sprawdzamy czy wolontariusz istnieje
+        if (!Files.exists(Paths.get(REQUEST_DB_FILE))) {
+            try {
+                Files.createFile(Paths.get(REQUEST_DB_FILE));
+            } catch (IOException e) {
+                System.out.println("Plik" + REQUEST_DB_FILE + " nie moze zostac stworzony");
+            }
+        }
+    }
+
+    @Override
+    public void saveVolunteer(Volunteer volunteer) throws IOException {
+
         if (getVolunteer(volunteer.getEmail()) == null) {
             FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, true);
             fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
                     + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "\n");
             fileWriter.close();
         } else {
-            // wolontariusz istnieje wiec aktualizujemy jego dane
-
             List<Volunteer> allVounteers = getVolunteers();
             int index = -1;
             for (int i = 0; i < allVounteers.size(); i++) {
@@ -60,16 +62,8 @@ public class FileDb implements DB {
 
     }
 
-    @Override// zapis zgłoszenia osob potrzebujacej pomocy wraz z rodzajem pomocy
+    @Override
     public void saveNeedRequest(NeedRequest needRequest) throws IOException {
-        // sprawdzamy czy istnieje plik do zapisu
-        if (!Files.exists(Paths.get(REQUEST_DB_FILE))) {
-            try {
-                Files.createFile(Paths.get(REQUEST_DB_FILE));
-            } catch (IOException e) {
-                System.out.println("Plik" + REQUEST_DB_FILE + " nie moze zostac stworzony");
-            }
-        }
         FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true);
         PersonInNeed person = needRequest.getPersonInNeed();
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
@@ -80,7 +74,6 @@ public class FileDb implements DB {
         fileWriter.close();
     }
 
-    //odczyt danych osoby potrzebujacej pomocy wraz z rodzajem pomocy
     @Override
     public List<NeedRequest> getNeedRequests() throws FileNotFoundException, ParseException {
         List<NeedRequest> result = new ArrayList<>();
@@ -109,7 +102,7 @@ public class FileDb implements DB {
         }
         return result;
     }
-    // odczyt dost. wolontariuszy , uznalem ze email jest unikatowy dla wolontariusza
+
     private Volunteer getVolunteer(String email) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
@@ -124,6 +117,4 @@ public class FileDb implements DB {
         }
         return null;
     }
-
-
 }
