@@ -60,7 +60,6 @@ public class FileDbTest {
         fileDb.saveVolunteer(volunteer7);
         fileDb.saveNeedRequest(needRequest);
         fileDb.saveNeedRequest(needRequest1);
-        System.out.println(fileDb.getVolunteer("laweł@.o2.pl"));
         //System.out.println(fileDb.getVolunteers());
       //  System.out.println(fileDb.getAllNeedRequests());
     }

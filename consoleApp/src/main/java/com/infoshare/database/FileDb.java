@@ -82,7 +82,7 @@ public class FileDb implements DB {
 
     //odczyt danych osoby potrzebujacej pomocy wraz z rodzajem pomocy
     @Override
-    public List<NeedRequest> getAllNeedRequests() throws FileNotFoundException, ParseException {
+    public List<NeedRequest> getNeedRequests() throws FileNotFoundException, ParseException {
         List<NeedRequest> result = new ArrayList<>();
 
         Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
@@ -98,33 +98,19 @@ public class FileDb implements DB {
     }
 
     @Override
-    public PersonInNeed getPersonInNeed(String email) throws FileNotFoundException {
-
-        Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
+    public List<Volunteer> getVolunteers() throws FileNotFoundException {
+        List<Volunteer> result = new ArrayList<>();
+        Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] personAtributes = line.split(",");
-            if (personAtributes.length >= 3 && personAtributes[2].equals(email)) {
-                return new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2]);
-            }
-        }
-        return null;
-    }
-
-    public List<PersonInNeed> getPersonsInNeed() throws FileNotFoundException {
-        List<PersonInNeed> result = new ArrayList<>();
-        Scanner scanner = new Scanner(new File(REQUEST_DB_FILE));
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] personAtributes = line.split(",");
-            result.add(new PersonInNeed(personAtributes[0], personAtributes[1], personAtributes[2]));
+            String[] volunteerAtributes = line.split(",");
+            result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
+                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5])));
         }
         return result;
     }
-
-
-    @Override // odczyt dost. wolontariuszy , uznalem ze email jest unikatowy dla wolontariusza
-    public Volunteer getVolunteer(String email) throws FileNotFoundException {
+    // odczyt dost. wolontariuszy , uznalem ze email jest unikatowy dla wolontariusza
+    private Volunteer getVolunteer(String email) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
 
@@ -137,34 +123,6 @@ public class FileDb implements DB {
             }
         }
         return null;
-    }
-
-    @Override
-    public List<Volunteer> getVolunteers() throws FileNotFoundException {
-        List<Volunteer> result = new ArrayList<>();
-        Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] volunteerAtributes = line.split(",");
-            result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5])));
-        }
-        return result;
-    }
-
-    @Override
-    public List<Volunteer> getAvailableVolunteers() {
-        return null;
-    }
-
-    @Override
-    public void saveVolunteer(Set<Volunteer> volunteerSet) {
-
-    }
-
-    @Override
-    public void saveNeedRequest(List<NeedRequest> needRequestList) {
-
     }
 
 
