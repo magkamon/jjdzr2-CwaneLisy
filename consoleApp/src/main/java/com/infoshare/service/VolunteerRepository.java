@@ -22,27 +22,22 @@ public class VolunteerRepository {
     public void printFilteredList(){
         String inputCity = Util.readDataFromConsole(CITY_CHOOSE_HEADER, ValidatorEnum.POLISHSIGNS);
         TypeOfHelp inputType = Util.createTypeOfHelp();
-        try {
-            List <Volunteer> availableVolunteers = readFromFile();
-            List <Volunteer> filteredList;
-            filteredList = availableVolunteers.stream().
-                    filter(Volunteer::isAvailable).
-                    filter(v-> v.getLocation().equalsIgnoreCase(inputCity)).
-                    filter(v -> v.getTypeOfHelp().equals(inputType)).
-                    collect(Collectors.toList());
-            if (filteredList.isEmpty()){
-                System.out.println("Brak dostępnych wolontariuszy");
-            }
-            else {
-                for (Volunteer volunteer : filteredList) {
-                    System.out.println(volunteer.printDescription());
-                }
+        List <Volunteer> availableVolunteers = readFromFile();
+        List <Volunteer> filteredList;
+        filteredList = availableVolunteers.stream().
+                filter(Volunteer::isAvailable).
+                filter(v-> v.getLocation().equalsIgnoreCase(inputCity)).
+                filter(v -> v.getTypeOfHelp().equals(inputType)).
+                collect(Collectors.toList());
+        if (filteredList.isEmpty()){
+            System.out.println("Brak dostępnych wolontariuszy");
+        }
+        else {
+            for (Volunteer volunteer : filteredList) {
+                System.out.println(volunteer.printDescription());
             }
         }
-        catch (IllegalArgumentException ex)
-        {
-            System.out.println("Podałeś nieprawidłowe dane");
-        }
+
     }
 
     private List<Volunteer> readFromFile () {
