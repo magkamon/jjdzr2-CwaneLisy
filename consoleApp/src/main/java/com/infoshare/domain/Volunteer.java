@@ -28,6 +28,11 @@ public class Volunteer {
                 + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
     }
 
+    public String printDescription(){
+        return "Imię wolonatriusza: " + name + ", lokalizacja: " + location + ", adres email: " + email +
+                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getTypeOfHelp() + ", czy dostępny: " + isAvailable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
