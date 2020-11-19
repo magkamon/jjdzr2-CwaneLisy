@@ -2,6 +2,8 @@ package com.infoshare;
 
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerRepository;
+import com.infoshare.service.VolunteerAvailability;
+
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -56,6 +58,7 @@ public class Menu {
                     }
                     case 5: {
                         System.out.println("Zmień status wolonatriusza");
+                        new VolunteerAvailability().updateAvailability();
                         break;
                     }
                     case 0: {
