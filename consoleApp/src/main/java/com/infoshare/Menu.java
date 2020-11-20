@@ -3,7 +3,7 @@ package com.infoshare;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerRepository;
 import com.infoshare.service.VolunteerAvailability;
-
+import com.infoshare.service.UserRegistration;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -40,7 +40,7 @@ public class Menu {
                 switch (userChoice) {
                     case 1: {
                         System.out.println("Wprowadź nową ofertę wolontariatu");
-                        UserRegistration.register();
+                        new UserRegistration().register();
                         break;
                     }
                     case 2: {
