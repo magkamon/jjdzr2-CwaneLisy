@@ -19,12 +19,18 @@ public class Volunteer {
         this.isAvailable = isAvailable;
     }
 
-    public Volunteer() {
+   // public Volunteer(String volunteerAtribute, String atribute, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
+   // }
+
+    @Override  // zrobic toString to itsAvalibe
+    public String toString() {
+        return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
+                + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
     }
 
-    @Override
-    public String toString() {
-        return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\'' + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
+    public String printDescription(){
+        return "Imię wolonatriusza: " + name + ", lokalizacja: " + location + ", adres email: " + email +
+                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getTypeOfHelp() + ", czy dostępny: " + isAvailable;
     }
 
     @Override
