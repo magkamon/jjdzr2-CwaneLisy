@@ -23,9 +23,9 @@ public class NeedRequestRepository {
         String inputCity = Util.readDataFromConsole(CITY_CHOOSE_HEADER, ValidatorEnum.POLISHSIGNS);
         TypeOfHelp inputType = Util.createTypeOfHelp();
         try {
-            List<NeedRequest> availableVolunteers = fileDb.getNeedRequests();
+            List<NeedRequest> activeNeedRequests = fileDb.getNeedRequests();
             List<NeedRequest> filteredList;
-            filteredList = availableVolunteers.stream().
+            filteredList = activeNeedRequests.stream().
                     filter(req -> req.getHelpStatus().equals(HelpStatuses.NEW)).
                     filter(req -> req.getPersonInNeed().getLocation().equalsIgnoreCase(inputCity)).
                     filter(req -> req.getTypeOfHelp().equals(inputType)).
