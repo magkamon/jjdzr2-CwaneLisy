@@ -65,6 +65,7 @@ public class NeedRequest {
         return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange=" + statusChange + ", personInNeed=" + personInNeed + '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,5 +78,10 @@ public class NeedRequest {
     @Override
     public int hashCode() {
         return Objects.hash(typeOfHelp, helpStatus, statusChange, personInNeed);
+    }
+
+    public void printDescription(){
+        System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()  +
+                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getTypeOfHelp());
     }
 }
