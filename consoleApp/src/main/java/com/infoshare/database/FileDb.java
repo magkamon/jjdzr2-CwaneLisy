@@ -103,7 +103,7 @@ public class FileDb implements DB {
         return result;
     }
 
-    private Volunteer getVolunteer(String email) throws FileNotFoundException {
+    public Volunteer getVolunteer(String email) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(VOLUNTEER_DB_FILE_NAME));
 
