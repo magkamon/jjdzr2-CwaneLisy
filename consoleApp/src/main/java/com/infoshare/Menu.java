@@ -1,5 +1,6 @@
 package com.infoshare;
 
+import com.infoshare.domain.NeedRequest;
 import com.infoshare.service.NeedRequestRepository;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerRepository;
@@ -18,6 +19,8 @@ public class Menu {
             "3. Wyświetl dostępnych wolontariuszy",
             "4. Wyświetl listę osób, potrzebujących pomocy",
             "5. Zmień status wolonatriusza",
+            "6. Podejmij zgłoszenie",
+            "7. Aktualizuj status zgłoszeń",
             "0. Wyjdź z programu"
     };
 
@@ -61,6 +64,14 @@ public class Menu {
                     case 5: {
                         System.out.println("Zmień status wolonatriusza");
                         new VolunteerAvailability().updateAvailability();
+                        break;
+                    }
+                    case 6: {
+                        new NeedRequestService().changeRequestStatus();
+                        break;
+                    }
+                    case 7: {
+                        new NeedRequestService().updateRequestsStatus();
                         break;
                     }
                     case 0: {
