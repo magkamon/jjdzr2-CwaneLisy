@@ -19,7 +19,7 @@ public class UserRegistration {
         Volunteer newVolunteer = new Volunteer(
                 Util.readDataFromConsole(Util.REGISTRATION_NAME,ValidatorEnum.ALPHA),
                 Util.readDataFromConsole(Util.REGISTRATION_LOCATION,ValidatorEnum.ALPHA ),
-                Util.readDataFromConsole(REGISTRATION_EMAIL, ValidatorEnum.EMAIL),
+                Util.readDataFromConsole(REGISTRATION_EMAIL, ValidatorEnum.EMAIL).toLowerCase(),
                 Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER),
                 Util.createTypeOfHelp(),
                 Util.readDataFromConsole(REGISTRATION_AVAILABILITY, ValidatorEnum.YESNO).toUpperCase().equals("Y")
