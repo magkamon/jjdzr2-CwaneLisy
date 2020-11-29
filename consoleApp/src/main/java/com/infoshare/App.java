@@ -14,11 +14,11 @@ public class App
 
     public static void main( String[] args )
     {
-        /*Persistence persistence=new PersistenceImplementation(new JsonStorage(),GlobalLists.INSTANCE
+        Persistence persistence=new PersistenceImplementation(new JsonStorage(),GlobalLists.INSTANCE
         .getVolunteerMap(),
                 GlobalLists.INSTANCE.getNeedRequestMap());
-        new Menu(persistence).start();*/
+        new Menu(persistence).start();
 
-        SpringApplication.run(App.class, args);
+        //SpringApplication.run(App.class, args);
     }
 }

@@ -7,7 +7,7 @@ public class DataValidator {
 
     public static boolean isDataValid(String data, ValidatorEnum regex) {
 
-        return App.isValidatorEnabled ? data.matches(regex.getRegex()) : true;
+        return Config.IS_VALIDATOR_ENABLED.getBooleanValue() ? data.matches(regex.getRegex()) : true;
     }
 }
 
