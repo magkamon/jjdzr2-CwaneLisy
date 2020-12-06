@@ -1,7 +1,6 @@
 package com.infoshare.database;
 
 import com.infoshare.domain.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

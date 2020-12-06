@@ -6,7 +6,6 @@ import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class UserRegistration {
     private static final String REGISTRATION_HEADER = "[Witaj w programie do rejestracji]";

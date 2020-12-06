@@ -19,10 +19,8 @@ public class Volunteer {
         this.isAvailable = isAvailable;
     }
 
-   // public Volunteer(String volunteerAtribute, String atribute, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
-   // }
 
-    @Override  // zrobic toString to itsAvalibe
+    @Override  //TODO zrobic toString to itsAvalibe
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
                 + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';

@@ -4,14 +4,9 @@ import com.infoshare.database.FileDb;
 import com.infoshare.domain.*;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class NeedRequestRepository {

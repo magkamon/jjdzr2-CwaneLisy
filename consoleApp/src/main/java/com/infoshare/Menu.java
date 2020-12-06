@@ -13,7 +13,7 @@ public class Menu {
 
     private static final String HEADER = "Witaj w Helpick!";
     private static final String [] OPTIONS = {
-            "1. Wprowadź nową ofertę wolontariatu",
+            "1. Wprowadź nową ofertę wolontariatu",
             "2. Zgłoś osobę potrzebującą pomocy",
             "3. Wyświetl dostępnych wolontariuszy",
             "4. Wyświetl listę osób, potrzebujących pomocy",
@@ -40,7 +40,7 @@ public class Menu {
 
                 switch (userChoice) {
                     case 1: {
-                        System.out.println("Wprowadź nową ofertę wolontariatu");
+                        System.out.println("Wprowadź nową ofertę wolontariatu");
                         new UserRegistration().register();
                         break;
                     }
