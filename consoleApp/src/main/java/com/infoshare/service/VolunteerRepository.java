@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static com.infoshare.util.Util.createTypeOfHelp;
-
 public class VolunteerRepository {
 
     private static final String DB_FILE = "Volunteer.csv";

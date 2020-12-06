@@ -19,8 +19,6 @@ public class Volunteer {
         this.isAvailable = isAvailable;
     }
 
-   // public Volunteer(String volunteerAtribute, String atribute, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
-   // }
 
     @Override  // zrobic toString to itsAvalibe
     public String toString() {
