@@ -20,7 +20,7 @@ public class Volunteer {
     }
 
 
-    @Override  // zrobic toString to itsAvalibe
+    @Override  //TODO zrobic toString to itsAvalibe
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
                 + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
