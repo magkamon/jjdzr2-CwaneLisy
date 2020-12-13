@@ -82,6 +82,6 @@ public class NeedRequest {
 
     public void printDescription(){
         System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()  +
-                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getTypeOfHelp());
+                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getType());
     }
 }

@@ -28,7 +28,7 @@ public class Volunteer {
 
     public String printDescription(){
         return "Imię wolonatriusza: " + name + ", lokalizacja: " + location + ", adres email: " + email +
-                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getTypeOfHelp() + ", czy dostępny: " + isAvailable;
+                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getType() + ", czy dostępny: " + isAvailable;
     }
 
     @Override

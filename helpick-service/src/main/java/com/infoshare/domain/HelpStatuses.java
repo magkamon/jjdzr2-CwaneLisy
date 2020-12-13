@@ -1,5 +1,6 @@
 package com.infoshare.domain;
 
+
 public enum HelpStatuses {
     NEW("Nowe"), INPROGRESS("Realizacja"), DONE("Wykonane");
 

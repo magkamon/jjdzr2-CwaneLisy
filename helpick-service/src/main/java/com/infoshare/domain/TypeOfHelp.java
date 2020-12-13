@@ -2,13 +2,13 @@ package com.infoshare.domain;
 
 public enum TypeOfHelp {
     SHOPPING("Zrobic zakupy"), WALKING_THE_DOG("Wyprowadzić psa"), HOUSE_HELP("Pomoc domowa");
-    String typeOfHelp;
+    String type;
 
-    TypeOfHelp(String typeOfHelp) {
-        this.typeOfHelp = typeOfHelp;
+    TypeOfHelp(String type) {
+        this.type = type;
     }
 
-    public String getTypeOfHelp() {
-        return typeOfHelp;
+    public String getType() {
+        return type;
     }
 }
