@@ -25,7 +25,7 @@ public class VolunteerService {
 
     }
 
-    public Volunteer searchForVolunteeer(String email) {
+    public Volunteer searchForVolunteer(String email) {
         FileDb database = new FileDb();
         return database.getVolunteer(email);
     }

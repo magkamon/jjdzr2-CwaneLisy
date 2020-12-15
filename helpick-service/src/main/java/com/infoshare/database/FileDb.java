@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class FileDb implements DB {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
-    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
+    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public FileDb() {
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
