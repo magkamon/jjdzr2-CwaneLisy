@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class VolunteerRepository {
@@ -46,7 +47,7 @@ public class VolunteerRepository {
                 String line = scan.nextLine();
                 String[] splited = line.split(",");
                 Volunteer volunteer = new Volunteer(splited[0],splited[1],splited[2],splited[3],
-                        TypeOfHelp.valueOf(splited[4].toUpperCase()),Boolean.parseBoolean(splited[5]));
+                        TypeOfHelp.valueOf(splited[4].toUpperCase()),Boolean.parseBoolean(splited[5]), UUID.randomUUID());
                 volunteersList.add(volunteer);
             }
         } catch (FileNotFoundException e) {

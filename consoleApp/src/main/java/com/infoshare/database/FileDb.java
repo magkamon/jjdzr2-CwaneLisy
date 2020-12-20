@@ -14,7 +14,7 @@ import java.util.*;
 public class FileDb implements DB {
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
-    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // uzywamy df do formatowania i parsowania dat
+    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public FileDb() {
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
@@ -39,7 +39,8 @@ public class FileDb implements DB {
         if (getVolunteer(volunteer.getEmail()) == null) {
             FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, true);
             fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
-                    + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "\n");
+                    + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "," +
+                  volunteer.getID() + "\n");
             fileWriter.close();
         } else {
             List<Volunteer> allVounteers = getVolunteers();
@@ -54,7 +55,7 @@ public class FileDb implements DB {
             FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
             for (Volunteer v : allVounteers) {
                 writer.write(v.getName() + "," + v.getLocation() + "," + v.getEmail() + ","
-                        + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "\n");
+                        + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + ", " + v.getID() + "\n");
             }
             writer.close();
         }
@@ -69,7 +70,7 @@ public class FileDb implements DB {
                 + df.format(needRequest.getStatusChange()) + ",");
 
         fileWriter.write(person.getName() + "," + person.getLocation()
-                + "," + person.getPhone() + "\n");
+                + "," + person.getPhone() + ", " + person.getID() +  "\n");
         fileWriter.close();
     }
 
@@ -81,7 +82,7 @@ public class FileDb implements DB {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] splited = line.split(",");
-            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
+            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], UUID.randomUUID());
             NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
                     , df.parse(splited[2]), person);
             result.add(needRequest);
@@ -97,7 +98,8 @@ public class FileDb implements DB {
             String line = scanner.nextLine();
             String[] volunteerAtributes = line.split(",");
             result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5])));
+                    volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                    Boolean.parseBoolean(volunteerAtributes[5]),UUID.randomUUID()));
         }
         return result;
     }
@@ -111,7 +113,8 @@ public class FileDb implements DB {
             String[] volunteerAtributes = line.split(",");
             if (volunteerAtributes.length >= 6 && volunteerAtributes[2].equals(email)) {
                 return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
-                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5]));
+                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                        Boolean.parseBoolean(volunteerAtributes[5]),UUID.randomUUID());
             }
         }
         return null;

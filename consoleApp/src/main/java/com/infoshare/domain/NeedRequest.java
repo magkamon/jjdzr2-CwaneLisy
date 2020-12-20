@@ -3,11 +3,13 @@ package com.infoshare.domain;
 import java.util.Date;
 import java.util.Objects;
 
+
 public class NeedRequest {
     private TypeOfHelp typeOfHelp;
     private HelpStatuses helpStatus;
     private Date statusChange;
     private PersonInNeed personInNeed;
+
 
 
     public NeedRequest() {
@@ -18,6 +20,7 @@ public class NeedRequest {
         this.helpStatus = helpStatus;
         this.statusChange = statusChange;
         this.personInNeed = personInNeed;
+
     }
 
     public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
@@ -60,9 +63,12 @@ public class NeedRequest {
         this.personInNeed = personInNeed;
     }
 
+
+
     @Override
     public String toString() {
-        return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange=" + statusChange + ", personInNeed=" + personInNeed + '}';
+        return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange=" +
+                statusChange + ", personInNeed=" + personInNeed +  '}';
     }
 
 
@@ -83,5 +89,6 @@ public class NeedRequest {
     public void printDescription(){
         System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()  +
                 ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getTypeOfHelp());
+
     }
 }

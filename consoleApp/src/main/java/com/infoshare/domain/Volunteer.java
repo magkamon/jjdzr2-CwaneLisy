@@ -1,6 +1,7 @@
 package com.infoshare.domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Volunteer {
     private String name;
@@ -9,26 +10,31 @@ public class Volunteer {
     private String phone;
     private TypeOfHelp typeOfHelp;
     private boolean isAvailable;
+    private UUID ID;
 
-    public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp, boolean isAvailable) {
+    public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp
+            , boolean isAvailable, UUID ID) {
         this.name = name;
         this.location = location;
         this.email = email;
         this.phone = phone;
         this.typeOfHelp = typeOfHelp;
         this.isAvailable = isAvailable;
+        this.ID = ID;
     }
 
 
     @Override  //TODO zrobic toString to itsAvalibe
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
-                + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
+                + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable +
+                ", ID=" + ID +'}';
     }
 
     public String printDescription(){
         return "Imię wolonatriusza: " + name + ", lokalizacja: " + location + ", adres email: " + email +
-                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getTypeOfHelp() + ", czy dostępny: " + isAvailable;
+                ", telefon: " + phone + ", rodzaj pomocy: " + typeOfHelp.getTypeOfHelp() + ", czy dostępny: "
+                + isAvailable + " , ID : " + UUID.randomUUID();
     }
 
     @Override
@@ -38,7 +44,7 @@ public class Volunteer {
         Volunteer volunteer = (Volunteer) o;
         return isAvailable == volunteer.isAvailable && name.equals(volunteer.name) && location
                 .equals(volunteer.location) && email.equals(volunteer.email) && phone
-                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp);
+                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp) && ID.equals(ID);
     }
 
     @Override
@@ -92,5 +98,13 @@ public class Volunteer {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public UUID getID() {
+        return ID;
+    }
+
+    public void setID(UUID ID) {
+        this.ID = ID;
     }
 }

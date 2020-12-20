@@ -10,6 +10,7 @@ import com.infoshare.util.ValidatorEnum;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 public class NeedRequestService {
 
@@ -29,7 +30,7 @@ public class NeedRequestService {
         String location=Util.readDataFromConsole(Util.REGISTRATION_LOCATION, ValidatorEnum.ALPHA);
         String phone=Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER);
 
-        return new PersonInNeed(name,location,phone);
+        return new PersonInNeed(name,location,phone, UUID.randomUUID());
     }
 
 }

@@ -6,6 +6,7 @@ import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class UserRegistration {
     private static final String REGISTRATION_HEADER = "[Witaj w programie do rejestracji]";
@@ -21,8 +22,9 @@ public class UserRegistration {
                 Util.readDataFromConsole(REGISTRATION_EMAIL, ValidatorEnum.EMAIL).toLowerCase(),
                 Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER),
                 Util.createTypeOfHelp(),
-                Util.readDataFromConsole(REGISTRATION_AVAILABILITY, ValidatorEnum.YESNO).toUpperCase().equals("Y")
-        );
+                Util.readDataFromConsole(REGISTRATION_AVAILABILITY, ValidatorEnum.YESNO).toUpperCase().equals("Y"),
+                UUID.randomUUID() );
+
         try{
             FileDb database = new FileDb();
             if(database.getVolunteer(newVolunteer.getEmail()) == null ){
