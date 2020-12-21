@@ -7,10 +7,12 @@ import com.infoshare.util.ValidatorEnum;
 
 
 public class VolunteerRegistrationView {
+
     private static final String REGISTRATION_HEADER = "[Witaj w programie do rejestracji]";
     private static final String REGISTRATION_EMAIL = "Podaj e-mail";
     private static final String REGISTRATION_AVAILABILITY = "Czy jesteś dostępny [Y/N]? ";
-    private static final String REGISTRATION_ERROR = "*** Rejestracja nie powiodła się *** Podany adres e-mail już istnieje w bazie danych. ";
+    private static final String REGISTRATION_ERROR = "*** Rejestracja nie powiodła się *** Podany adres e-mail już "
+        + "istnieje w bazie danych. ";
     VolunteerService volunteerService;
 
 
@@ -25,9 +27,11 @@ public class VolunteerRegistrationView {
         String email = Util.readDataFromConsole(REGISTRATION_EMAIL, ValidatorEnum.EMAIL).toLowerCase();
         String phone = Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER);
         TypeOfHelp typeOfHelp = Util.createTypeOfHelp();
-        boolean available = Util.readDataFromConsole(REGISTRATION_AVAILABILITY, ValidatorEnum.YESNO).equalsIgnoreCase("Y");
+        boolean available = Util.readDataFromConsole(REGISTRATION_AVAILABILITY, ValidatorEnum.YESNO)
+            .equalsIgnoreCase("Y");
 
-        boolean isRegistrationSuccess = volunteerService.registerNewVolunteer(name, location, email, phone, typeOfHelp, available);
+        boolean isRegistrationSuccess = volunteerService
+            .registerNewVolunteer(name, location, email, phone, typeOfHelp, available);
         if (!isRegistrationSuccess) {
             System.out.println(REGISTRATION_ERROR);
         }

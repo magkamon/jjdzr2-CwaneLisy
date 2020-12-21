@@ -7,6 +7,7 @@ import com.infoshare.util.ValidatorEnum;
 
 
 public class VolunteerAvailabilityView {
+
     private static final String AVAILABILITY_HEADER = "Czy chcesz zmienić swoją dostępność? [ Y / N ] ";
     private static final String AVAILABILITY_STATUS = "Twoj obecny status w systemie to: ";
     private static final String AVAILABILITY_STATUS_UPDATE = "Twoj status został zmieniony na: ";
@@ -36,7 +37,8 @@ public class VolunteerAvailabilityView {
     }
 
     public void handleVolunteerChangeAvailabilityProcess() {
-        Volunteer volunteer = volunteerService.searchForVolunteer(Util.readDataFromConsole(GET_EMAIL, ValidatorEnum.EMAIL).toLowerCase());
+        Volunteer volunteer = volunteerService
+            .searchForVolunteer(Util.readDataFromConsole(GET_EMAIL, ValidatorEnum.EMAIL).toLowerCase());
         changeAvailability(volunteer);
     }
 

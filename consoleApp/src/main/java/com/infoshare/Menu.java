@@ -4,7 +4,11 @@ import com.infoshare.database.DB;
 import com.infoshare.database.FileDb;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerService;
-import com.infoshare.view.*;
+import com.infoshare.view.NeedRequestRepositoryView;
+import com.infoshare.view.NeedRequestView;
+import com.infoshare.view.VolunteerAvailabilityView;
+import com.infoshare.view.VolunteerRegistrationView;
+import com.infoshare.view.VolunteerRepositoryView;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

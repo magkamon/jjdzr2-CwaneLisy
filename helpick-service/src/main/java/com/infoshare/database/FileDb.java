@@ -1,7 +1,10 @@
 package com.infoshare.database;
 
-import com.infoshare.domain.*;
-
+import com.infoshare.domain.HelpStatuses;
+import com.infoshare.domain.NeedRequest;
+import com.infoshare.domain.PersonInNeed;
+import com.infoshare.domain.TypeOfHelp;
+import com.infoshare.domain.Volunteer;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileDb implements DB {
+
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,7 +44,10 @@ public class FileDb implements DB {
         try {
             if (getVolunteer(volunteer.getEmail()) == null) {
                 try (FileWriter fileWriter = new FileWriter(VOLUNTEER_DB_FILE_NAME, true)) {
-                    fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + "," + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "\n");
+                    fileWriter.write(
+                        volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
+                            + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable()
+                            + "\n");
                 }
             } else {
                 List<Volunteer> allVolunteers = getVolunteers();
@@ -54,7 +61,9 @@ public class FileDb implements DB {
                 allVolunteers.set(index, volunteer);  // gdy chce usunac .remove
                 try (FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false)) {
                     for (Volunteer v : allVolunteers) {
-                        writer.write(v.getName() + "," + v.getLocation() + "," + v.getEmail() + "," + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "\n");
+                        writer.write(
+                            v.getName() + "," + v.getLocation() + "," + v.getEmail() + "," + v.getPhone() + "," + v
+                                .getTypeOfHelp() + "," + v.isAvailable() + "\n");
                     }
                 }
             }
@@ -69,7 +78,8 @@ public class FileDb implements DB {
         try {
             try (FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true)) {
                 PersonInNeed person = needRequest.getPersonInNeed();
-                fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + "," + df.format(needRequest.getStatusChange()) + ",");
+                fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + "," + df
+                    .format(needRequest.getStatusChange()) + ",");
                 fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getPhone() + "\n");
             }
         } catch (IOException e) {
@@ -87,7 +97,8 @@ public class FileDb implements DB {
                     String line = scanner.nextLine();
                     String[] splited = line.split(",");
                     PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
-                    NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1]), df.parse(splited[2]), person);
+                    NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]),
+                        HelpStatuses.valueOf(splited[1]), df.parse(splited[2]), person);
                     result.add(needRequest);
                 }
             }
@@ -105,7 +116,9 @@ public class FileDb implements DB {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] volunteerAtributes = line.split(",");
-                    result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2], volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5])));
+                    result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
+                        volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                        Boolean.parseBoolean(volunteerAtributes[5])));
                 }
             }
         } catch (IOException e) {
@@ -124,7 +137,9 @@ public class FileDb implements DB {
                     String line = scanner.nextLine();
                     String[] volunteerAtributes = line.split(",");
                     if (volunteerAtributes.length >= 6 && volunteerAtributes[2].equalsIgnoreCase(email)) {
-                        return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2], volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]), Boolean.parseBoolean(volunteerAtributes[5]));
+                        return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
+                            volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
+                            Boolean.parseBoolean(volunteerAtributes[5]));
                     }
                 }
             }

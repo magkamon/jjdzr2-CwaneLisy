@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class NeedRequest {
+
     private TypeOfHelp typeOfHelp;
     private HelpStatuses helpStatus;
     private Date statusChange;
@@ -62,17 +63,22 @@ public class NeedRequest {
 
     @Override
     public String toString() {
-        return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange=" + statusChange + ", personInNeed=" + personInNeed + '}';
+        return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange="
+            + statusChange + ", personInNeed=" + personInNeed + '}';
     }
 
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NeedRequest that = (NeedRequest) o;
         return typeOfHelp == that.typeOfHelp && helpStatus == that.helpStatus && statusChange
-                .equals(that.statusChange) && personInNeed.equals(that.personInNeed);
+            .equals(that.statusChange) && personInNeed.equals(that.personInNeed);
     }
 
     @Override
@@ -80,8 +86,9 @@ public class NeedRequest {
         return Objects.hash(typeOfHelp, helpStatus, statusChange, personInNeed);
     }
 
-    public void printDescription(){
-        System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()  +
-                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getType());
+    public void printDescription() {
+        System.out
+            .println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()
+                + ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getType());
     }
 }
