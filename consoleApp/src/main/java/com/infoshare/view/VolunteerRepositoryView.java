@@ -20,7 +20,7 @@ public class VolunteerRepositoryView {
     public void showAvailableVolunteer() {
         String city = Util.readDataFromConsole(CITY_CHOOSE_HEADER, ValidatorEnum.POLISHSIGNS);
         TypeOfHelp typeOfHelp = Util.createTypeOfHelp();
-        List<Volunteer> filteredList = volunteerService.printFilteredList(city, typeOfHelp);
+        List<Volunteer> filteredList = volunteerService.getVolunteerFilteredList(city, typeOfHelp);
         if (filteredList.isEmpty()) {
             System.out.println("Brak dostępnych wolontariuszy");
         } else {

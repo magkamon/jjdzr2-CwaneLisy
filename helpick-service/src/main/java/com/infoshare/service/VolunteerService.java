@@ -1,51 +1,50 @@
 package com.infoshare.service;
 
-import com.infoshare.database.FileDb;
+import com.infoshare.database.DB;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Component
 public class VolunteerService {
 
+    DB db;
 
-    public List<Volunteer> printFilteredList(String city, TypeOfHelp typeOfHelp) {
-        FileDb fileDb = new FileDb();
+    @Autowired
+    public VolunteerService(DB db) {
+        this.db = db;
+    }
 
-        List<Volunteer> availableVolunteers = fileDb.getVolunteers();
-        List<Volunteer> filteredList;
-        filteredList = availableVolunteers.stream().
-                filter(Volunteer::isAvailable).
-                filter(v -> v.getLocation().equalsIgnoreCase(city)).
-                filter(v -> v.getTypeOfHelp().equals(typeOfHelp)).
-                collect(Collectors.toList());
-        return filteredList;
-
+    public List<Volunteer> getVolunteerFilteredList(String city, TypeOfHelp typeOfHelp) {
+        return db.getVolunteers().stream()
+            .filter(Volunteer::isAvailable)
+            .filter(v -> v.getLocation().equalsIgnoreCase(city))
+            .filter(v -> v.getTypeOfHelp().equals(typeOfHelp))
+            .collect(Collectors.toList());
     }
 
     public Volunteer searchForVolunteer(String email) {
-        FileDb database = new FileDb();
-        return database.getVolunteer(email);
+        return db.getVolunteer(email);
     }
 
     public boolean updateAvailability(Volunteer volunteer) {
-        FileDb database = new FileDb();
         if (volunteer != null) {
             volunteer.setAvailable(!volunteer.isAvailable());
-            database.saveVolunteer(volunteer);
+            db.saveVolunteer(volunteer);
             return true;
         } else {
             return false;
         }
     }
-    public boolean registerNewVolunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp, boolean availability) {
 
+    public boolean registerNewVolunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp,
+        boolean availability) {
         Volunteer newVolunteer = new Volunteer(name, location, email, phone, typeOfHelp, availability);
-        FileDb database = new FileDb();
-        if (database.getVolunteer(newVolunteer.getEmail()) == null) {
-            database.saveVolunteer(newVolunteer);
+        if (db.getVolunteer(newVolunteer.getEmail()) == null) {
+            db.saveVolunteer(newVolunteer);
             return true;
         } else {
             return false;

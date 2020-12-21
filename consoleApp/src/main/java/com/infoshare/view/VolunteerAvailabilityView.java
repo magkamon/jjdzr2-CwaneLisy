@@ -35,7 +35,7 @@ public class VolunteerAvailabilityView {
         }
     }
 
-    public void searchForVolunteer() {
+    public void handleVolunteerChangeAvailabilityProcess() {
         Volunteer volunteer = volunteerService.searchForVolunteer(Util.readDataFromConsole(GET_EMAIL, ValidatorEnum.EMAIL).toLowerCase());
         changeAvailability(volunteer);
     }

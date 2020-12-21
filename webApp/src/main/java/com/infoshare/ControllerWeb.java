@@ -24,7 +24,7 @@ public class ControllerWeb {
     @GetMapping("/volunteers")
     @ResponseBody
     public String getVolunteersFromCityWalkingTheDog(@RequestParam String city) {
-        List<Volunteer> volunteerList = volunteerService.printFilteredList(city, TypeOfHelp.WALKING_THE_DOG);
+        List<Volunteer> volunteerList = volunteerService.getVolunteerFilteredList(city, TypeOfHelp.WALKING_THE_DOG);
         return volunteerList.toString();
     }
 }

@@ -12,12 +12,6 @@
     <artifactId>webApp</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <java.version>8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.infoshare</groupId>

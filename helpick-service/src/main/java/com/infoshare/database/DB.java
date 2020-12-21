@@ -14,4 +14,6 @@ public interface DB {
     void saveNeedRequest(NeedRequest needRequest);
 
     List<NeedRequest> getNeedRequests();
+
+    public Volunteer getVolunteer(String email);
 }

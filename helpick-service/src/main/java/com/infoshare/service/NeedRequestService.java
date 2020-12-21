@@ -1,35 +1,37 @@
 package com.infoshare.service;
 
-import com.infoshare.database.FileDb;
+import com.infoshare.database.DB;
 import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class NeedRequestService {
 
+    DB db;
+
+    @Autowired
+    public NeedRequestService(DB db) {
+        this.db = db;
+    }
+
     public void createNeedRequest(String name, String location, String phone, TypeOfHelp typeOfHelp) {
         PersonInNeed personInNeed = new PersonInNeed(name, location, phone);
         NeedRequest needRequest = new NeedRequest(typeOfHelp, HelpStatuses.NEW, new Date(), personInNeed);
-        new FileDb().saveNeedRequest(needRequest);
+        db.saveNeedRequest(needRequest);
     }
 
-    public List<NeedRequest> printFilteredList(String city, TypeOfHelp typeOfHelp) {
-        FileDb fileDb = new FileDb();
-        List<NeedRequest> activeNeedRequests = fileDb.getNeedRequests();
-        List<NeedRequest> filteredList;
-        filteredList = activeNeedRequests.stream().
-                filter(req -> req.getHelpStatus().equals(HelpStatuses.NEW)).
-                filter(req -> req.getPersonInNeed().getLocation().equalsIgnoreCase(city)).
-                filter(req -> req.getTypeOfHelp().equals(typeOfHelp)).
-                collect(Collectors.toList());
-        return filteredList;
+    public List<NeedRequest> getNeedRequestFilteredList(String city, TypeOfHelp typeOfHelp) {
+        return db.getNeedRequests().stream()
+            .filter(n -> n.getHelpStatus().equals(HelpStatuses.NEW))
+            .filter(n -> n.getTypeOfHelp().equals(typeOfHelp))
+            .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
+            .collect(Collectors.toList());
     }
-
 }

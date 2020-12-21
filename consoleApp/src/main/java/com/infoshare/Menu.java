@@ -1,5 +1,7 @@
 package com.infoshare;
 
+import com.infoshare.database.DB;
+import com.infoshare.database.FileDb;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerService;
 import com.infoshare.view.*;
@@ -9,10 +11,20 @@ import java.util.Scanner;
 
 
 public class Menu {
-    private NeedRequestService needRequestService = new NeedRequestService();
-    private VolunteerService volunteerService = new VolunteerService();
+
     private static final String HEADER = "Witaj w Helpick!";
-    private static final String[] OPTIONS = {"1. Wprowadź nową ofertę wolontariatu", "2. Zgłoś osobę potrzebującą pomocy", "3. Wyświetl dostępnych wolontariuszy", "4. Wyświetl listę osób, potrzebujących pomocy", "5. Zmień status wolonatriusza", "0. Wyjdź z programu"};
+    private static final String[] OPTIONS = {"1. Wprowadź nową ofertę wolontariatu",
+        "2. Zgłoś osobę potrzebującą pomocy", "3. Wyświetl dostępnych wolontariuszy",
+        "4. Wyświetl listę osób, potrzebujących pomocy", "5. Zmień status wolonatriusza", "0. Wyjdź z programu"};
+    private final DB db;
+    private NeedRequestService needRequestService;
+    private VolunteerService volunteerService;
+
+    public Menu() {
+        this.db = new FileDb();
+        this.needRequestService = new NeedRequestService(db);
+        this.volunteerService = new VolunteerService(db);
+    }
 
     public void start() {
         System.out.println(HEADER);
@@ -51,8 +63,8 @@ public class Menu {
                     break;
                 }
                 case 5: {
-                    System.out.println("Zmień status wolonatriusza");
-                    new VolunteerAvailabilityView(volunteerService).searchForVolunteer();
+                    System.out.println("Zmień status wolontariusza");
+                    new VolunteerAvailabilityView(volunteerService).handleVolunteerChangeAvailabilityProcess();
                     break;
                 }
                 case 0: {

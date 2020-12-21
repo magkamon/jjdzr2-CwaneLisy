@@ -43,17 +43,17 @@ public class FileDb implements DB {
                     fileWriter.write(volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + "," + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable() + "\n");
                 }
             } else {
-                List<Volunteer> allVounteers = getVolunteers();
+                List<Volunteer> allVolunteers = getVolunteers();
                 int index = -1;
-                for (int i = 0; i < allVounteers.size(); i++) {
-                    Volunteer v = allVounteers.get(i);
+                for (int i = 0; i < allVolunteers.size(); i++) {
+                    Volunteer v = allVolunteers.get(i);
                     if (v.getEmail().equals(volunteer.getEmail())) {
                         index = i;
                     }
                 }
-                allVounteers.set(index, volunteer);  // gdy chce usunac .remove
+                allVolunteers.set(index, volunteer);  // gdy chce usunac .remove
                 try (FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false)) {
-                    for (Volunteer v : allVounteers) {
+                    for (Volunteer v : allVolunteers) {
                         writer.write(v.getName() + "," + v.getLocation() + "," + v.getEmail() + "," + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "\n");
                     }
                 }
@@ -114,6 +114,7 @@ public class FileDb implements DB {
         return result;
     }
 
+    @Override
     public Volunteer getVolunteer(String email) {
 
         try {
