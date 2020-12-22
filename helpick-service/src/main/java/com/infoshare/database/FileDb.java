@@ -5,6 +5,8 @@ import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+@Component
 public class FileDb implements DB {
 
     private static final String VOLUNTEER_DB_FILE_NAME = "Volunteer.csv";
