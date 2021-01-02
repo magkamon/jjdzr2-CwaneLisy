@@ -14,22 +14,21 @@ public class FileDbTest {
     public static void main(String[] args) throws IOException, ParseException {
         DB fileDb = new FileDb();
         PersonInNeed personInNeed = new PersonInNeed("Basia", "Gdańsk",
-                "500300700", UUID.randomUUID());
+                "500300700");
         PersonInNeed personInNeed1 = new PersonInNeed("Rafał", "Elblag",
-                "800456789",UUID.randomUUID());
+                "800456789");
         PersonInNeed personInNeed2 = new PersonInNeed("Magda", "porun",
-                "636536",UUID.randomUUID());
+                "636536");
         PersonInNeed personInNeed3 = new PersonInNeed("Magdal", "porun",
-                "636536",UUID.randomUUID());
+                "636536");
 
-        NeedRequest needRequest = new NeedRequest(TypeOfHelp.WALKING_THE_DOG, HelpStatuses.NEW, new Date(),
-                personInNeed);
-        NeedRequest needRequest1 = new NeedRequest(TypeOfHelp.SHOPPING, HelpStatuses.INPROGRESS, new Date(),
-                personInNeed1);
-        NeedRequest needRequest2 = new NeedRequest(TypeOfHelp.HOUSE_HELP, HelpStatuses.DONE, new Date(),
-                personInNeed2);
-        NeedRequest needRequest3 = new NeedRequest(TypeOfHelp.HOUSE_HELP, HelpStatuses.DONE, new Date(),
-                personInNeed3);
+      //  NeedRequest needRequest = new NeedRequest(TypeOfHelp.WALKING_THE_DOG, HelpStatuses.NEW, new Date(),
+           //  /   personInNeed,UUID.randomUUID());
+      //  NeedRequest needRequest1 = new NeedRequest(TypeOfHelp.SHOPPING, HelpStatuses.INPROGRESS, new Date(),
+           //     personInNeed1,UUID.randomUUID());
+//        NeedRequest needRequest3 = new NeedRequest(TypeOfHelp.HOUSE_HELP, HelpStatuses.DONE, new Date(),
+         //       personInNeed3,UUID.randomUUID());
+        NeedRequest needRequest4 = new NeedRequest(TypeOfHelp.WALKING_THE_DOG,HelpStatuses.NEW,new Date(),personInNeed,UUID.randomUUID());
 
 
 
@@ -59,10 +58,11 @@ public class FileDbTest {
         fileDb.saveVolunteer(volunteer5);
         fileDb.saveVolunteer(volunteer6);
         fileDb.saveVolunteer(volunteer7);
-        fileDb.saveNeedRequest(needRequest);
-        fileDb.saveNeedRequest(needRequest1);
-        fileDb.saveNeedRequest(needRequest2);
-        fileDb.saveNeedRequest(needRequest3);
+       // fileDb.saveNeedRequest(needRequest);
+      //  fileDb.saveNeedRequest(needRequest1);
+      //  fileDb.saveNeedRequest(needRequest2);
+      //  fileDb.saveNeedRequest(needRequest3);
+        fileDb.saveNeedRequest(needRequest4);
         //System.out.println(fileDb.getVolunteers());
       //  System.out.println(fileDb.getAllNeedRequests());
     }

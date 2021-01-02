@@ -17,7 +17,7 @@ public class NeedRequestService {
     public void createNeedRequest() {
         PersonInNeed personInNeed=createPersonInNeed();
         TypeOfHelp typeOfHelp= Util.createTypeOfHelp();
-        NeedRequest needRequest=new NeedRequest(typeOfHelp, HelpStatuses.NEW,new Date(),personInNeed);
+        NeedRequest needRequest=new NeedRequest(typeOfHelp, HelpStatuses.NEW,new Date(),personInNeed,UUID.randomUUID());
         try {
             new FileDb().saveNeedRequest(needRequest);
         } catch (IOException e) {
@@ -30,7 +30,7 @@ public class NeedRequestService {
         String location=Util.readDataFromConsole(Util.REGISTRATION_LOCATION, ValidatorEnum.ALPHA);
         String phone=Util.readDataFromConsole(Util.REGISTRATION_PHONE_NUMBER, ValidatorEnum.PHONENUMBER);
 
-        return new PersonInNeed(name,location,phone, UUID.randomUUID());
+        return new PersonInNeed(name,location,phone);
     }
 
 }

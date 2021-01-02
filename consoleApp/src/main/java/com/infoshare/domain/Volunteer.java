@@ -10,7 +10,7 @@ public class Volunteer {
     private String phone;
     private TypeOfHelp typeOfHelp;
     private boolean isAvailable;
-    private UUID ID;
+    private final UUID ID;
 
     public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp
             , boolean isAvailable, UUID ID) {
@@ -24,7 +24,7 @@ public class Volunteer {
     }
 
 
-    @Override  //TODO zrobic toString to itsAvalibe
+    @Override
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
                 + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable +
@@ -44,7 +44,7 @@ public class Volunteer {
         Volunteer volunteer = (Volunteer) o;
         return isAvailable == volunteer.isAvailable && name.equals(volunteer.name) && location
                 .equals(volunteer.location) && email.equals(volunteer.email) && phone
-                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp) && ID.equals(ID);
+                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp) && ID.equals(volunteer.ID);
     }
 
     @Override
@@ -102,9 +102,5 @@ public class Volunteer {
 
     public UUID getID() {
         return ID;
-    }
-
-    public void setID(UUID ID) {
-        this.ID = ID;
     }
 }

@@ -16,6 +16,7 @@ public class FileDb implements DB {
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+
     public FileDb() {
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
             try {
@@ -67,10 +68,8 @@ public class FileDb implements DB {
         FileWriter fileWriter = new FileWriter(REQUEST_DB_FILE, true);
         PersonInNeed person = needRequest.getPersonInNeed();
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
-                + df.format(needRequest.getStatusChange()) + ",");
-
-        fileWriter.write(person.getName() + "," + person.getLocation()
-                + "," + person.getPhone() + ", " + person.getID() +  "\n");
+                + df.format(needRequest.getStatusChange()) + "," +person.getName() + "," + person.getLocation()
+                + "," + person.getPhone() + ", " +  UUID.randomUUID());
         fileWriter.close();
     }
 
@@ -82,9 +81,9 @@ public class FileDb implements DB {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] splited = line.split(",");
-            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5], UUID.randomUUID());
+            PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
             NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
-                    , df.parse(splited[2]), person);
+                    , df.parse(splited[2]),person);
             result.add(needRequest);
         }
         return result;

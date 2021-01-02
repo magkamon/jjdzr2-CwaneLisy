@@ -2,25 +2,25 @@ package com.infoshare.domain;
 
 import java.util.Date;
 import java.util.Objects;
-
+import java.util.UUID;
 
 public class NeedRequest {
     private TypeOfHelp typeOfHelp;
     private HelpStatuses helpStatus;
     private Date statusChange;
     private PersonInNeed personInNeed;
+    private UUID ID;
 
-
-
-    public NeedRequest() {
+    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatuses, Date parse, PersonInNeed person) {
     }
 
-    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed) {
+    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed,
+                       UUID ID) {
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = helpStatus;
         this.statusChange = statusChange;
         this.personInNeed = personInNeed;
-
+        this.ID = ID;
     }
 
     public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
@@ -64,13 +64,11 @@ public class NeedRequest {
     }
 
 
-
     @Override
     public String toString() {
         return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange=" +
                 statusChange + ", personInNeed=" + personInNeed +  '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,8 +85,7 @@ public class NeedRequest {
     }
 
     public void printDescription(){
-        System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()  +
-                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getTypeOfHelp());
-
-    }
+        System.out.println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " +
+                personInNeed.getLocation()  +
+                ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getTypeOfHelp());}
 }
