@@ -3,6 +3,7 @@ package com.infoshare.domain;
 import java.util.Objects;
 
 public class PersonInNeed {
+
     private String name;
     private String location;
     private String phone;
@@ -44,11 +45,15 @@ public class PersonInNeed {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PersonInNeed that = (PersonInNeed) o;
         return name.equals(that.name) && location.equals(that.location) && phone
-                .equals(that.phone);
+            .equals(that.phone);
     }
 
     @Override
@@ -58,6 +63,7 @@ public class PersonInNeed {
 
     @Override
     public String toString() {
-        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location + '\'' + '\'' + ", phone='" + phone + '\'' + '}';
+        return "PersonInNeed{" + "name='" + name + '\'' + ", location='" + location + '\'' + '\'' + ", phone='" + phone
+            + '\'' + '}';
     }
 }
