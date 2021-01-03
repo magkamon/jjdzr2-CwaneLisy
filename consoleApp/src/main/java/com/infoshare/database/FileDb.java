@@ -52,15 +52,14 @@ public class FileDb implements DB {
                     index = i;
                 }
             }
-            allVounteers.set(index, volunteer);  // gdy chce usunac .remove
+            allVounteers.set(index, volunteer);
             FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false);
             for (Volunteer v : allVounteers) {
                 writer.write(v.getName() + "," + v.getLocation() + "," + v.getEmail() + ","
-                        + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + ", " + v.getID() + "\n");
+                        + v.getPhone() + "," + v.getTypeOfHelp() + "," + v.isAvailable() + "," + v.getID() + "\n");
             }
             writer.close();
         }
-
     }
 
     @Override
@@ -69,7 +68,7 @@ public class FileDb implements DB {
         PersonInNeed person = needRequest.getPersonInNeed();
         fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + ","
                 + df.format(needRequest.getStatusChange()) + "," +person.getName() + "," + person.getLocation()
-                + "," + person.getPhone() + ", " +  UUID.randomUUID());
+                + "," + person.getPhone() + "," +  UUID.randomUUID() + "\n");
         fileWriter.close();
     }
 
