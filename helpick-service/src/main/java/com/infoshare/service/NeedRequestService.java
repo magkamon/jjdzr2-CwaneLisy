@@ -34,4 +34,7 @@ public class NeedRequestService {
             .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
             .collect(Collectors.toList());
     }
+    public List<NeedRequest>getAllNeedRequest(){
+       return db.getNeedRequests();
+    }
 }
