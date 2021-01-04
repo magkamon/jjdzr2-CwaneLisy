@@ -1,4 +1,4 @@
-package com.infoshare;
+package com.infoshare.controller;
 
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.formObjects.NeedRequestForm;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class NeedRequestController {
-    NeedRequestService needRequestService;
+    private final NeedRequestService needRequestService;
 
     @Autowired
     public NeedRequestController(NeedRequestService needRequestService) {
@@ -44,31 +44,26 @@ public class NeedRequestController {
     }
 
     @GetMapping("/searchForNeedRequest")
-    @ResponseBody
     public String searchForNeedRequest(Model model) {
         return "";
     }
 
     @GetMapping("/editNeedRequest")
-    @ResponseBody
     public String editNeedRequest(Model model) {
         return "";
     }
 
     @GetMapping("/associateNeedRequestToVolunteer")
-    @ResponseBody
     public String associateNeedRequestToVolunteer(Model model) {
         return "";
     }
 
     @GetMapping("/addCommentToNeedRequest")
-    @ResponseBody
     public String addCommentToNeedRequest(Model model) {
         return "";
     }
 
     @GetMapping("/browseHistoryOfNeedRequest")
-    @ResponseBody
     public String browseHistoryOfNeedRequest(Model model) {
         return "";
     }

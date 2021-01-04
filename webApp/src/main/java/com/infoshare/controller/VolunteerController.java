@@ -1,4 +1,4 @@
-package com.infoshare;
+package com.infoshare.controller;
 
 import com.infoshare.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class VolunteerController {
 
-    VolunteerService volunteerService;
+    private final VolunteerService volunteerService;
 
     @Autowired
     public VolunteerController(VolunteerService volunteerService) {
@@ -19,25 +19,21 @@ public class VolunteerController {
     }
 
     @GetMapping("/createVolunteer")
-    @ResponseBody
     public String createVolunteer(Model model) {
         return "";
     }
 
     @GetMapping("/searchForVolunteer")
-    @ResponseBody
     public String searchForVolunteer(Model model) {
         return "";
     }
 
     @GetMapping("/editVolunteer")
-    @ResponseBody
     public String editVolunteer(Model model) {
         return "";
     }
 
     @GetMapping("/changeVolunteerStatus")
-    @ResponseBody
     public String changeVolunteerStatus(Model model) {
         return "";
     }
