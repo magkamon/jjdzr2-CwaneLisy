@@ -28,7 +28,8 @@ public class FileDbTest {
            //     personInNeed1,UUID.randomUUID());
 //        NeedRequest needRequest3 = new NeedRequest(TypeOfHelp.HOUSE_HELP, HelpStatuses.DONE, new Date(),
          //       personInNeed3,UUID.randomUUID());
-        NeedRequest needRequest4 = new NeedRequest(TypeOfHelp.WALKING_THE_DOG,HelpStatuses.NEW,new Date(),personInNeed,UUID.randomUUID());
+        NeedRequest needRequest4 = new NeedRequest(TypeOfHelp.WALKING_THE_DOG,HelpStatuses.NEW,new Date(),personInNeed,
+                UUID.randomUUID());
 
 
 

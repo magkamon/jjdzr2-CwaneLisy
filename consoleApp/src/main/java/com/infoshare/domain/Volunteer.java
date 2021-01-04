@@ -10,25 +10,24 @@ public class Volunteer {
     private String phone;
     private TypeOfHelp typeOfHelp;
     private boolean isAvailable;
-    private final UUID ID;
+    private  final UUID id ;
 
     public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp
-            , boolean isAvailable, UUID ID) {
+            , boolean isAvailable, UUID id) {
         this.name = name;
         this.location = location;
         this.email = email;
         this.phone = phone;
         this.typeOfHelp = typeOfHelp;
         this.isAvailable = isAvailable;
-        this.ID = ID;
+        this.id = id;
     }
-
 
     @Override
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
                 + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable +
-                ", ID=" + ID +'}';
+                ", ID=" + id +'}';
     }
 
     public String printDescription(){
@@ -44,7 +43,7 @@ public class Volunteer {
         Volunteer volunteer = (Volunteer) o;
         return isAvailable == volunteer.isAvailable && name.equals(volunteer.name) && location
                 .equals(volunteer.location) && email.equals(volunteer.email) && phone
-                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp) && ID.equals(volunteer.ID);
+                .equals(volunteer.phone) && typeOfHelp.equals(volunteer.typeOfHelp) && id.equals(volunteer.id);
     }
 
     @Override
@@ -101,6 +100,6 @@ public class Volunteer {
     }
 
     public UUID getID() {
-        return ID;
+        return id;
     }
 }

@@ -16,7 +16,6 @@ public class FileDb implements DB {
     private static final String REQUEST_DB_FILE = "NeedRequest.csv";
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-
     public FileDb() {
         if (!Files.exists(Paths.get(VOLUNTEER_DB_FILE_NAME))) {
             try {
@@ -82,7 +81,7 @@ public class FileDb implements DB {
             String[] splited = line.split(",");
             PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
             NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]), HelpStatuses.valueOf(splited[1])
-                    , df.parse(splited[2]),person);
+                    , df.parse(splited[2]),person,UUID.randomUUID());
             result.add(needRequest);
         }
         return result;

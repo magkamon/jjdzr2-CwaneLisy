@@ -9,25 +9,23 @@ public class NeedRequest {
     private HelpStatuses helpStatus;
     private Date statusChange;
     private PersonInNeed personInNeed;
-    private UUID ID;
-
-    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatuses, Date parse, PersonInNeed person) {
-    }
+    private  final UUID id;
 
     public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed,
-                       UUID ID) {
+                       UUID id) {
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = helpStatus;
         this.statusChange = statusChange;
         this.personInNeed = personInNeed;
-        this.ID = ID;
+        this.id = id;
     }
 
-    public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
+    public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed,UUID id) {
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = HelpStatuses.NEW;
         this.statusChange = new Date();
         this.personInNeed = personInNeed;
+        this.id= id;
     }
 
 
@@ -63,6 +61,9 @@ public class NeedRequest {
         this.personInNeed = personInNeed;
     }
 
+    public UUID getId() {
+        return id;
+    }
 
     @Override
     public String toString() {
