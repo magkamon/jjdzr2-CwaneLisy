@@ -1,14 +1,20 @@
 package com.infoshare.controller;
 
+import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.TypeOfHelp;
-import com.infoshare.formObjects.NeedRequestForm;
+import com.infoshare.formobjects.NeedRequestForm;
 import com.infoshare.service.NeedRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.List;
@@ -23,15 +29,21 @@ public class NeedRequestController {
         this.needRequestService = needRequestService;
     }
 
-  @PostMapping("/need-request-form")
-  public String createNeedRequestFromForm(@ModelAttribute("needRequestForm") NeedRequestForm needRequestForm) {
-    System.out.println(needRequestForm.getName());
-    System.out.println(needRequestForm.getLocation());
-    System.out.println(needRequestForm.getPhone());
-    System.out.println(needRequestForm.getTypeOfHelp());
-    needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
-    return "start";
-  }
+    @PostMapping("/needRequestForm")
+    public String createNeedRequestFromForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
+      if (br.hasErrors()) {
+        List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
+        model.addAttribute("types", typeOfHelp);
+        return "createNeedRequestForm";
+      } else {
+        System.out.println(needRequestForm.getName());
+        System.out.println(needRequestForm.getLocation());
+        System.out.println(needRequestForm.getPhone());
+        System.out.println(needRequestForm.getTypeOfHelp());
+        needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
+        return "redirect:/printAllNeedRequest";
+      }
+    }
 
     @GetMapping("/create")
     public String createNeedRequest(Model model) {
