@@ -31,18 +31,14 @@ public class NeedRequestController {
 
     @PostMapping("/needRequestForm")
     public String createNeedRequestFromForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
-      if (br.hasErrors()) {
-        List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
-        model.addAttribute("types", typeOfHelp);
-        return "createNeedRequestForm";
-      } else {
-        System.out.println(needRequestForm.getName());
-        System.out.println(needRequestForm.getLocation());
-        System.out.println(needRequestForm.getPhone());
-        System.out.println(needRequestForm.getTypeOfHelp());
-        needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
-        return "redirect:/printAllNeedRequest";
-      }
+        if (br.hasErrors()) {
+            List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
+            model.addAttribute("types", typeOfHelp);
+            return "createNeedRequestForm";
+        } else {
+            needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
+            return "redirect:/printAllNeedRequest";
+        }
     }
 
     @GetMapping("/create")
