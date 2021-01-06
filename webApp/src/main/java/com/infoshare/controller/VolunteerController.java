@@ -20,29 +20,26 @@ public class VolunteerController {
 
     @GetMapping("/create")
     public String createVolunteer(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
     @GetMapping("/search")
     public String searchForVolunteer(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
     @GetMapping("/edit")
     public String editVolunteer(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-    @GetMapping("/changeStatus")
+    @GetMapping("/change-status")
     public String changeVolunteerStatus(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
-    
-    private Model getMessage(Model model) {
-        return model.addAttribute("message", "This page is under construction...");
+
+    private String getTestViewWithPageUnderConstructionMessage(Model model) {
+        model.addAttribute("message", "This page is under construction...");
+        return "test-view";
     }
 }

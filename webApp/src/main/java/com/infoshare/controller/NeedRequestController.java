@@ -19,41 +19,36 @@ public class NeedRequestController {
 
     @GetMapping("/create")
     public String createNeedRequest(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
     @GetMapping("/search")
     public String searchForNeedRequest(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
     @GetMapping("/edit")
     public String editNeedRequest(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-    @GetMapping("/associateToVolunteer")
+    @GetMapping("/associate-to-volunteer")
     public String associateNeedRequestToVolunteer(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-    @GetMapping("/addComment")
+    @GetMapping("/add-comment")
     public String addCommentToNeedRequest(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-    @GetMapping("/browseHistory")
+    @GetMapping("/browse-history")
     public String browseHistoryOfNeedRequest(Model model) {
-        getMessage(model);
-        return "test-view";
+        return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-    private Model getMessage(Model model) {
-        return model.addAttribute("message", "This page is under construction...");
+    private String getTestViewWithPageUnderConstructionMessage(Model model) {
+        model.addAttribute("message", "This page is under construction...");
+        return "test-view";
     }
 }
