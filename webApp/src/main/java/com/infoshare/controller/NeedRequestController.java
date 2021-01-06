@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("need-request")
 public class NeedRequestController {
     private final NeedRequestService needRequestService;
 
@@ -16,33 +17,43 @@ public class NeedRequestController {
         this.needRequestService = needRequestService;
     }
 
-    @GetMapping("/createNeedRequest")
+    @GetMapping("/create")
     public String createNeedRequest(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/searchForNeedRequest")
+    @GetMapping("/search")
     public String searchForNeedRequest(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/editNeedRequest")
+    @GetMapping("/edit")
     public String editNeedRequest(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/associateNeedRequestToVolunteer")
+    @GetMapping("/associateToVolunteer")
     public String associateNeedRequestToVolunteer(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/addCommentToNeedRequest")
+    @GetMapping("/addComment")
     public String addCommentToNeedRequest(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/browseHistoryOfNeedRequest")
+    @GetMapping("/browseHistory")
     public String browseHistoryOfNeedRequest(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
+    }
+
+    private Model getMessage(Model model) {
+        return model.addAttribute("message", "This page is under construction...");
     }
 }

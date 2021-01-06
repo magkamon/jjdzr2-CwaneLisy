@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("volunteer")
 public class VolunteerController {
 
     private final VolunteerService volunteerService;
@@ -15,26 +16,33 @@ public class VolunteerController {
     @Autowired
     public VolunteerController(VolunteerService volunteerService) {
         this.volunteerService = volunteerService;
-
     }
 
-    @GetMapping("/createVolunteer")
+    @GetMapping("/create")
     public String createVolunteer(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/searchForVolunteer")
+    @GetMapping("/search")
     public String searchForVolunteer(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/editVolunteer")
+    @GetMapping("/edit")
     public String editVolunteer(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
     }
 
-    @GetMapping("/changeVolunteerStatus")
+    @GetMapping("/changeStatus")
     public String changeVolunteerStatus(Model model) {
-        return "";
+        getMessage(model);
+        return "test-view";
+    }
+    
+    private Model getMessage(Model model) {
+        return model.addAttribute("message", "This page is under construction...");
     }
 }
