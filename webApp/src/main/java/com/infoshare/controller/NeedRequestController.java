@@ -42,10 +42,6 @@ public class NeedRequestController {
             model.addAttribute("types", typeOfHelp);
             return "createNeedRequestForm";
         } else {
-            System.out.println(needRequestForm.getName());
-            System.out.println(needRequestForm.getLocation());
-            System.out.println(needRequestForm.getPhone());
-            System.out.println(needRequestForm.getTypeOfHelp());
             needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
             return "redirect:/printAllNeedRequest";
         }

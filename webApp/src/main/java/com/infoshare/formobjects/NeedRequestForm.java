@@ -1,16 +1,15 @@
 package com.infoshare.formobjects;
 
 import com.infoshare.domain.TypeOfHelp;
-import com.infoshare.validator.FormValidator;
-
-import javax.validation.constraints.Pattern;
+import com.infoshare.util.ValidatorEnum;
+import com.infoshare.validator.RegExpPattern;
 
 public class NeedRequestForm {
-    @Pattern(regexp = FormValidator.POLISHSIGNS, message = FormValidator.POLISHSIGNS_ERROR)
+    @RegExpPattern(regexp = ValidatorEnum.POLISHSIGNS)
     private String name;
-    @Pattern(regexp = FormValidator.POLISHSIGNS, message = FormValidator.POLISHSIGNS_ERROR)
+    @RegExpPattern(regexp = ValidatorEnum.POLISHSIGNS)
     private String location;
-    @Pattern(regexp = FormValidator.PHONENUMBER, message = FormValidator.PHONENUMBER_ERROR)
+    @RegExpPattern(regexp = ValidatorEnum.PHONENUMBER)
     private String phone;
     private TypeOfHelp typeOfHelp;
 

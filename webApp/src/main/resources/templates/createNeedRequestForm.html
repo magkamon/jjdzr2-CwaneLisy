@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" th:href="@{formStyle.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <form action="#" method="post" th:object="${needRequestForm}" th:action="@{/needRequestForm}">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}"/><br/>
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span><br/>
-    <label>Location:</label>
-    <input type="text" th:field="*{location}"/><br/>
-    <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span><br/>
-    <label>Phone:</label>
-    <input type="text" th:field="*{phone}"/><br/>
-    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span><br/>
-    <label>Type of help:</label>
-    <select th:field="*{typeOfHelp}">
-        <option th:each="element: ${types}" th:value="${element}" th:text="${element.type}"/>
-    </select><br/>
-    <button type="submit">register</button>
+    <fieldset>
+        <legend>Dane do zgłoszenia pomocy</legend>
+        <label>Imię i nazwisko:</label>
+        <input type="text" th:field="*{name}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label>Miasto:</label>
+        <input type="text" th:field="*{location}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
+        <label>Telefon:</label>
+        <input type="text" th:field="*{phone}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        <label>Rodzaj pomocy:</label>
+        <select class="paddingClass" th:field="*{typeOfHelp}">
+            <option th:each="element: ${types}" th:value="${element}" th:text="${element.type}"/>
+        </select><br/>
+        <button type="submit">Zapisz</button>
+    </fieldset>
 </form>
 
 </body>
