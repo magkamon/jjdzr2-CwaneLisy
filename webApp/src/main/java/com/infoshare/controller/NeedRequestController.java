@@ -36,7 +36,7 @@ public class NeedRequestController {
             return "submit-new-form";
         } else {
             needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
-            return "redirect:/printAllNeedRequest";
+            return "redirect:/need-request/print-all-need-request";
         }
     }
 
@@ -48,7 +48,7 @@ public class NeedRequestController {
       return "need-request-form";
     }
 
-    @GetMapping("/printAllNeedRequest")
+    @GetMapping("/print-all-need-request")
     @ResponseBody
     public List<NeedRequest> printAllNeedRequest() {
       return needRequestService.getAllNeedRequest();
