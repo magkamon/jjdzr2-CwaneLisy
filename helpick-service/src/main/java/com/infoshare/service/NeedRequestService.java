@@ -5,8 +5,9 @@ import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,8 @@ public class NeedRequestService {
 
     public void createNeedRequest(String name, String location, String phone, TypeOfHelp typeOfHelp) {
         PersonInNeed personInNeed = new PersonInNeed(name, location, phone);
-        NeedRequest needRequest = new NeedRequest(typeOfHelp, HelpStatuses.NEW, new Date(), personInNeed);
+        NeedRequest needRequest = NeedRequest
+            .createNeedRequest(typeOfHelp, personInNeed);
         db.saveNeedRequest(needRequest);
     }
 
@@ -33,5 +35,10 @@ public class NeedRequestService {
             .filter(n -> n.getTypeOfHelp().equals(typeOfHelp))
             .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
             .collect(Collectors.toList());
+    }
+    public Optional<NeedRequest>getNeedRequestById(UUID uuid){
+      return db.getNeedRequests().stream()
+      .filter(n->n.getUuid().equals(uuid))
+      .findAny();
     }
 }

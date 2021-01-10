@@ -4,6 +4,8 @@ import com.infoshare.database.DB;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +31,11 @@ public class VolunteerService {
     public Volunteer searchForVolunteer(String email) {
         return db.getVolunteer(email);
     }
+    public Optional<Volunteer>getVolunteerById(UUID uuid){
+      return db.getVolunteers().stream()
+          .filter(v->v.getUuid().equals(uuid))
+          .findAny();
+    }
 
     public boolean updateAvailability(Volunteer volunteer) {
         if (volunteer != null) {
@@ -42,7 +49,7 @@ public class VolunteerService {
 
     public boolean registerNewVolunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp,
         boolean availability) {
-        Volunteer newVolunteer = new Volunteer(name, location, email, phone, typeOfHelp, availability);
+        Volunteer newVolunteer = new Volunteer(name, location, email, phone, typeOfHelp, availability, UUID.randomUUID());
         if (db.getVolunteer(newVolunteer.getEmail()) == null) {
             db.saveVolunteer(newVolunteer);
             return true;
