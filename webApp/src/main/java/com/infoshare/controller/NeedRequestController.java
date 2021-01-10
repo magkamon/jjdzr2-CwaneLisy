@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +28,12 @@ public class NeedRequestController {
         this.needRequestService = needRequestService;
     }
 
-    @PostMapping("/needRequestForm")
-    public String createNeedRequestFromForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
+    @PostMapping("/submit-new-form")
+    public String submitNeedRequestForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
         if (br.hasErrors()) {
             List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
             model.addAttribute("types", typeOfHelp);
-            return "createNeedRequestForm";
+            return "submit-new-form";
         } else {
             needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
             return "redirect:/printAllNeedRequest";
@@ -42,12 +41,17 @@ public class NeedRequestController {
     }
 
     @GetMapping("/create")
-    public String createNeedRequest(Model model) {
+    public String showNeedRequestForm(Model model) {
       model.addAttribute(new NeedRequestForm());
       List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
-
       model.addAttribute("types", typeOfHelp);
-      return "createNeedRequestForm";
+      return "need-request-form";
+    }
+
+    @GetMapping("/printAllNeedRequest")
+    @ResponseBody
+    public List<NeedRequest> printAllNeedRequest() {
+      return needRequestService.getAllNeedRequest();
     }
 
     @GetMapping("/search")

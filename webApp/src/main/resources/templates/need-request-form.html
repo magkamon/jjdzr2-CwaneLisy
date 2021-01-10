@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" th:href="@{formStyle.css}">
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form action="#" method="post" th:object="${needRequestForm}" th:action="@{/needRequestForm}">
+<form action="#" method="post" th:object="${needRequestForm}" th:action="@{/need-request/submit-new-form}">
     <fieldset>
         <legend>Dane do zgłoszenia pomocy</legend>
         <label>Imię i nazwisko:</label>
