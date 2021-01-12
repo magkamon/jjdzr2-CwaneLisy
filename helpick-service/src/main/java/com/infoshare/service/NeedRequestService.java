@@ -5,6 +5,7 @@ import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,4 +42,11 @@ public class NeedRequestService {
       .filter(n->n.getUuid().equals(uuid))
       .findAny();
     }
+    public List<NeedRequest> getAllNeedRequests(){
+       return db.getNeedRequests();
+    }
+
+  public List<TypeOfHelp> getTypesOfHelp() {
+    return Arrays.asList(TypeOfHelp.values());
+  }
 }
