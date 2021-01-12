@@ -26,7 +26,7 @@ public class NeedRequestService {
     public void createNeedRequest(String name, String location, String phone, TypeOfHelp typeOfHelp) {
         PersonInNeed personInNeed = new PersonInNeed(name, location, phone);
         NeedRequest needRequest = NeedRequest
-            .createNeedRequest(typeOfHelp, personInNeed);
+            .create(typeOfHelp, personInNeed);
         db.saveNeedRequest(needRequest);
     }
 
