@@ -1,9 +1,12 @@
 package com.infoshare.controller;
 
 import com.infoshare.domain.NeedRequest;
-import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.formobjects.NeedRequestForm;
 import com.infoshare.service.NeedRequestService;
+
+import java.util.List;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("need-request")
@@ -31,27 +30,25 @@ public class NeedRequestController {
     @PostMapping("/submit-new-form")
     public String submitNeedRequestForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
-            model.addAttribute("types", typeOfHelp);
+            model.addAttribute("types", needRequestService.getTypesOfHelp());
             return "submit-new-form";
         } else {
             needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
-            return "redirect:/need-request/print-all-need-request";
+            return "redirect:/need-request/all";
         }
     }
 
     @GetMapping("/create")
     public String showNeedRequestForm(Model model) {
-      model.addAttribute(new NeedRequestForm());
-      List<TypeOfHelp> typeOfHelp = Arrays.asList(TypeOfHelp.values());
-      model.addAttribute("types", typeOfHelp);
-      return "need-request-form";
+        model.addAttribute(new NeedRequestForm());
+        model.addAttribute("types", needRequestService.getTypesOfHelp());
+        return "need-request-form";
     }
 
-    @GetMapping("/print-all-need-request")
+    @GetMapping("/all")
     @ResponseBody
     public List<NeedRequest> printAllNeedRequest() {
-      return needRequestService.getAllNeedRequest();
+        return needRequestService.getAllNeedRequests();
     }
 
     @GetMapping("/search")

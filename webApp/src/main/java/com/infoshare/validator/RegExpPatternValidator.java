@@ -22,8 +22,5 @@ public class RegExpPatternValidator implements ConstraintValidator<RegExpPattern
             context.buildConstraintViolationWithTemplate(validatorEnum.getErrorMessage()).addConstraintViolation();
             return false;
         }
-
-
     }
-
 }

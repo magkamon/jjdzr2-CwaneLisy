@@ -5,6 +5,7 @@ import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +35,11 @@ public class NeedRequestService {
             .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
             .collect(Collectors.toList());
     }
-    public List<NeedRequest>getAllNeedRequest(){
+    public List<NeedRequest> getAllNeedRequests(){
        return db.getNeedRequests();
     }
+
+  public List<TypeOfHelp> getTypesOfHelp() {
+    return Arrays.asList(TypeOfHelp.values());
+  }
 }
