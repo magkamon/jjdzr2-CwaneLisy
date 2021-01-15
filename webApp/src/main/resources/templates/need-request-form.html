@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
+    <meta charset="UTF-8">
+    <title th:text="#{needRequestForm.pageTitle}"></title>
+</head>
+<body>
+<form action="#" method="post" th:object="${needRequestForm}" th:action="@{/need-request/submit-new-form}">
+    <fieldset>
+        <legend th:text="#{needRequestForm.legend}"></legend>
+        <label th:text="#{needRequestForm.name}"></label>
+        <input type="text" th:field="*{name}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label th:text="#{needRequestForm.location}"></label>
+        <input type="text" th:field="*{location}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
+        <label th:text="#{needRequestForm.phone}"></label>
+        <input type="text" th:field="*{phone}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        <label th:text="#{needRequestForm.typeOfHelp}"></label>
+        <select class="paddingClass" th:field="*{typeOfHelp}">
+            <option th:each="element: ${types}" th:value="${element}" th:text="${element.type}"/>
+        </select><br/>
+        <button type="submit" th:text="#{needRequestForm.submit}"></button>
+    </fieldset>
+</form>
+
+</body>
+</html>
