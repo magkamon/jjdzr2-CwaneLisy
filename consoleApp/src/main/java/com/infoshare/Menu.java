@@ -82,10 +82,7 @@ public class Menu {
                     break;
                 }
                 case 6: {
-                    String inputCity = Util.readDataFromConsole("Z jakiego miasta chcesz się podjąć zgłoszenia?",
-                            ValidatorEnum.POLISHSIGNS);
-                    TypeOfHelp inputType = Util.createTypeOfHelp();
-                    needRequestService.changeRequestStatus(inputCity, inputType);
+                    new NeedRequestView(needRequestService).pickupRequest();
                     break;
                 }
                 case 7: {

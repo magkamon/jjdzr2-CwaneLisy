@@ -5,6 +5,8 @@ import com.infoshare.service.NeedRequestService;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
 
+import java.util.Scanner;
+
 public class NeedRequestView {
 
     NeedRequestService needRequestService;
@@ -23,4 +25,11 @@ public class NeedRequestView {
         needRequestService.createNeedRequest(name, location, phone, typeOfHelp);
     }
 
+    public void pickupRequest (){
+        String inputCity = Util.readDataFromConsole("Z jakiego miasta chcesz się podjąć zgłoszenia?",
+                ValidatorEnum.POLISHSIGNS);
+        TypeOfHelp inputType = Util.createTypeOfHelp();
+        needRequestService.changeRequestStatus(inputCity,inputType);
+
+    }
 }

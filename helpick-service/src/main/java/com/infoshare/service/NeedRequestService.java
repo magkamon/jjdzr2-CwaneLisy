@@ -27,6 +27,7 @@ public class NeedRequestService {
 
     DB db;
 
+
     @Autowired
     public NeedRequestService(DB db) {
         this.db = db;
@@ -46,29 +47,35 @@ public class NeedRequestService {
             .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
             .collect(Collectors.toList());
     }
+
     public Optional<NeedRequest>getNeedRequestById(UUID uuid){
       return db.getNeedRequests().stream()
       .filter(n->n.getUuid().equals(uuid))
       .findAny();
     }
+
     public List<NeedRequest> getAllNeedRequests(){
        return db.getNeedRequests();
     }
 
-  public List<TypeOfHelp> getTypesOfHelp() {
+    public List<TypeOfHelp> getTypesOfHelp() {
     return Arrays.asList(TypeOfHelp.values());
   }
 
+  public void printNeedRequestsList (List<NeedRequest> needRequestList){
+      if (needRequestList.isEmpty()) {
+          System.out.println("Brak zgłoszeń pomocy o zadanych parametrach");
+      } else {
+          for (int i = 0; i < needRequestList.size(); i++) {
+              System.out.println(i + ". " + needRequestList.get(i));
+          }
+      }
+  }
+
     public void changeRequestStatus(String city, TypeOfHelp typeOfHelp) {
-        FileDb fileDb = new FileDb();
         try {
-            List<NeedRequest> activeNeedRequests = fileDb.getNeedRequests();
-            List<NeedRequest> filteredList;
-            filteredList = activeNeedRequests.stream().
-                    filter(req -> req.getHelpStatus().equals(HelpStatuses.NEW)).
-                    filter(req -> req.getPersonInNeed().getLocation().equalsIgnoreCase(city)).
-                    filter(req -> req.getTypeOfHelp().equals(typeOfHelp)).
-                    collect(Collectors.toList());
+            List<NeedRequest> activeNeedRequests = db.getNeedRequests();
+            List<NeedRequest> filteredList = getNeedRequestFilteredList(city,typeOfHelp);
             if (filteredList.isEmpty()) {
                 System.out.println("Brak zgłoszeń pomocy o zadanych parametrach");
             }
@@ -78,33 +85,29 @@ public class NeedRequestService {
                 }
                 System.out.println("Którego zgłoszenia chcesz się podjąć?");
                 int choice = new Scanner(System.in).nextInt();
-                filteredList.get(choice).setHelpStatus(HelpStatuses.INPROGRESS);
-                filteredList.get(choice).setStatusChange(new Date());
                 NeedRequest changedRequest = filteredList.get(choice);
-                int index = 0;
+                changedRequest.setHelpStatus(HelpStatuses.INPROGRESS);
+                changedRequest.setStatusChange(new Date());
                 for (int i = 0; i < activeNeedRequests.size(); i++) {
-                    NeedRequest nr = activeNeedRequests.get(i);
-                    if (nr.equals(changedRequest)) {
-                        index = i;
-                        System.out.println(index);
-                    }
+                        if (activeNeedRequests.get(i).getUuid().equals(changedRequest.getUuid())) {
+                            int index = i;
+                            activeNeedRequests.set(index, changedRequest);
+                        }
                 }
-                activeNeedRequests.set(index, changedRequest);
                 FileWriter writer = new FileWriter("NeedRequest.csv", false);
                 for (NeedRequest nr : activeNeedRequests) {
-                    fileDb.saveNeedRequest(nr);
+                    db.saveNeedRequest(nr);
                 }
                 writer.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
     public void updateRequestsStatus(){
-        FileDb fileDb = new FileDb();
         try {
-            List<NeedRequest> activeNeedRequests = fileDb.getNeedRequests();
+            List<NeedRequest> activeNeedRequests = db.getNeedRequests();
             for (NeedRequest request: activeNeedRequests) {
                 Date time1 = request.getStatusChange();
                 Date actualTime = new Date();
@@ -119,14 +122,11 @@ public class NeedRequestService {
             }
             FileWriter writer = new FileWriter("NeedRequest.csv", false);
             for (NeedRequest nr : activeNeedRequests) {
-                fileDb.saveNeedRequest(nr);
+                db.saveNeedRequest(nr);
             }
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
