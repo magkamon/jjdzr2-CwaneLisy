@@ -2,6 +2,7 @@ package com.infoshare.domain;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class NeedRequest {
 
@@ -9,25 +10,25 @@ public class NeedRequest {
     private HelpStatuses helpStatus;
     private Date statusChange;
     private PersonInNeed personInNeed;
+    private final UUID uuid;
 
 
-    public NeedRequest() {
-    }
-
-    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed) {
+    public NeedRequest(TypeOfHelp typeOfHelp, HelpStatuses helpStatus, Date statusChange, PersonInNeed personInNeed,
+                       UUID uuid) {
         this.typeOfHelp = typeOfHelp;
         this.helpStatus = helpStatus;
         this.statusChange = statusChange;
         this.personInNeed = personInNeed;
+        this.uuid = uuid;
     }
 
-    public NeedRequest(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
-        this.typeOfHelp = typeOfHelp;
-        this.helpStatus = HelpStatuses.NEW;
-        this.statusChange = new Date();
-        this.personInNeed = personInNeed;
+    public static NeedRequest create(TypeOfHelp typeOfHelp, PersonInNeed personInNeed) {
+        return new NeedRequest(typeOfHelp, HelpStatuses.NEW, new Date(), personInNeed, UUID.randomUUID());
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
 
     public TypeOfHelp getTypeOfHelp() {
         return typeOfHelp;
@@ -64,7 +65,7 @@ public class NeedRequest {
     @Override
     public String toString() {
         return "NeedRequest{" + "typeOfHelp=" + typeOfHelp + ", helpStatus=" + helpStatus + ", statusChange="
-            + statusChange + ", personInNeed=" + personInNeed + '}';
+                + statusChange + ", personInNeed=" + personInNeed + '}';
     }
 
 
@@ -77,8 +78,10 @@ public class NeedRequest {
             return false;
         }
         NeedRequest that = (NeedRequest) o;
-        return typeOfHelp == that.typeOfHelp && helpStatus == that.helpStatus && statusChange
-            .equals(that.statusChange) && personInNeed.equals(that.personInNeed);
+        return typeOfHelp == that.typeOfHelp
+                && helpStatus == that.helpStatus
+                && statusChange.equals(that.statusChange)
+                && personInNeed.equals(that.personInNeed);
     }
 
     @Override
@@ -88,7 +91,7 @@ public class NeedRequest {
 
     public void printDescription() {
         System.out
-            .println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()
-                + ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getType());
+                .println("Imię osoby potrzebującej: " + personInNeed.getName() + ", miasto: " + personInNeed.getLocation()
+                        + ", telefon: " + personInNeed.getPhone() + ", rodzaj potrzebnej pomocy: " + typeOfHelp.getType());
     }
 }

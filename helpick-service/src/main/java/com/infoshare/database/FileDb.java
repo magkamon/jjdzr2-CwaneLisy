@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+
 @Component
 public class FileDb implements DB {
 
@@ -49,7 +51,7 @@ public class FileDb implements DB {
                     fileWriter.write(
                         volunteer.getName() + "," + volunteer.getLocation() + "," + volunteer.getEmail() + ","
                             + volunteer.getPhone() + "," + volunteer.getTypeOfHelp() + "," + volunteer.isAvailable()
-                            + "\n");
+                            + "," + volunteer.getUuid() + "\n");
                 }
             } else {
                 List<Volunteer> allVolunteers = getVolunteers();
@@ -65,7 +67,7 @@ public class FileDb implements DB {
                     for (Volunteer v : allVolunteers) {
                         writer.write(
                             v.getName() + "," + v.getLocation() + "," + v.getEmail() + "," + v.getPhone() + "," + v
-                                .getTypeOfHelp() + "," + v.isAvailable() + "\n");
+                                .getTypeOfHelp() + "," + v.isAvailable() + "," + volunteer.getUuid() + "\n");
                     }
                 }
             }
@@ -82,7 +84,8 @@ public class FileDb implements DB {
                 PersonInNeed person = needRequest.getPersonInNeed();
                 fileWriter.write(needRequest.getTypeOfHelp() + "," + needRequest.getHelpStatus() + "," + df
                     .format(needRequest.getStatusChange()) + ",");
-                fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getPhone() + "\n");
+                fileWriter.write(person.getName() + "," + person.getLocation() + "," + person.getPhone() +
+                    "," + needRequest.getUuid() +"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,7 +103,7 @@ public class FileDb implements DB {
                     String[] splited = line.split(",");
                     PersonInNeed person = new PersonInNeed(splited[3], splited[4], splited[5]);
                     NeedRequest needRequest = new NeedRequest(TypeOfHelp.valueOf(splited[0]),
-                        HelpStatuses.valueOf(splited[1]), df.parse(splited[2]), person);
+                        HelpStatuses.valueOf(splited[1]), df.parse(splited[2]), person, UUID.fromString(splited[6]));
                     result.add(needRequest);
                 }
             }
@@ -120,7 +123,7 @@ public class FileDb implements DB {
                     String[] volunteerAtributes = line.split(",");
                     result.add(new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
                         volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
-                        Boolean.parseBoolean(volunteerAtributes[5])));
+                        Boolean.parseBoolean(volunteerAtributes[5]), UUID.fromString(volunteerAtributes[6])));
                 }
             }
         } catch (IOException e) {
@@ -141,7 +144,7 @@ public class FileDb implements DB {
                     if (volunteerAtributes.length >= 6 && volunteerAtributes[2].equalsIgnoreCase(email)) {
                         return new Volunteer(volunteerAtributes[0], volunteerAtributes[1], volunteerAtributes[2],
                             volunteerAtributes[3], TypeOfHelp.valueOf(volunteerAtributes[4]),
-                            Boolean.parseBoolean(volunteerAtributes[5]));
+                            Boolean.parseBoolean(volunteerAtributes[5]), UUID.fromString(volunteerAtributes[6]));
                     }
                 }
             }

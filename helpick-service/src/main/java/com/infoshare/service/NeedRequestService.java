@@ -6,10 +6,13 @@ import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
+import java.util.Arrays;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -31,7 +34,8 @@ public class NeedRequestService {
 
     public void createNeedRequest(String name, String location, String phone, TypeOfHelp typeOfHelp) {
         PersonInNeed personInNeed = new PersonInNeed(name, location, phone);
-        NeedRequest needRequest = new NeedRequest(typeOfHelp, HelpStatuses.NEW, new Date(), personInNeed);
+        NeedRequest needRequest = NeedRequest
+            .create(typeOfHelp, personInNeed);
         db.saveNeedRequest(needRequest);
     }
 
@@ -42,6 +46,18 @@ public class NeedRequestService {
             .filter(n -> n.getPersonInNeed().getLocation().equalsIgnoreCase(city))
             .collect(Collectors.toList());
     }
+    public Optional<NeedRequest>getNeedRequestById(UUID uuid){
+      return db.getNeedRequests().stream()
+      .filter(n->n.getUuid().equals(uuid))
+      .findAny();
+    }
+    public List<NeedRequest> getAllNeedRequests(){
+       return db.getNeedRequests();
+    }
+
+  public List<TypeOfHelp> getTypesOfHelp() {
+    return Arrays.asList(TypeOfHelp.values());
+  }
 
     public void changeRequestStatus(String city, TypeOfHelp typeOfHelp) {
         FileDb fileDb = new FileDb();

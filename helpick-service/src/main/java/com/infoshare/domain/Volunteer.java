@@ -1,6 +1,7 @@
 package com.infoshare.domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Volunteer {
 
@@ -10,19 +11,24 @@ public class Volunteer {
     private String phone;
     private TypeOfHelp typeOfHelp;
     private boolean isAvailable;
+    private final UUID uuid;
 
     public Volunteer(String name, String location, String email, String phone, TypeOfHelp typeOfHelp,
-        boolean isAvailable) {
+        boolean isAvailable, UUID uuid) {
         this.name = name;
         this.location = location;
         this.email = email;
         this.phone = phone;
         this.typeOfHelp = typeOfHelp;
         this.isAvailable = isAvailable;
+      this.uuid = uuid;
     }
 
+  public UUID getUuid() {
+    return uuid;
+  }
 
-    @Override  //TODO zrobic toString to itsAvalibe
+  @Override  //TODO zrobic toString to itsAvalibe
     public String toString() {
         return "Volunteer{" + "name='" + name + '\'' + ", location='" + location + '\'' + ", email='" + email + '\''
             + ", phone='" + phone + '\'' + ", typeOfHelp='" + typeOfHelp + '\'' + ", isAvailable=" + isAvailable + '}';
