@@ -3,18 +3,22 @@
 <head>
     <link rel="stylesheet" th:href="@{../formStyle.css}">
     <meta charset="UTF-8">
-    <title th:text="#{needRequestForm.pageTitle}"></title>
+    <title th:text="#{volunteerForm.editPageTitle}"></title>
 </head>
 <body>
-<form action="#" method="post" th:object="${needRequestForm}" th:action="@{/need-request/submit-new-form}">
+<form action="#" method="post" th:object="${volunteerForm}" th:action="@{/volunteer/submit-edited-form}">
     <fieldset>
-        <legend th:text="#{needRequestForm.legend}"></legend>
-        <label th:text="#{needRequestForm.name}"></label>
+        <legend th:text="#{volunteerForm.editLegend}"></legend>
+        <label th:text="#{volunteerForm.name}"></label>
         <input type="text" th:field="*{name}"/>
         <span class="errorClass" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         <label th:text="#{basicForm.location}"></label>
         <input type="text" th:field="*{location}"/>
         <span class="errorClass" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
+        <label th:text="#{basicForm.email}"></label>
+        <input type="text" th:field="*{email}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <span class="errorClass" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></span>
         <label th:text="#{basicForm.phone}"></label>
         <input type="text" th:field="*{phone}"/>
         <span class="errorClass" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
@@ -22,9 +26,9 @@
         <select class="paddingClass" th:field="*{typeOfHelp}">
             <option th:each="element: ${types}" th:value="${element}" th:text="${element.type}"/>
         </select><br/>
+        <input type="hidden" th:field="*{uuid}"/>
         <button type="submit" th:text="#{basicForm.submit}"></button>
     </fieldset>
 </form>
-
 </body>
 </html>

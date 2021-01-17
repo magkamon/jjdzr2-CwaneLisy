@@ -32,6 +32,7 @@ public class VolunteerService {
     public Volunteer searchForVolunteer(String email) {
         return db.getVolunteer(email);
     }
+
     public Optional<Volunteer>getVolunteerById(UUID uuid){
       return db.getVolunteers().stream()
           .filter(v->v.getUuid().equals(uuid))
@@ -64,5 +65,23 @@ public class VolunteerService {
 
     public List<Volunteer> getAllVolunteers() {
         return db.getVolunteers();
+    }
+
+    public boolean editVolunteerData(String name, String location, String email, String phone, TypeOfHelp typeOfHelp,
+                                     boolean availability, UUID uuid) {
+        Optional<Volunteer> volunteer = db.getVolunteer(uuid);
+        if (volunteer.isPresent()) {
+            Volunteer volunteerToEdit = volunteer.get();
+            volunteerToEdit.setName(name);
+            volunteerToEdit.setLocation(location);
+            volunteerToEdit.setPhone(phone);
+            volunteerToEdit.setTypeOfHelp(typeOfHelp);
+            volunteerToEdit.setAvailable(availability);
+            volunteerToEdit.setEmail(email);
+            db.saveVolunteerWithUuid(volunteerToEdit);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
