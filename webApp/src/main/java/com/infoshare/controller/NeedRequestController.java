@@ -76,13 +76,6 @@ public class NeedRequestController {
         return getTestViewWithPageUnderConstructionMessage(model);
     }
 
-
-    @GetMapping("/refresh")
-    public String refreshRequestStatus(Model model) {
-        needRequestService.updateRequestsStatus();
-        return getTestViewWithPageUnderConstructionMessage(model);
-    }
-
     private String getTestViewWithPageUnderConstructionMessage(Model model) {
         model.addAttribute("message", "This page is under construction...");
         return "test-view";

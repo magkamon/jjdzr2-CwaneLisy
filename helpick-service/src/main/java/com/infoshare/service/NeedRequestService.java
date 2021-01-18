@@ -1,7 +1,6 @@
 package com.infoshare.service;
 
 import com.infoshare.database.DB;
-import com.infoshare.database.FileDb;
 import com.infoshare.domain.HelpStatuses;
 import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.PersonInNeed;
@@ -42,7 +41,7 @@ public class NeedRequestService {
     public void changeRequestStatus(List<NeedRequest> filteredList, int choice) {
         try {
             List<NeedRequest> activeNeedRequests = db.getNeedRequests();
-            NeedRequest changedRequest = filteredList.get(choice);
+            NeedRequest changedRequest = filteredList.get(choice-1);
             changedRequest.setHelpStatus(HelpStatuses.INPROGRESS);
             changedRequest.setStatusChange(new Date());
             for (int i = 0; i < activeNeedRequests.size(); i++) {
@@ -54,13 +53,13 @@ public class NeedRequestService {
             for (NeedRequest nr : activeNeedRequests) {
                 db.saveNeedRequest(nr);
             }
-            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateRequestsStatus() {
+    public void restoreStatusForExpiredRequests() {
         try {
             List<NeedRequest> activeNeedRequests = db.getNeedRequests();
             for (NeedRequest request : activeNeedRequests) {
@@ -73,14 +72,14 @@ public class NeedRequestService {
                     log.info("Found difference > 24h in request " + request.getUuid() + ", changing status...");
                     request.setHelpStatus(HelpStatuses.NEW);
                     request.setStatusChange(new Date());
-                    log.info("Status of request ID " + request.getUuid() + "restored to NEW");
+                    log.info("Status of request ID " + request.getUuid() + " restored to NEW");
                 }
             }
             FileWriter writer = new FileWriter("NeedRequest.csv", false);
             for (NeedRequest nr : activeNeedRequests) {
                 db.saveNeedRequest(nr);
             }
-            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +87,7 @@ public class NeedRequestService {
 
     public void printNeedRequestsList(List<NeedRequest> needRequestList) {
         for (int i = 0; i < needRequestList.size(); i++) {
-            System.out.println(i + ". " + needRequestList.get(i));
+            System.out.println(i+1 + ". " + needRequestList.get(i));
         }
     }
 

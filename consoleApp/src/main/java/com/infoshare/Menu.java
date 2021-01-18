@@ -2,11 +2,8 @@ package com.infoshare;
 
 import com.infoshare.database.DB;
 import com.infoshare.database.FileDb;
-import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.service.VolunteerService;
-import com.infoshare.util.Util;
-import com.infoshare.util.ValidatorEnum;
 import com.infoshare.view.NeedRequestRepositoryView;
 import com.infoshare.view.NeedRequestView;
 import com.infoshare.view.VolunteerAvailabilityView;
@@ -25,7 +22,7 @@ public class Menu {
         "2. Zgłoś osobę potrzebującą pomocy",
         "3. Wyświetl dostępnych wolontariuszy",
         "4. Wyświetl listę osób, potrzebujących pomocy",
-        "5. Zmień status wolonatriusza",
+        "5. Zmień status wolontariusza",
         "6. Podejmij zgłoszenie",
         "7. Aktualizuj status zgłoszeń",
         "0. Wyjdź z programu"};
@@ -82,11 +79,11 @@ public class Menu {
                     break;
                 }
                 case 6: {
-                    new NeedRequestView(needRequestService).pickupRequest();
+                    new NeedRequestView(needRequestService).pickUpRequest();
                     break;
                 }
                 case 7: {
-                    needRequestService.updateRequestsStatus();
+                    needRequestService.restoreStatusForExpiredRequests();
                     break;
                 }
                 case 0: {

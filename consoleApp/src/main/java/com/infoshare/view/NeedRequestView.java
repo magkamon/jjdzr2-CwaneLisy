@@ -5,9 +5,7 @@ import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.service.NeedRequestService;
 import com.infoshare.util.Util;
 import com.infoshare.util.ValidatorEnum;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class NeedRequestView {
 
@@ -27,16 +25,16 @@ public class NeedRequestView {
         needRequestService.createNeedRequest(name, location, phone, typeOfHelp);
     }
 
-    public void pickupRequest (){
-        String inputCity = Util.readDataFromConsole("Z jakiego miasta chcesz się podjąć zgłoszenia?",
+    public void pickUpRequest(){
+        String inputCity = Util.readDataFromConsole(Util.PICKUPREQUEST_LOCATION,
                 ValidatorEnum.POLISHSIGNS);
         TypeOfHelp inputType = Util.createTypeOfHelp();
         List<NeedRequest> filteredList = needRequestService.getNeedRequestFilteredList(inputCity,inputType);
         if (filteredList.isEmpty()) {
-            System.out.println("Brak zgłoszeń pomocy o zadanych parametrach");
+            System.out.println(Util.PICKUPERQUEST_EMPTYLIST);
         } else {
             needRequestService.printNeedRequestsList(filteredList);
-            int choice = Util.readNumberFromUser("Którego zgłoszenia chcesz się podjąć?",filteredList.size()-1);
+            int choice = Util.readNumberFromUser(Util.PICKUPERQUEST_CHOOSE_REQUEST,filteredList.size());
             needRequestService.changeRequestStatus(filteredList, choice);
         }
     }
