@@ -13,6 +13,8 @@ public interface DB {
 
     void saveNeedRequest(NeedRequest needRequest);
 
+    void saveUpdatedNeedRequest(List <NeedRequest> needRequestList);
+
     List<NeedRequest> getNeedRequests();
 
     public Volunteer getVolunteer(String email);

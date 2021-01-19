@@ -33,9 +33,15 @@ public class NeedRequestView {
         if (filteredList.isEmpty()) {
             System.out.println(Util.PICKUPERQUEST_EMPTYLIST);
         } else {
-            needRequestService.printNeedRequestsList(filteredList);
+            printNeedRequestsList(filteredList);
             int choice = Util.readNumberFromUser(Util.PICKUPERQUEST_CHOOSE_REQUEST,filteredList.size());
             needRequestService.changeRequestStatus(filteredList, choice);
+        }
+    }
+
+    public void printNeedRequestsList(List<NeedRequest> needRequestList) {
+        for (int i = 0; i < needRequestList.size(); i++) {
+            System.out.println(i+1 + ". " + needRequestList.get(i));
         }
     }
 }

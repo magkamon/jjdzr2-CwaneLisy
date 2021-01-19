@@ -93,6 +93,20 @@ public class FileDb implements DB {
     }
 
     @Override
+    public void saveUpdatedNeedRequest(List <NeedRequest> needRequestList){
+        try {
+            FileWriter writer = new FileWriter(REQUEST_DB_FILE, false);
+            for (NeedRequest nr : needRequestList) {
+                saveNeedRequest(nr);
+            }
+            writer.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<NeedRequest> getNeedRequests() {
 
         List<NeedRequest> result = new ArrayList<>();

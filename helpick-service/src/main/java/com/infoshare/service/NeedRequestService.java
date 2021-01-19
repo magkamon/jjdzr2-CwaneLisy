@@ -7,8 +7,6 @@ import com.infoshare.domain.PersonInNeed;
 import com.infoshare.domain.TypeOfHelp;
 
 import java.util.Arrays;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +37,6 @@ public class NeedRequestService {
     }
 
     public void changeRequestStatus(List<NeedRequest> filteredList, int choice) {
-        try {
             List<NeedRequest> activeNeedRequests = db.getNeedRequests();
             NeedRequest changedRequest = filteredList.get(choice-1);
             changedRequest.setHelpStatus(HelpStatuses.INPROGRESS);
@@ -49,18 +46,10 @@ public class NeedRequestService {
                     activeNeedRequests.set(i, changedRequest);
                 }
             }
-            FileWriter writer = new FileWriter("NeedRequest.csv", false);
-            for (NeedRequest nr : activeNeedRequests) {
-                db.saveNeedRequest(nr);
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        db.saveUpdatedNeedRequest(activeNeedRequests);
     }
 
     public void restoreStatusForExpiredRequests() {
-        try {
             List<NeedRequest> activeNeedRequests = db.getNeedRequests();
             for (NeedRequest request : activeNeedRequests) {
                 Date time1 = request.getStatusChange();
@@ -75,20 +64,7 @@ public class NeedRequestService {
                     log.info("Status of request ID " + request.getUuid() + " restored to NEW");
                 }
             }
-            FileWriter writer = new FileWriter("NeedRequest.csv", false);
-            for (NeedRequest nr : activeNeedRequests) {
-                db.saveNeedRequest(nr);
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void printNeedRequestsList(List<NeedRequest> needRequestList) {
-        for (int i = 0; i < needRequestList.size(); i++) {
-            System.out.println(i+1 + ". " + needRequestList.get(i));
-        }
+        db.saveUpdatedNeedRequest(activeNeedRequests);
     }
 
     public List<NeedRequest> getNeedRequestFilteredList(String city, TypeOfHelp typeOfHelp) {
