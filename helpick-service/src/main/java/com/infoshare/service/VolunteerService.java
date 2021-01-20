@@ -3,6 +3,8 @@ package com.infoshare.service;
 import com.infoshare.database.DB;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.domain.Volunteer;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -57,5 +59,7 @@ public class VolunteerService {
             return false;
         }
     }
-
+    public List<TypeOfHelp> getTypesOfHelp() {
+        return Arrays.asList(TypeOfHelp.values());
+    }
 }

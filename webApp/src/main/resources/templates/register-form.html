@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" id="bootstrap-css">
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+  <link rel="stylesheet" th:href="@{../formStyle.css}">
+  <meta charset="UTF-8">
+  <title> Volunteer Register Form</title>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Register New Volunteer</div>
+          <div class="card-body">
+
+            <form class="form-horizontal" action="#" method="post" th:object="${volunteerForm}"
+                  th:action="@{/volunteer/form-details}">
+              <div class="form-group">
+                <label for="name"  class="cols-sm-2 control-label">Name</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                    <input type="text" th:field="*{name}" class="form-control" name="name" id="name"
+                           placeholder="Enter your Name"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="location" class="cols-sm-2 control-label">Location</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                                                           aria-hidden="true"></i></span>
+                    <input type="text" th:fied="*{location}" class="form-control" name="location" id="location"
+                           placeholder="Enter your Location"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label">Email</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users fa"
+                                                                           aria-hidden="true"></i></span>
+                    <input type="text" th:field="*{email}" class="form-control" name="email"
+                           id="email"
+                           placeholder="Enter your Email"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                           aria-hidden="true"></i></span>
+                    <input type="text" th:field="*{phone}" class="form-control"  name="phone"
+                           id="phone"
+                           placeholder="Enter your Phone"/>
+                  </div>
+                </div>
+              </div>
+              <p>Type of Help:</p>
+
+              <input type="radio" id="house clean" name="type of help" value="house clean">
+              <label for="house clean">House clean</label><br>
+              <input type="radio" id="shopping" name="type of help" value="shopping">
+              <label for="shopping">Shopping</label><br>
+              <input type="radio" id="walking the dog" name="type of help" value="walking the dog">
+              <label for="walking the dog">Walking the dog</label>
+              <p></p>
+              <div class="form-group ">
+                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
