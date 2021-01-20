@@ -62,4 +62,8 @@ public class VolunteerService {
     public List<TypeOfHelp> getTypesOfHelp() {
         return Arrays.asList(TypeOfHelp.values());
     }
+
+    public List<Volunteer> getAllVolunteers() {
+        return db.getVolunteers();
+    }
 }

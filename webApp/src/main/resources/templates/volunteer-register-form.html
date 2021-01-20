@@ -63,14 +63,12 @@
                   </div>
                 </div>
               </div>
-              <p>Type of Help:</p>
-
-              <input type="radio" id="house clean" name="type of help" value="house clean">
-              <label for="house clean">House clean</label><br>
-              <input type="radio" id="shopping" name="type of help" value="shopping">
-              <label for="shopping">Shopping</label><br>
-              <input type="radio" id="walking the dog" name="type of help" value="walking the dog">
-              <label for="walking the dog">Walking the dog</label>
+              <div th:each="model : ${T(com.infoshare.domain.TypeOfHelp).values()}">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" th:field="*{typeOfHelp}" th:value="${model}" class="custom-control-input">
+                  <label class="custom-control-label" th:for="${#ids.prev('typeOfHelp')}" th:text="${model}">typeOfHelp</label>
+                </div>
+              </div>
               <p></p>
               <div class="form-group ">
                 <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register
