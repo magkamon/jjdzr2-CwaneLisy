@@ -3,7 +3,6 @@ package com.infoshare.formobjects;
 import com.infoshare.domain.TypeOfHelp;
 import com.infoshare.util.ValidatorEnum;
 import com.infoshare.validator.RegExpPattern;
-
 import javax.validation.constraints.Size;
 
 public class VolunteerForm {
@@ -20,11 +19,7 @@ public class VolunteerForm {
     @RegExpPattern(regexp = ValidatorEnum.PHONENUMBER)
     private String phone;
     private TypeOfHelp typeOfHelp;
-    private  boolean isAvalible;
-
-
-
-
+    private boolean isAvalible;
 
     public String getName() {
         return name;
@@ -64,9 +59,6 @@ public class VolunteerForm {
 
     public void setTypeOfHelp(TypeOfHelp typeOfHelp) {
         this.typeOfHelp = typeOfHelp;
-    }
-
-    public void setTypeOfHelp() {
     }
 
     public boolean isAvalible() {
