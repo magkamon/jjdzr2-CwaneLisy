@@ -1,6 +1,7 @@
 package com.infoshare.controller;
 
 import com.infoshare.domain.Volunteer;
+import com.infoshare.formobjects.VolunteerSearchForm;
 import com.infoshare.formobjects.VolunteerForm;
 import com.infoshare.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,9 +49,25 @@ public class VolunteerController {
         return volunteerService.getAllVolunteers();
     }
 
-    @GetMapping("/search")
+    @RequestMapping("/search")
     public String searchForVolunteer(Model model) {
-        return getTestViewWithPageUnderConstructionMessage(model);
+        model.addAttribute(new VolunteerSearchForm());
+        return "volunteer-search-form";
+    }
+
+    @PostMapping("/search/result")
+    public String resultOfSearchForVolunteer(@Valid @ModelAttribute("VolunteersearchForm") VolunteerSearchForm volunteerSearchForm,
+                                             BindingResult bindingResult, Model model) {
+        model.addAttribute(volunteerSearchForm);
+
+        if (bindingResult.hasErrors()) {
+            return "volunteer-search-form";
+        }
+        model.addAttribute("volunteers",volunteerService.getVolunteerFilteredList(
+                volunteerSearchForm.getCity(),
+                volunteerSearchForm.getTypeOfHelp()));
+
+        return "volunteer-search-results";
     }
 
     @GetMapping("/edit")
