@@ -17,9 +17,16 @@ import java.util.Scanner;
 public class Menu {
 
     private static final String HEADER = "Witaj w Helpick!";
-    private static final String[] OPTIONS = {"1. Wprowadź nową ofertę wolontariatu",
-        "2. Zgłoś osobę potrzebującą pomocy", "3. Wyświetl dostępnych wolontariuszy",
-        "4. Wyświetl listę osób, potrzebujących pomocy", "5. Zmień status wolonatriusza", "0. Wyjdź z programu"};
+    private static final String[] OPTIONS = {"" +
+        "1. Wprowadź nową ofertę wolontariatu",
+        "2. Zgłoś osobę potrzebującą pomocy",
+        "3. Wyświetl dostępnych wolontariuszy",
+        "4. Wyświetl listę osób, potrzebujących pomocy",
+        "5. Zmień status wolontariusza",
+        "6. Podejmij zgłoszenie",
+        "7. Aktualizuj status zgłoszeń",
+        "0. Wyjdź z programu"};
+
     private final DB db;
     private NeedRequestService needRequestService;
     private VolunteerService volunteerService;
@@ -69,6 +76,14 @@ public class Menu {
                 case 5: {
                     System.out.println("Zmień status wolontariusza");
                     new VolunteerAvailabilityView(volunteerService).handleVolunteerChangeAvailabilityProcess();
+                    break;
+                }
+                case 6: {
+                    new NeedRequestView(needRequestService).pickUpRequest();
+                    break;
+                }
+                case 7: {
+                    needRequestService.restoreStatusForExpiredRequests();
                     break;
                 }
                 case 0: {
