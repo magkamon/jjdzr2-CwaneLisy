@@ -34,3 +34,21 @@ button {
     margin-top: 20px;
 
 }
+.body-background{
+    background: #63738A;
+}
+
+.fluidBox{
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-body .form-group {
+    margin-bottom: 0px;
+}
+
+.form-group .col-form-label {
+    margin: 10px 0px 0px 0px;
+    padding-bottom: 0px;
+}
