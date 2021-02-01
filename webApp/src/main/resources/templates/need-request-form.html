@@ -6,7 +6,7 @@
     <title th:text="#{needRequestForm.pageTitle}"></title>
 </head>
 <body>
-<form action="#" method="post" th:object="${needRequestForm}" th:action="@{/need-request/submit-new-form}">
+<form action="main-page.html" method="post" th:object="${needRequestForm}" th:action="@{/need-request/submit-new-form}">
     <fieldset>
         <legend th:text="#{needRequestForm.legend}"></legend>
         <label th:text="#{needRequestForm.name}"></label>
