@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,7 @@ public class VolunteerController {
     }
 
     @PostMapping("/form-details")
-    public String createVolunteerFormDetails(@ModelAttribute("volunteerForm") VolunteerForm volunteerFrom, BindingResult br, Model model) {
+    public String createVolunteerFormDetails(@Valid @ModelAttribute("volunteerForm") VolunteerForm volunteerFrom, BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("types", volunteerService.getTypesOfHelp());
             return "/volunteer-register-form";
