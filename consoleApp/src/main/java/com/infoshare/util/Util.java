@@ -15,6 +15,11 @@ public class Util {
     private static final String ILLEGAL_CHARACTERS = "Niedozwolone znaki";
     private static final String CHOOSE_TYPE_OF_HELP = "Wybierz rodzaj pomocy: ";
     private static final String CHOOSE_OPTION = "Jaką opcję wybierasz ?";
+    public static final String PICKUPREQUEST_LOCATION = "Z jakiego miasta chcesz się podjąć zgłoszenia?";
+    public static final String PICKUPERQUEST_EMPTYLIST ="Brak zgłoszeń pomocy o zadanych parametrach";
+    public static final String PICKUPERQUEST_CHOOSE_REQUEST ="Którego zgłoszenia chcesz się podjąć";
+
+
 
     private Util() {
     }
