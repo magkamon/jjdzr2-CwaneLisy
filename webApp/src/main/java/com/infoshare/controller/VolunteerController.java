@@ -49,24 +49,21 @@ public class VolunteerController {
         return volunteerService.getAllVolunteers();
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public String searchForVolunteer(Model model) {
-        model.addAttribute(new VolunteerSearchForm());
+        model.addAttribute("VolunteerSearchForm",new VolunteerSearchForm());
         return "volunteer-search-form";
     }
 
     @PostMapping("/search/result")
-    public String resultOfSearchForVolunteer(@Valid @ModelAttribute("VolunteersearchForm") VolunteerSearchForm volunteerSearchForm,
+    public String resultOfSearchForVolunteer(@Valid @ModelAttribute("VolunteerSearchForm") VolunteerSearchForm volunteerSearchForm,
                                              BindingResult bindingResult, Model model) {
-        model.addAttribute(volunteerSearchForm);
-
         if (bindingResult.hasErrors()) {
             return "volunteer-search-form";
         }
         model.addAttribute("volunteers",volunteerService.getVolunteerFilteredList(
                 volunteerSearchForm.getCity(),
                 volunteerSearchForm.getTypeOfHelp()));
-
         return "volunteer-search-results";
     }
 
