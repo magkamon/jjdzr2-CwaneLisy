@@ -21,7 +21,7 @@ public class Volunteer {
         this.phone = phone;
         this.typeOfHelp = typeOfHelp;
         this.isAvailable = isAvailable;
-      this.uuid = uuid;
+        this.uuid = uuid;
     }
 
   public UUID getUuid() {

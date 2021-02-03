@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.Optional;
 
 @Component
 public class FileDb implements DB {
@@ -67,7 +68,7 @@ public class FileDb implements DB {
                     for (Volunteer v : allVolunteers) {
                         writer.write(
                             v.getName() + "," + v.getLocation() + "," + v.getEmail() + "," + v.getPhone() + "," + v
-                                .getTypeOfHelp() + "," + v.isAvailable() + "," + volunteer.getUuid() + "\n");
+                                .getTypeOfHelp() + "," + v.isAvailable() + "," + v.getUuid() + "\n");
                     }
                 }
             }
@@ -75,6 +76,39 @@ public class FileDb implements DB {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void saveVolunteerWithUuid(Volunteer volunteer){
+        List<Volunteer> allVolunteers = getVolunteers();
+        boolean isNewVolunteer = true;
+        for (int i = 0; i < allVolunteers.size(); i++) {
+            Volunteer volunteerFromDb = allVolunteers.get(i);
+            if (volunteerFromDb.getUuid().equals(volunteer.getUuid())){
+                isNewVolunteer = false;
+                allVolunteers.set(i, volunteer);
+                break;
+            }
+        }
+        if(isNewVolunteer){
+            allVolunteers.add(volunteer);
+        }
+
+        try{
+            try (FileWriter writer = new FileWriter(VOLUNTEER_DB_FILE_NAME, false)) {
+                for (Volunteer v : allVolunteers) {
+                    writer.write(v.getName() + "," +
+                            v.getLocation() + "," +
+                            v.getEmail() + "," +
+                            v.getPhone() + "," +
+                            v.getTypeOfHelp() + "," +
+                            v.isAvailable() + "," +
+                            v.getUuid() + "\n");
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -167,4 +201,12 @@ public class FileDb implements DB {
         }
         return null;
     }
+
+    @Override
+    public Optional<Volunteer> getVolunteer(UUID uuid){
+        return getVolunteers().stream()
+                .filter(v->v.getUuid().equals(uuid))
+                .findFirst();
+    }
+
 }

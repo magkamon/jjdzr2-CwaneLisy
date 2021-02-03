@@ -1,10 +1,15 @@
 package com.infoshare.formobjects;
 
 import com.infoshare.domain.TypeOfHelp;
+import com.infoshare.domain.Volunteer;
 import com.infoshare.util.ValidatorEnum;
 import com.infoshare.validator.RegExpPattern;
-import javax.validation.constraints.Size;
+import com.infoshare.validator.UniqueMailAndUuid;
 
+import javax.validation.constraints.Size;
+import java.util.UUID;
+
+@UniqueMailAndUuid
 public class VolunteerForm {
     @RegExpPattern(regexp = ValidatorEnum.POLISHSIGNS)
     @Size(min = 2, max = 20)
@@ -19,7 +24,19 @@ public class VolunteerForm {
     @RegExpPattern(regexp = ValidatorEnum.PHONENUMBER)
     private String phone;
     private TypeOfHelp typeOfHelp;
-    private boolean isAvalible;
+    private boolean isAvailable;
+    private UUID uuid;
+
+    public VolunteerForm(){}
+
+    public VolunteerForm(Volunteer volunteer){
+        this.name = volunteer.getName();
+        this.location = volunteer.getLocation();
+        this.email = volunteer.getEmail();
+        this.phone = volunteer.getPhone();
+        this.typeOfHelp = volunteer.getTypeOfHelp();
+        this.uuid = volunteer.getUuid();
+    }
 
     public String getName() {
         return name;
@@ -61,8 +78,14 @@ public class VolunteerForm {
         this.typeOfHelp = typeOfHelp;
     }
 
-    public boolean isAvalible() {
-        return isAvalible;
+    public boolean isAvailable() { return isAvailable; }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
 }
