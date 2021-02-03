@@ -8,35 +8,9 @@ body {
 }
 
 .page {
-    display: flex;
-    width: 80%;
-    margin: auto;
-    font-family: 'Kufam', cursive;
+   font-family: 'Kufam', cursive;
 }
 
-nav, main {
-    height: 100vh
-}
-
-nav {
-        width: 20%;
-        display: flex;
-        padding: 20px;
-        flex-direction: column;
-        justify-content: space-between;
-        position:fixed;
-}
-
-main {
-    width: 80%;
-    padding:100px;
-    position: relative;
-    left: 20%
-}
-
-.btn-outline-primary {
-    background-color:#8540f5;
-}
 
 h1 {
     text-align:center;
