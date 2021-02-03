@@ -4,7 +4,7 @@ public enum ValidatorEnum {
     ALPHA("[a-zA-Z]+", "Dozwolone tylko litery"),
     POLISHSIGNS("[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ -]+", "Dozwolone tylko litery"),
     PHONENUMBER("^\\d{9}$", "Nieprawidłowy numer telefonu, dozwolone 9 cyfr"),
-    EMAIL("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", "Poprawny format to: ktos@gdzies.com"),
+    EMAIL("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,9}$", "Poprawny format to: ktos@gdzies.com"),
     YESNO("[yYnN]", "Dozwolone znaki to Y lub N");
     String regex;
     String errorMessage;

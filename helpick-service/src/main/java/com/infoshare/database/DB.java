@@ -4,10 +4,14 @@ import com.infoshare.domain.NeedRequest;
 import com.infoshare.domain.Volunteer;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface DB {
 
     void saveVolunteer(Volunteer volunteer);
+
+    void saveVolunteerWithUuid(Volunteer volunteer);
 
     List<Volunteer> getVolunteers();
 
@@ -17,5 +21,7 @@ public interface DB {
 
     List<NeedRequest> getNeedRequests();
 
-    public Volunteer getVolunteer(String email);
+    Volunteer getVolunteer(String email);
+
+    Optional<Volunteer> getVolunteer(UUID uuid);
 }
