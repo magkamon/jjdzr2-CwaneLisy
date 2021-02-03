@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-sm-3">
-                            <label class="col-sm-4 col-form-label" th:text="#{needRequestForm.location}"></label>
+                            <label class="col-sm-4 col-form-label" th:text="#{basicForm.location}"></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <input type="text" th:field="*{location}" class="form-control"/>
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-sm-3">
-                            <label class="col-sm-4 col-form-label" th:text="#{needRequestForm.phone}"></label>
+                            <label class="col-sm-4 col-form-label" th:text="#{basicForm.phone}"></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <input type="text" th:field="*{phone}" class="form-control"/>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-sm-3">
-                            <label class="col-sm-4 col-form-label" th:text="#{needRequestForm.typeOfHelp}"></label>
+                            <label class="col-sm-4 col-form-label" th:text="#{basicForm.typeOfHelp}"></label>
                             <div class="col-sm-8">
                                 <select class="custom-select" th:field="*{typeOfHelp}">
                                     <option th:each="element: ${types}" th:value="${element}"
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit" th:text="#{needRequestForm.submit}"></button>
+                        <button class="btn btn-primary" type="submit" th:text="#{basicForm.submit}"></button>
                         </div>
                     </form>
                 </div>
