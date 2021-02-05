@@ -50,7 +50,7 @@ public class VolunteerController {
     }
 
     @GetMapping("/search")
-    public String searchForVolunteer(Model model) {
+    public String searchForAvailableVolunteers(Model model) {
         model.addAttribute("VolunteerSearchForm",new VolunteerSearchForm());
         return "volunteer-search-form";
     }

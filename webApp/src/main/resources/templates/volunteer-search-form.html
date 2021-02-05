@@ -13,24 +13,24 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Look for free Volunteer</div>
+                    <div class="card-header">Znajdź wolontariusza</div>
                     <div class="card-body">
 
                         <form class="form-horizontal" method="post" th:object="${VolunteerSearchForm}"
                               th:action="@{/volunteer/search/result}">
                             <div class="form-group">
-                                <label for="city"  class="cols-sm-2 control-label">City:</label>
+                                <label for="city"  class="cols-sm-2 control-label">Miasto:</label>
                                 <div class="cols-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         <input type="text" th:field="*{city}" class="form-control" name="city" id="city"
-                                               placeholder="Enter city" required="true"/>
+                                               placeholder="Miasto" required="true"/>
                                         <span class="errorClass" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
 
                                     </div>
                                 </div>
                             </div>
-                            <label>Which type of help are you looking for?</label>
+                            <label>Jakiego rodzaju pomocy szukasz?</label>
                             <div>
                                 <select th:class="form-control" id="category" th:field="*{typeOfHelp}" required="true">
                                     <option th:each="typeOfHelp : ${T(com.infoshare.domain.TypeOfHelp).values()}"
