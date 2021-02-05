@@ -46,9 +46,9 @@ public class NeedRequestController {
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<NeedRequest> printAllNeedRequest() {
-        return needRequestService.getAllNeedRequests();
+    public String printAllNeedRequest(Model model) {
+        model.addAttribute("nr", needRequestService.getAllNeedRequests());
+        return "need-request-list";
     }
 
     @GetMapping("/search")
