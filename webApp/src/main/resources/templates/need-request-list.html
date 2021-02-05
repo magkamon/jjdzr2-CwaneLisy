@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.css}">
+    <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
+
+</head>
+<body class="body-background">
+
+<section class="no-padding-top">
+    <div class="container">
+        <div class="need-request">
+            <div class="row bg-white border-rounded has-shadow d-flex justify-content-center align-items-center">
+                <div class="text">
+                    <h3 th:text="#{listForm.title}"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="need-request" th:each="needRequest: ${nr}">
+            <div class="row bg-white border-rounded has-shadow leftBorder">
+                <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
+                    <div class="need-request-title d-flex align-items-center">
+                        <div class="text">
+                            <a th:href="@{/need-request/view/{id}(id=${needRequest.uuid})}" class="header-link">
+                                <h3 class="h4" th:text="${needRequest.personInNeed.name}"></h3>
+                            </a>
+                            <small th:text="${needRequest.personInNeed.location}"></small>
+                        </div>
+                    </div>
+                    <div class="need-request-date d-flex align-items-center justify-content-end">
+                        <span class="hidden-sm-down pr-3" th:text="${needRequest.typeOfHelp.type}">
+
+                        </span>
+                    </div>
+                </div>
+                <div class="right-col col-lg-6 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div class="time d-block">
+                            <div>
+                                <i class="fa fa-clock-o"></i>
+                                <span class="font-weight-bold"
+                                      th:text="${#dates.format(needRequest.statusChange, 'dd.MM.yyyy')}"></span>
+                                <small class="ml-1"
+                                       th:text="${#dates.format(needRequest.statusChange, 'HH:mm')}"></small>
+                            </div>
+                            <div class="justify-content-center d-flex text-white border-rounded"
+                                 th:classappend="${needRequest.helpStatus==T(com.infoshare.domain.HelpStatuses).NEW ? 'bg-green ' : (needRequest.helpStatus==T(com.infoshare.domain.HelpStatuses).INPROGRESS ? 'bg-orange' : 'bg-blue')}">
+                                <small th:text="${needRequest.helpStatus.status}"></small>
+                            </div>
+                        </div>
+                        <div class=" comments">
+                            <i class="fa fa-comment-o"></i>
+                            <a  th:href="@{/need-request/view/{id}#comments(id=${needRequest.uuid})}"class="table-link"
+                                data-toggle="tooltip" data-placement="top" th:title="#{tooltip.add}">20</a>
+                        </div>
+                    </div>
+                    <div class="justify-content-end">
+                        <a th:href="@{/need-request/assign/{id}(id=${needRequest.uuid})}" class="table-link"
+                           data-toggle="tooltip" data-placement="top" th:title="#{tooltip.assign}">
+									<span class="fa-stack">
+										<i class="fa fa-square fa-stack-2x"></i>
+										<i class="fa fa-user-plus fa-stack-1x fa-inverse"></i>
+									</span>
+                        </a>
+                        <a th:href="@{/need-request/view/{id}(id=${needRequest.uuid})}" class="table-link"
+                           data-toggle="tooltip" data-placement="top" th:title="#{tooltip.view}">
+									<span class="fa-stack">
+										<i class="fa fa-square fa-stack-2x"></i>
+										<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+									</span>
+                        </a>
+                        <a th:href="@{/need-request/edit/{id}(id=${needRequest.uuid})}" class="table-link"
+                           data-toggle="tooltip" data-placement="top" th:title="#{tooltip.edit}">
+									<span class="fa-stack">
+										<i class="fa fa-square fa-stack-2x"></i>
+										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+									</span>
+                        </a>
+                        <a th:href="@{/need-request/delete/{id}(id=${needRequest.uuid})}" class="table-link danger"
+                           data-toggle="tooltip" data-placement="top" th:title="#{tooltip.delete}">
+									<span class="fa-stack">
+										<i class="fa fa-square fa-stack-2x"></i>
+										<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+									</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{/webjars/font-awesome/4.7.0/js/all.min.js}" rel="script"></script>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    });
+</script>
+</body>
+</html>
+

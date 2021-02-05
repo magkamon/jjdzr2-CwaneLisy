@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
+    <meta charset="UTF-8">
+    <title th:text="#{volunteerForm.editPageTitle}"></title>
+</head>
+<body>
+<form action="#" method="post" th:object="${searchVolunteerForm}" th:action="@{/volunteer/check-search-to-edit}">
+    <fieldset>
+        <label th:text="#{basicForm.email}"></label>
+        <input type="text" th:field="*{email}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <button type="submit" th:text="#{basicForm.edit}"></button>
+    </fieldset>
+</form>
+</body>
+</html>

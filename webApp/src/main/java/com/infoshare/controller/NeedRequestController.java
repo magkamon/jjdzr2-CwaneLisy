@@ -31,7 +31,7 @@ public class NeedRequestController {
     public String submitNeedRequestForm(@Valid @ModelAttribute("needRequestForm") NeedRequestForm needRequestForm, BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("types", needRequestService.getTypesOfHelp());
-            return "submit-new-form";
+            return "need-request-form";
         } else {
             needRequestService.createNeedRequest(needRequestForm.getName(), needRequestForm.getLocation(), needRequestForm.getPhone(), needRequestForm.getTypeOfHelp());
             return "redirect:/need-request/all";
@@ -46,9 +46,9 @@ public class NeedRequestController {
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<NeedRequest> printAllNeedRequest() {
-        return needRequestService.getAllNeedRequests();
+    public String printAllNeedRequest(Model model) {
+        model.addAttribute("nr", needRequestService.getAllNeedRequests());
+        return "need-request-list";
     }
 
     @GetMapping("/search")
