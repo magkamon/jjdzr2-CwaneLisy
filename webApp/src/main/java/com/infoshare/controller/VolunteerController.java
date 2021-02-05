@@ -1,6 +1,7 @@
 package com.infoshare.controller;
 
 import com.infoshare.domain.Volunteer;
+import com.infoshare.formobjects.VolunteerSearchForm;
 import com.infoshare.formobjects.SearchVolunteerForm;
 import com.infoshare.formobjects.VolunteerForm;
 import com.infoshare.service.VolunteerService;
@@ -51,8 +52,21 @@ public class VolunteerController {
     }
 
     @GetMapping("/search")
-    public String searchForVolunteer(Model model) {
-        return getTestViewWithPageUnderConstructionMessage(model);
+    public String searchForAvailableVolunteers(Model model) {
+        model.addAttribute("VolunteerSearchForm",new VolunteerSearchForm());
+        return "volunteer-search-form";
+    }
+
+    @PostMapping("/search/result")
+    public String resultOfSearchForVolunteer(@Valid @ModelAttribute("VolunteerSearchForm") VolunteerSearchForm volunteerSearchForm,
+                                             BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "volunteer-search-form";
+        }
+        model.addAttribute("volunteers",volunteerService.getVolunteerFilteredList(
+                volunteerSearchForm.getCity(),
+                volunteerSearchForm.getTypeOfHelp()));
+        return "volunteer-search-results";
     }
 
     @GetMapping("/search-to-edit")
