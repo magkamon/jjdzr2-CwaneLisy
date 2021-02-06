@@ -26,22 +26,40 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Formularz
+                        Formularze zgłoszeń
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Wolontariusza</a></li>
-                        <li><a class="dropdown-item" href="#">Osoby potrzebującej pomocy</a></li>
+                        <li><a class="dropdown-item" th:href="@{/volunteer/create}" href="#">Wolontariusza</a></li>
+                        <li><a class="dropdown-item" th:href="@{/need-request/create}" href="#">Osoby potrzebującej pomocy</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Zgłoszenia
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Lista zleceń</a></li>
-                    <li><a class="dropdown-item" href="#">Lista Wolontariuszy</a></li>
-                </ul>
-            </li>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Zgłoszenia
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/volunteer/all}" href="#">Lista Wolontariuszy</a></li>
+                        <li><a class="dropdown-item" th:href="@{/need-request/all}" href="#">Lista zleceń pomocy</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Edycja
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/volunteer/search-to-edit}" href="#">Danych wolontariusza</a></li>
+                        <li><a class="dropdown-item" th:href="@{/need-request/edit}" href="#" >Zgłoszenia pomocy</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Wyszukaj
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/volunteer/search}" href="#">Wolontariusza</a></li>
+                        <li><a class="dropdown-item" th:href="@{/need-request/search}" href="#" >Zgłoszenie pomocy</a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Szukaj" aria-label="Search">
